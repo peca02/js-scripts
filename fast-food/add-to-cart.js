@@ -1,7 +1,5 @@
 Webflow.push(function () {
     document.querySelector('.ff-ammount-input-field').value="1";
-    document.addEventListener('DOMContentLoaded', function () {
-       
         const addToCartButton = document.querySelector('.ff-add-to-cart-button');
         const amountInput = document.querySelector('.ff-ammount-input-field');
         const sideDishDiv = document.querySelector('.ff-side-dish');
@@ -42,5 +40,4 @@ Webflow.push(function () {
 
             alert('Item added to cart!');
         });
-    });
 });
