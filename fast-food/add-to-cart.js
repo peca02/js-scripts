@@ -1,1 +1,3 @@
-console.log("Skripta se uspešno učitala!");
+Webflow.push(function() {
+    document.getElementById('FF-Item-amount').value = "1";
+});
