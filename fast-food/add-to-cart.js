@@ -1,3 +1,3 @@
 Webflow.push(function() {
-   document.getElementById('FF-Item-amount').value = "1";
+   document.querySelector('.ff-ammount-input-field').value="1";
  });
