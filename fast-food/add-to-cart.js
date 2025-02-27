@@ -1,4 +1,3 @@
-console.log("zdravo");
-console.log("zdravo");
-console.log("zdravo");
-
+Webflow.push(function() {
+   document.getElementById('FF-Item-amount').value = "1";
+ });
