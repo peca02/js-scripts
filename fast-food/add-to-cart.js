@@ -31,7 +31,7 @@ Webflow.push(function () {
                 productPrice: productPrice,
                 amount: amount,
                 ingredients: ingredientsList,
-                sideDishes: sideDishes
+                sideDishes: sideDishes || undefined
             };
 
             // Add to cart and update localStorage
