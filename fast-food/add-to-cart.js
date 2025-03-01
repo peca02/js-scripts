@@ -57,12 +57,19 @@ Webflow.push(function () {
             // Clear the grid first before re-rendering the items
             gridContainer.innerHTML = ''; // Clear existing content
 
-            // Render each cart item as a new row in the grid
-            cartItems.forEach(item => {
-                const row = document.createElement('div');
-                row.classList.add('ff-cart-item-row');
+            // Add header row before cart items
+            const headerRow = document.createElement('div');
+            headerRow.classList.add('ff-cart-header-row');
+            headerRow.innerHTML = `
+                <div class="ff-cart-dislay-grid-header">Image</div>
+                <div class="ff-cart-dislay-grid-header">Product</div>
+                <div class="ff-cart-dislay-grid-header">Price</div>
+                <div class="ff-cart-dislay-grid-header">Amount</div>
+            `;
+            gridContainer.appendChild(headerRow);
 
-                // Create individual cells for the row
+            // Render each cart item directly into the grid container
+            cartItems.forEach(item => {
                 const imageDiv = document.createElement('div');
                 const nameDiv = document.createElement('div');
                 const priceDiv = document.createElement('div');
@@ -74,14 +81,11 @@ Webflow.push(function () {
                 priceDiv.innerText = item.productPrice;
                 amountDiv.innerText = item.amount;
 
-                // Append each cell to the row
-                row.appendChild(imageDiv);
-                row.appendChild(nameDiv);
-                row.appendChild(priceDiv);
-                row.appendChild(amountDiv);
-
-                // Append the row to the grid container
-                gridContainer.appendChild(row);
+                // Append each cell directly to the grid container
+                gridContainer.appendChild(imageDiv);
+                gridContainer.appendChild(nameDiv);
+                gridContainer.appendChild(priceDiv);
+                gridContainer.appendChild(amountDiv);
             });
         }
     }
