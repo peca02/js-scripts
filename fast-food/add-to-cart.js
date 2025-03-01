@@ -57,28 +57,28 @@ Webflow.push(function () {
             // Clear the grid first before re-rendering the items
             gridContainer.innerHTML = ''; // Clear existing content
 
-            // Add header row with separate divs for each header element
-            const headerRow = document.createElement('div');
-            headerRow.classList.add('ff-cart-header-row');
-            
-            // Create each header item separately as div
-            const headerProduct = document.createElement('div');
-            headerProduct.classList.add('ff-cart-dislay-grid-header');
-            headerProduct.innerText = 'Product';
+            // Add header items with separate divs for each element
+            const imageHeaderDiv = document.createElement('div');
+            imageHeaderDiv.classList.add('ff-cart-dislay-grid-header');
+            imageHeaderDiv.innerText = 'Image';
 
-            const headerPrice = document.createElement('div');
-            headerPrice.classList.add('ff-cart-dislay-grid-header');
-            headerPrice.innerText = 'Price';
+            const productHeaderDiv = document.createElement('div');
+            productHeaderDiv.classList.add('ff-cart-dislay-grid-header');
+            productHeaderDiv.innerText = 'Product';
 
-            const headerAmount = document.createElement('div');
-            headerAmount.classList.add('ff-cart-dislay-grid-header');
-            headerAmount.innerText = 'Amount';
+            const priceHeaderDiv = document.createElement('div');
+            priceHeaderDiv.classList.add('ff-cart-dislay-grid-header');
+            priceHeaderDiv.innerText = 'Price';
 
-            // Append each header to the header row
-            headerRow.appendChild(headerProduct);
-            headerRow.appendChild(headerPrice);
-            headerRow.appendChild(headerAmount);
-            gridContainer.appendChild(headerRow);
+            const amountHeaderDiv = document.createElement('div');
+            amountHeaderDiv.classList.add('ff-cart-dislay-grid-header');
+            amountHeaderDiv.innerText = 'Amount';
+
+            // Append header items to the grid container
+            gridContainer.appendChild(imageHeaderDiv);
+            gridContainer.appendChild(productHeaderDiv);
+            gridContainer.appendChild(priceHeaderDiv);
+            gridContainer.appendChild(amountHeaderDiv);
 
             // Render each cart item directly into the grid container
             cartItems.forEach(item => {
