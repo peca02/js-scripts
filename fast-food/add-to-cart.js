@@ -22,19 +22,13 @@ Webflow.push(function () {
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
         let totalAmount = 0;
 
-        // Sum the amounts of all items in the cart
         cartItems.forEach(item => {
-            totalAmount += parseInt(item.amount, 10); // Ensure amount is an integer
+            totalAmount += parseInt(item.amount, 10);
         });
 
-        // Log for debugging
-        console.log('Cart Items:', cartItems);
-        console.log('Total Amount:', totalAmount);
-
-        // Update the cart number element
-        const cartNumber = document.querySelector('.ff-cart-number'); // Fix selector
+        const cartNumber = document.querySelector('.ff-cart-number');
         if (cartNumber) {
-            cartNumber.innerText = totalAmount;  // Set the cart number
+            cartNumber.innerText = totalAmount;
         }
     }
 
@@ -45,59 +39,46 @@ Webflow.push(function () {
 
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-        // If the cart is empty, display the empty cart message
         if (cartItems.length === 0) {
             gridContainer.style.display = 'none';
             emptyCartMessage.style.display = 'block';
         } else {
-            // Display the grid and hide the empty cart message
             gridContainer.style.display = 'grid';
             emptyCartMessage.style.display = 'none';
+            gridContainer.innerHTML = '';
 
-            // Clear the grid first before re-rendering the items
-            gridContainer.innerHTML = ''; // Clear existing content
+            const headers = ['Image', 'Product', 'Price', 'Amount', 'Actions'];
+            headers.forEach(text => {
+                const headerDiv = document.createElement('div');
+                headerDiv.classList.add('ff-cart-dislay-grid-header');
+                headerDiv.innerText = text;
+                gridContainer.appendChild(headerDiv);
+            });
 
-            // Add header items with separate divs for each element
-            const imageHeaderDiv = document.createElement('div');
-            imageHeaderDiv.classList.add('ff-cart-dislay-grid-header');
-            imageHeaderDiv.innerText = 'Image';
-
-            const productHeaderDiv = document.createElement('div');
-            productHeaderDiv.classList.add('ff-cart-dislay-grid-header');
-            productHeaderDiv.innerText = 'Product';
-
-            const priceHeaderDiv = document.createElement('div');
-            priceHeaderDiv.classList.add('ff-cart-dislay-grid-header');
-            priceHeaderDiv.innerText = 'Price';
-
-            const amountHeaderDiv = document.createElement('div');
-            amountHeaderDiv.classList.add('ff-cart-dislay-grid-header');
-            amountHeaderDiv.innerText = 'Amount';
-
-            // Append header items to the grid container
-            gridContainer.appendChild(imageHeaderDiv);
-            gridContainer.appendChild(productHeaderDiv);
-            gridContainer.appendChild(priceHeaderDiv);
-            gridContainer.appendChild(amountHeaderDiv);
-
-            // Render each cart item directly into the grid container
-            cartItems.forEach(item => {
+            cartItems.forEach((item, index) => {
                 const imageDiv = document.createElement('div');
                 const nameDiv = document.createElement('div');
                 const priceDiv = document.createElement('div');
                 const amountDiv = document.createElement('div');
+                const actionsDiv = document.createElement('div');
 
-                // Set content for each cell
                 imageDiv.innerHTML = `<img src="${item.productImageUrl}" alt="${item.productName}" />`;
                 nameDiv.innerText = item.productName;
                 priceDiv.innerText = item.productPrice;
                 amountDiv.innerText = item.amount;
 
-                // Append each cell directly to the grid container
-                gridContainer.appendChild(imageDiv);
-                gridContainer.appendChild(nameDiv);
-                gridContainer.appendChild(priceDiv);
-                gridContainer.appendChild(amountDiv);
+                const removeButton = document.createElement('button');
+                removeButton.innerText = 'Remove';
+                removeButton.classList.add('ff-remove-button');
+                removeButton.addEventListener('click', function () {
+                    cartItems.splice(index, 1);
+                    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                    updateCartNumber();
+                    renderCartItems();
+                });
+
+                actionsDiv.appendChild(removeButton);
+                gridContainer.append(imageDiv, nameDiv, priceDiv, amountDiv, actionsDiv);
             });
         }
     }
@@ -106,40 +87,33 @@ Webflow.push(function () {
         const amount = parseInt(amountInput.value, 10);
         let sideDishes = [];
 
-        // Check if any side dishes are selected
         if (sideDishDiv && sideDishDiv.innerHTML.trim() !== "") {
             const sideDishCheckboxes = sideDishDiv.querySelectorAll('input[type="checkbox"]:checked');
-            sideDishCheckboxes.forEach(function (checkbox) {
+            sideDishCheckboxes.forEach(checkbox => {
                 sideDishes.push(checkbox.value);
             });
         }
 
-        // Get the product image URL
         const productImageElement = document.querySelector('.ff-food-item-image');
-        const productImageUrl = getImageUrl(productImageElement); // Get image URL
-        
+        const productImageUrl = getImageUrl(productImageElement);
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-        // Check if the item is already in the cart
-        let existingItem = cartItems.find(item => 
-            item.productSerialNumber === serialNumber && 
+        let existingItem = cartItems.find(item =>
+            item.productSerialNumber === serialNumber &&
             JSON.stringify(item.sideDishes || []) === JSON.stringify(sideDishes)
         );
 
         if (existingItem) {
-            // If the item exists, increase the amount
             existingItem.amount += amount;
         } else {
-            // If the item is new, add it to the cart
             let cartItem = {
                 productSerialNumber: serialNumber,
                 productName: productName,
                 productPrice: productPrice,
-                amount: amount, // Ensure it's an integer
-                productImageUrl: productImageUrl // Add the image URL to the cart item
+                amount: amount,
+                productImageUrl: productImageUrl
             };
 
-            // Add side dishes if any
             if (sideDishes.length > 0) {
                 cartItem.sideDishes = sideDishes;
             }
@@ -147,19 +121,12 @@ Webflow.push(function () {
             cartItems.push(cartItem);
         }
 
-        // Save the updated cart items to localStorage
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
-
-        // Update the cart number after adding the item
         updateCartNumber();
-
-        // Re-render the cart items
         renderCartItems();
-
         alert('Item added to cart!');
     });
 
-    // Update the cart number and render items when the page loads
     updateCartNumber();
     renderCartItems();
 });
