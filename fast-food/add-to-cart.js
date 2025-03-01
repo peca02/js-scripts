@@ -8,6 +8,14 @@ Webflow.push(function () {
     const serialNumber = document.querySelector('.ff-serial-number').innerText;
     const productName = document.querySelector('.ff-heading-1-colection-food-item').innerText;
     const productPrice = document.querySelectorAll('.ff-heading-2-colection-food-item')[1].innerText;
+    
+    // Function to get image URL from background-image style
+    function getImageUrl(element) {
+        let style = window.getComputedStyle(element);
+        let backgroundImage = style.getPropertyValue('background-image');
+        let url = backgroundImage.match(/url\(["']?([^"']+)["']?\)/);
+        return url ? url[1] : null;
+    }
 
     // Function to update the cart number
     function updateCartNumber() {
@@ -42,6 +50,10 @@ Webflow.push(function () {
             });
         }
 
+        // Get the product image URL
+        const productImageElement = document.querySelector('.ff-food-item-image');
+        const productImageUrl = getImageUrl(productImageElement); // Get image URL
+        
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
         // Check if the item is already in the cart
@@ -59,7 +71,8 @@ Webflow.push(function () {
                 productSerialNumber: serialNumber,
                 productName: productName,
                 productPrice: productPrice,
-                amount: amount // Ensure it's an integer
+                amount: amount, // Ensure it's an integer
+                productImageUrl: productImageUrl // Add the image URL to the cart item
             };
 
             // Add side dishes if any
