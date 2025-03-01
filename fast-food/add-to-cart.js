@@ -57,15 +57,27 @@ Webflow.push(function () {
             // Clear the grid first before re-rendering the items
             gridContainer.innerHTML = ''; // Clear existing content
 
-            // Add header row before cart items
+            // Add header row with separate divs for each header element
             const headerRow = document.createElement('div');
             headerRow.classList.add('ff-cart-header-row');
-            headerRow.innerHTML = `
-                <div class="ff-cart-dislay-grid-header">Image</div>
-                <div class="ff-cart-dislay-grid-header">Product</div>
-                <div class="ff-cart-dislay-grid-header">Price</div>
-                <div class="ff-cart-dislay-grid-header">Amount</div>
-            `;
+            
+            // Create each header item separately as div
+            const headerProduct = document.createElement('div');
+            headerProduct.classList.add('ff-cart-dislay-grid-header');
+            headerProduct.innerText = 'Product';
+
+            const headerPrice = document.createElement('div');
+            headerPrice.classList.add('ff-cart-dislay-grid-header');
+            headerPrice.innerText = 'Price';
+
+            const headerAmount = document.createElement('div');
+            headerAmount.classList.add('ff-cart-dislay-grid-header');
+            headerAmount.innerText = 'Amount';
+
+            // Append each header to the header row
+            headerRow.appendChild(headerProduct);
+            headerRow.appendChild(headerPrice);
+            headerRow.appendChild(headerAmount);
             gridContainer.appendChild(headerRow);
 
             // Render each cart item directly into the grid container
