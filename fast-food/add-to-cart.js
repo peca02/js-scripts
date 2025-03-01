@@ -1,5 +1,5 @@
 Webflow.push(function () {
-    // Početna vrednost za amount
+    // Default value for amount input
     document.querySelector('.ff-ammount-input-field').value = "1";
     
     const addToCartButton = document.querySelector('.ff-add-to-cart-button');
@@ -9,20 +9,26 @@ Webflow.push(function () {
     const productName = document.querySelector('.ff-heading-1-colection-food-item').innerText;
     const productPrice = document.querySelectorAll('.ff-heading-2-colection-food-item')[1].innerText;
 
-    // Funkcija za ažuriranje broja u korpi
+    // Function to update the cart number
     function updateCartNumber() {
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
         let totalAmount = 0;
 
-        // Sabiramo amount za svaku stavku u korpi
+        // Log the cart items to see if they're being fetched correctly
+        console.log('Cart Items:', cartItems);
+
+        // Sum the amounts of all items in the cart
         cartItems.forEach(item => {
-            totalAmount += parseInt(item.amount, 10); // Saberemo količine
+            totalAmount += item.amount; // No need to parse, amount is already an integer
         });
 
-        // Ažuriramo broj u korpi
+        // Log the total amount to see the result
+        console.log('Total Amount:', totalAmount);
+
+        // Update the cart number element
         const cartNumber = document.querySelector('.FF Cart number');
         if (cartNumber) {
-            cartNumber.innerText = totalAmount;  // Postavimo broj u korpi
+            cartNumber.innerText = totalAmount;  // Set the cart number
         }
     }
 
@@ -30,7 +36,7 @@ Webflow.push(function () {
         const amount = parseInt(amountInput.value, 10);
         let sideDishes = [];
 
-        // Provera za izabrane priloge
+        // Check if any side dishes are selected
         if (sideDishDiv && sideDishDiv.innerHTML.trim() !== "") {
             const sideDishCheckboxes = sideDishDiv.querySelectorAll('input[type="checkbox"]:checked');
             sideDishCheckboxes.forEach(function (checkbox) {
@@ -40,25 +46,25 @@ Webflow.push(function () {
 
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-        // Provera da li se proizvod već nalazi u korpi
+        // Check if the item is already in the cart
         let existingItem = cartItems.find(item => 
             item.productSerialNumber === serialNumber && 
             JSON.stringify(item.sideDishes || []) === JSON.stringify(sideDishes)
         );
 
         if (existingItem) {
-            // Ako postoji, povećavamo količinu
-            existingItem.amount = (parseInt(existingItem.amount, 10) + amount).toString();
+            // If the item exists, increase the amount
+            existingItem.amount += amount;
         } else {
-            // Ako je novi proizvod, dodajemo ga u niz
+            // If the item is new, add it to the cart
             let cartItem = {
                 productSerialNumber: serialNumber,
                 productName: productName,
                 productPrice: productPrice,
-                amount: amount.toString()
+                amount: amount // This will already be an integer
             };
 
-            // Dodajemo priloge ako ih ima
+            // Add side dishes if any
             if (sideDishes.length > 0) {
                 cartItem.sideDishes = sideDishes;
             }
@@ -66,15 +72,15 @@ Webflow.push(function () {
             cartItems.push(cartItem);
         }
 
-        // Skladištimo ažurirani niz u localStorage
+        // Save the updated cart items to localStorage
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
-        // Ažuriramo broj u korpi nakon dodavanja proizvoda
+        // Update the cart number after adding the item
         updateCartNumber();
 
         alert('Item added to cart!');
     });
 
-    // Ažuriramo broj u korpi prilikom učitavanja stranice
+    // Update the cart number when the page loads
     updateCartNumber();
 });
