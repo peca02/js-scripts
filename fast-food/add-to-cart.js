@@ -14,19 +14,17 @@ Webflow.push(function () {
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
         let totalAmount = 0;
 
-        // Log the cart items to see if they're being fetched correctly
-        console.log('Cart Items:', cartItems);
-
         // Sum the amounts of all items in the cart
         cartItems.forEach(item => {
-            totalAmount += item.amount; // No need to parse, amount is already an integer
+            totalAmount += parseInt(item.amount, 10); // Ensure amount is an integer
         });
 
-        // Log the total amount to see the result
+        // Log for debugging
+        console.log('Cart Items:', cartItems);
         console.log('Total Amount:', totalAmount);
 
         // Update the cart number element
-        const cartNumber = document.querySelector('.FF Cart number');
+        const cartNumber = document.querySelector('.ff-cart-number'); // Fix selector
         if (cartNumber) {
             cartNumber.innerText = totalAmount;  // Set the cart number
         }
@@ -61,7 +59,7 @@ Webflow.push(function () {
                 productSerialNumber: serialNumber,
                 productName: productName,
                 productPrice: productPrice,
-                amount: amount // This will already be an integer
+                amount: amount // Ensure it's an integer
             };
 
             // Add side dishes if any
