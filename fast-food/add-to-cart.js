@@ -38,25 +38,55 @@ Webflow.push(function () {
         }
     }
 
-    // Function to display cart items or empty cart message
-    function updateCartDisplay() {
-        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    // Function to render cart items from localStorage
+    function renderCartItems() {
+        const gridContainer = document.querySelector('.ff-cart-display-grid');
         const emptyCartMessage = document.querySelector('.ff-emply-cart');
-        const cartGrid = document.querySelector('.w-layout-grid.ff-cart-display-grid');
 
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+        // If the cart is empty, display the empty cart message
         if (cartItems.length === 0) {
-            // If cart is empty, show empty cart message and hide grid
+            gridContainer.style.display = 'none';
             emptyCartMessage.style.display = 'block';
-            cartGrid.style.display = 'none';
         } else {
-            // If cart is not empty, show grid and hide empty cart message
+            // Display the grid and hide the empty cart message
+            gridContainer.style.display = 'grid';
             emptyCartMessage.style.display = 'none';
-            cartGrid.style.display = 'grid';
+
+            // Clear the grid first before re-rendering the items
+            gridContainer.innerHTML = ''; // Clear existing content
+
+            // Render each cart item as a new row in the grid
+            cartItems.forEach(item => {
+                const row = document.createElement('div');
+                row.classList.add('ff-cart-item-row');
+
+                // Create individual cells for the row
+                const imageDiv = document.createElement('div');
+                const nameDiv = document.createElement('div');
+                const priceDiv = document.createElement('div');
+                const amountDiv = document.createElement('div');
+
+                // Set content for each cell
+                imageDiv.innerHTML = `<img src="${item.productImageUrl}" alt="${item.productName}" />`;
+                nameDiv.innerText = item.productName;
+                priceDiv.innerText = item.productPrice;
+                amountDiv.innerText = item.amount;
+
+                // Append each cell to the row
+                row.appendChild(imageDiv);
+                row.appendChild(nameDiv);
+                row.appendChild(priceDiv);
+                row.appendChild(amountDiv);
+
+                // Append the row to the grid container
+                gridContainer.appendChild(row);
+            });
         }
     }
 
-    // Function to add product to cart
-    function addProductToCart() {
+    addToCartButton.addEventListener('click', function () {
         const amount = parseInt(amountInput.value, 10);
         let sideDishes = [];
 
@@ -71,7 +101,7 @@ Webflow.push(function () {
         // Get the product image URL
         const productImageElement = document.querySelector('.ff-food-item-image');
         const productImageUrl = getImageUrl(productImageElement); // Get image URL
-
+        
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
         // Check if the item is already in the cart
@@ -104,48 +134,16 @@ Webflow.push(function () {
         // Save the updated cart items to localStorage
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
-        // Update the cart number and display after adding the item
+        // Update the cart number after adding the item
         updateCartNumber();
-        updateCartDisplay();
 
-        // Dynamically update grid with the new item
-        const cartGrid = document.querySelector('.w-layout-grid.ff-cart-display-grid');
-        const newRow = document.createElement('div');
-        newRow.classList.add('ff-cart-display-row');
-        
-        // Add product image
-        const imageDiv = document.createElement('div');
-        const img = document.createElement('img');
-        img.src = productImageUrl;
-        img.width = 50;  // Set image size
-        imageDiv.appendChild(img);
-        newRow.appendChild(imageDiv);
-
-        // Add product name
-        const nameDiv = document.createElement('div');
-        nameDiv.textContent = productName;
-        newRow.appendChild(nameDiv);
-
-        // Add product price
-        const priceDiv = document.createElement('div');
-        priceDiv.textContent = productPrice;
-        newRow.appendChild(priceDiv);
-
-        // Add amount
-        const amountDiv = document.createElement('div');
-        amountDiv.textContent = amount;
-        newRow.appendChild(amountDiv);
-
-        // Append the new row to the grid
-        cartGrid.appendChild(newRow);
+        // Re-render the cart items
+        renderCartItems();
 
         alert('Item added to cart!');
-    }
+    });
 
-    // Listen for the add-to-cart button click
-    addToCartButton.addEventListener('click', addProductToCart);
-
-    // Update the cart number and display when the page loads
+    // Update the cart number and render items when the page loads
     updateCartNumber();
-    updateCartDisplay();
+    renderCartItems();
 });
