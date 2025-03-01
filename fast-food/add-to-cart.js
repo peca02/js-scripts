@@ -1,14 +1,14 @@
 Webflow.push(function () {
     // Default value for amount input
     document.querySelector('.ff-ammount-input-field').value = "1";
-    
+
     const addToCartButton = document.querySelector('.ff-add-to-cart-button');
     const amountInput = document.querySelector('.ff-ammount-input-field');
     const sideDishDiv = document.querySelector('.ff-side-dish');
     const serialNumber = document.querySelector('.ff-serial-number').innerText;
     const productName = document.querySelector('.ff-heading-1-colection-food-item').innerText;
     const productPrice = document.querySelectorAll('.ff-heading-2-colection-food-item')[1].innerText;
-    
+
     // Function to get image URL from background-image style
     function getImageUrl(element) {
         let style = window.getComputedStyle(element);
@@ -38,7 +38,25 @@ Webflow.push(function () {
         }
     }
 
-    addToCartButton.addEventListener('click', function () {
+    // Function to display cart items or empty cart message
+    function updateCartDisplay() {
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const emptyCartMessage = document.querySelector('.ff-emply-cart');
+        const cartGrid = document.querySelector('.w-layout-grid.ff-cart-display-grid');
+
+        if (cartItems.length === 0) {
+            // If cart is empty, show empty cart message and hide grid
+            emptyCartMessage.style.display = 'block';
+            cartGrid.style.display = 'none';
+        } else {
+            // If cart is not empty, show grid and hide empty cart message
+            emptyCartMessage.style.display = 'none';
+            cartGrid.style.display = 'grid';
+        }
+    }
+
+    // Function to add product to cart
+    function addProductToCart() {
         const amount = parseInt(amountInput.value, 10);
         let sideDishes = [];
 
@@ -53,7 +71,7 @@ Webflow.push(function () {
         // Get the product image URL
         const productImageElement = document.querySelector('.ff-food-item-image');
         const productImageUrl = getImageUrl(productImageElement); // Get image URL
-        
+
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
         // Check if the item is already in the cart
@@ -86,12 +104,48 @@ Webflow.push(function () {
         // Save the updated cart items to localStorage
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
-        // Update the cart number after adding the item
+        // Update the cart number and display after adding the item
         updateCartNumber();
+        updateCartDisplay();
+
+        // Dynamically update grid with the new item
+        const cartGrid = document.querySelector('.w-layout-grid.ff-cart-display-grid');
+        const newRow = document.createElement('div');
+        newRow.classList.add('ff-cart-display-row');
+        
+        // Add product image
+        const imageDiv = document.createElement('div');
+        const img = document.createElement('img');
+        img.src = productImageUrl;
+        img.width = 50;  // Set image size
+        imageDiv.appendChild(img);
+        newRow.appendChild(imageDiv);
+
+        // Add product name
+        const nameDiv = document.createElement('div');
+        nameDiv.textContent = productName;
+        newRow.appendChild(nameDiv);
+
+        // Add product price
+        const priceDiv = document.createElement('div');
+        priceDiv.textContent = productPrice;
+        newRow.appendChild(priceDiv);
+
+        // Add amount
+        const amountDiv = document.createElement('div');
+        amountDiv.textContent = amount;
+        newRow.appendChild(amountDiv);
+
+        // Append the new row to the grid
+        cartGrid.appendChild(newRow);
 
         alert('Item added to cart!');
-    });
+    }
 
-    // Update the cart number when the page loads
+    // Listen for the add-to-cart button click
+    addToCartButton.addEventListener('click', addProductToCart);
+
+    // Update the cart number and display when the page loads
     updateCartNumber();
+    updateCartDisplay();
 });
