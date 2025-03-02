@@ -155,9 +155,9 @@ function renderCartItems() {
             input.classList.add('ff-cart-display-quantity-input'); // Add a class for easy styling
 
             // Create the minus and plus buttons
-            minusDiv.classList.add('quantity-decrease');
+            minusDiv.classList.add('ff-cart-display-minus');
             minusDiv.innerText = '-';
-            plusDiv.classList.add('quantity-increase');
+            plusDiv.classList.add('ff-cart-display-plus');
             plusDiv.innerText = '+';
 
             // Add event listeners for input change and button clicks
