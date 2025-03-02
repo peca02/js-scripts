@@ -57,7 +57,7 @@ Webflow.push(function () {
 
         Object.values(groupedCart).forEach(item => {
             const imageDiv = document.createElement('div');
-            imageDiv.innerHTML = `<img src="${item.productImageUrl}" alt="${item.productName}" />`;
+            imageDiv.innerHTML = `<img src="${item.productImageUrl}" class="ff-cart-display-item-image" alt="${item.productName}" />`;
             
             const nameDiv = document.createElement('div');
             nameDiv.innerText = item.productName;
