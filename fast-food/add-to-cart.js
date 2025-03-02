@@ -199,6 +199,7 @@ Webflow.push(function () {
         renderCartItems();
     });
 
-    // Initial rendering of cart items
+    // Update the cart number and render items when the page loads
+    updateCartNumber();
     renderCartItems();
 });
