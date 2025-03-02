@@ -152,7 +152,7 @@ function renderCartItems() {
             input.type = 'number';
             input.value = item.amount;
             input.min = '1'; // Minimum quantity is 1
-            input.classList.add('ff-cart-display-quantity-input'); // Add a class for easy styling
+            input.classList.add('quantity-input'); // Add a class for easy styling
 
             // Create the minus and plus buttons
             minusDiv.classList.add('quantity-decrease');
