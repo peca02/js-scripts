@@ -166,8 +166,6 @@ function renderCartItems() {
                 if (newAmount >= 1) {
                     item.amount = newAmount; // Update the item amount
                     updateCartInLocalStorage(cartItems); // Update localStorage
-                    updateCartNumber();
-                    updateTotalPrice();
                 }
             });
 
@@ -176,8 +174,6 @@ function renderCartItems() {
                     item.amount -= 1; // Decrease the quantity
                     inputDiv.value = item.amount;
                     updateCartInLocalStorage(cartItems); // Update localStorage
-                    updateCartNumber();
-                    updateTotalPrice();
                 }
             });
 
@@ -185,8 +181,6 @@ function renderCartItems() {
                 item.amount += 1; // Increase the quantity
                 inputDiv.value = item.amount;
                 updateCartInLocalStorage(cartItems); // Update localStorage
-                updateCartNumber();
-                updateTotalPrice();
             });
 
             // Append the quantity controls to the container
