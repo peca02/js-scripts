@@ -201,5 +201,6 @@ Webflow.push(function () {
 
     // Update the cart number and render items when the page loads
     updateCartNumber();
+    updateTotalPrice();
     renderCartItems();
 });
