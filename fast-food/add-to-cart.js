@@ -57,7 +57,7 @@ Webflow.push(function () {
         }
     }
 
-  // Function to render cart items from localStorage
+// Function to render cart items from localStorage
 function renderCartItems() {
     const gridContainer = document.querySelector('.ff-cart-display-grid');
     const emptyCartMessage = document.querySelector('.ff-emply-cart');
@@ -65,90 +65,92 @@ function renderCartItems() {
 
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-    // If the cart is empty, display the empty cart message
     if (cartItems.length === 0) {
         gridContainer.style.display = 'none';
         emptyCartMessage.style.display = 'block';
-        totalPriceElement.style.display = 'none'; // Hide total price when the cart is empty
+        totalPriceElement.style.display = 'none';
     } else {
-        // Display the grid and hide the empty cart message
         gridContainer.style.display = 'grid';
         emptyCartMessage.style.display = 'none';
-        totalPriceElement.style.display = 'block'; // Show total price when the cart is not empty
+        totalPriceElement.style.display = 'block';
 
-        // Clear the grid first before re-rendering the items
-        gridContainer.innerHTML = ''; // Clear existing content
+        gridContainer.innerHTML = ''; 
 
-        // Render each cart item directly into the grid container
-        cartItems.forEach(item => {
-            const image = document.createElement('img');
+        // Render each cart item
+        cartItems.forEach((item, index) => {
+            const productDiv = document.createElement('div');
+            productDiv.classList.add('ff-cart-item');
+
             const nameDiv = document.createElement('div');
-            const priceDiv = document.createElement('div');
-            const amountContainer = document.createElement('div');
-            const minusDiv = document.createElement('div');
-            const inputDiv = document.createElement('input');
-            const plusDiv = document.createElement('div');
-
-            // Set content for each cell
-            image.src = item.productImageUrl;
-            image.alt = item.productName;
-            image.classList.add('ff-cart-display-item-image');
             nameDiv.innerText = item.productName;
+
+            const priceDiv = document.createElement('div');
             priceDiv.innerText = item.productPrice;
 
-            // Create the input field for quantity
-            inputDiv.type = 'number';
-            inputDiv.value = item.amount;
-            inputDiv.min = '1'; // Minimum quantity is 1
-            inputDiv.classList.add('quantity-input'); // Add a class for easy styling
+            // Container za količinu
+            const quantityContainer = document.createElement('div');
+            quantityContainer.classList.add('ff-cart-quantity-container');
 
-            // Create the minus and plus buttons
-            minusDiv.classList.add('quantity-decrease');
+            const minusDiv = document.createElement('div');
+            minusDiv.classList.add('ff-cart-quantity-minus');
             minusDiv.innerText = '-';
-            plusDiv.classList.add('quantity-increase');
+
+            const quantityInput = document.createElement('input');
+            quantityInput.type = 'number';
+            quantityInput.classList.add('ff-cart-quantity-input');
+            quantityInput.value = item.amount;
+            quantityInput.min = 1;
+
+            const plusDiv = document.createElement('div');
+            plusDiv.classList.add('ff-cart-quantity-plus');
             plusDiv.innerText = '+';
 
-            // Add event listeners for input change and button clicks
-            inputDiv.addEventListener('input', (e) => {
-                const newAmount = parseInt(e.target.value);
-                if (newAmount >= 1) {
-                    item.amount = newAmount; // Update the item amount
-                    updateCartInLocalStorage(cartItems); // Update localStorage
-                }
-            });
+            quantityContainer.appendChild(minusDiv);
+            quantityContainer.appendChild(quantityInput);
+            quantityContainer.appendChild(plusDiv);
 
+            // Event listener za dugme -
             minusDiv.addEventListener('click', () => {
-                if (item.amount > 1) {
-                    item.amount -= 1; // Decrease the quantity
-                    inputDiv.value = item.amount;
-                    updateCartInLocalStorage(cartItems); // Update localStorage
+                let newAmount = parseInt(quantityInput.value) - 1;
+                if (newAmount >= 1) {
+                    quantityInput.value = newAmount;
+                    updateCartQuantity(index, newAmount);
                 }
             });
 
+            // Event listener za dugme +
             plusDiv.addEventListener('click', () => {
-                item.amount += 1; // Increase the quantity
-                inputDiv.value = item.amount;
-                updateCartInLocalStorage(cartItems); // Update localStorage
+                let newAmount = parseInt(quantityInput.value) + 1;
+                quantityInput.value = newAmount;
+                updateCartQuantity(index, newAmount);
             });
 
-            // Append the quantity controls to the container
-            amountContainer.appendChild(minusDiv);
-            amountContainer.appendChild(inputDiv);
-            amountContainer.appendChild(plusDiv);
+            // Event listener za direktan unos broja
+            quantityInput.addEventListener('input', (e) => {
+                let newAmount = parseInt(e.target.value);
+                if (newAmount >= 1) {
+                    updateCartQuantity(index, newAmount);
+                } else {
+                    quantityInput.value = 1;
+                    updateCartQuantity(index, 1);
+                }
+            });
 
-            // Append each item to the grid container
-            gridContainer.appendChild(image);
-            gridContainer.appendChild(nameDiv);
-            gridContainer.appendChild(priceDiv);
-            gridContainer.appendChild(amountContainer);
+            productDiv.appendChild(nameDiv);
+            productDiv.appendChild(priceDiv);
+            productDiv.appendChild(quantityContainer);
+            gridContainer.appendChild(productDiv);
         });
     }
 }
 
-// Function to update cart in localStorage
-function updateCartInLocalStorage(cartItems) {
+// Function to update quantity in localStorage
+function updateCartQuantity(index, newAmount) {
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    cartItems[index].amount = newAmount;
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
+
 
 
 
