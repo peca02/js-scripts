@@ -61,12 +61,15 @@ Webflow.push(function () {
             
             const nameDiv = document.createElement('div');
             nameDiv.innerText = item.productName;
-
+            headerDiv.classList.add('ff-cart-dislay-text-centered');
+            
             const priceDiv = document.createElement('div');
             priceDiv.innerText = item.productPrice;
+            priceDiv.classList.add('ff-cart-dislay-text-centered');
 
             const amountDiv = document.createElement('div');
             amountDiv.innerText = item.amount;
+            amountDiv.classList.add('ff-cart-dislay-text-centered');
 
             gridContainer.appendChild(imageDiv);
             gridContainer.appendChild(nameDiv);
