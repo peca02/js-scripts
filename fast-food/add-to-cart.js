@@ -1,4 +1,5 @@
 Webflow.push(function () {
+    // Default value for amount input
     document.querySelector('.ff-ammount-input-field').value = "1";
 
     const addToCartButton = document.querySelector('.ff-add-to-cart-button');
@@ -7,8 +8,9 @@ Webflow.push(function () {
     const serialNumber = document.querySelector('.ff-serial-number').innerText;
     const productName = document.querySelector('.ff-heading-1-colection-food-item').innerText;
     let productPrice = document.querySelectorAll('.ff-heading-2-colection-food-item')[1].innerText;
-    productPrice = `$${productPrice}`; // Dodajemo $ ispred cene
+    productPrice = `$${productPrice}`;
 
+    // Function to get image URL from background-image style
     function getImageUrl(element) {
         let style = window.getComputedStyle(element);
         let backgroundImage = style.getPropertyValue('background-image');
@@ -16,106 +18,152 @@ Webflow.push(function () {
         return url ? url[1] : null;
     }
 
+    // Function to update the cart number
     function updateCartNumber() {
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        let totalAmount = cartItems.reduce((sum, item) => sum + parseInt(item.amount, 10), 0);
-        const cartNumber = document.querySelector('.ff-cart-number');
-        if (cartNumber) cartNumber.innerText = totalAmount;
+        let totalAmount = 0;
+
+        // Sum the amounts of all items in the cart
+        cartItems.forEach(item => {
+            totalAmount += parseInt(item.amount, 10); // Ensure amount is an integer
+        });
+
+        // Log for debugging
+        console.log('Cart Items:', cartItems);
+        console.log('Total Amount:', totalAmount);
+
+        // Update the cart number element
+        const cartNumber = document.querySelector('.ff-cart-number'); // Fix selector
+        if (cartNumber) {
+            cartNumber.innerText = totalAmount;  // Set the cart number
+        }
     }
 
+    // Function to render cart items from localStorage
     function renderCartItems() {
         const gridContainer = document.querySelector('.ff-cart-display-grid');
         const emptyCartMessage = document.querySelector('.ff-emply-cart');
+
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        
+
+        // If the cart is empty, display the empty cart message
         if (cartItems.length === 0) {
             gridContainer.style.display = 'none';
             emptyCartMessage.style.display = 'block';
-            return;
+        } else {
+            // Display the grid and hide the empty cart message
+            gridContainer.style.display = 'grid';
+            emptyCartMessage.style.display = 'none';
+
+            // Clear the grid first before re-rendering the items
+            gridContainer.innerHTML = ''; // Clear existing content
+
+            // Add header items with separate divs for each element
+            const imageHeaderDiv = document.createElement('div');
+            imageHeaderDiv.classList.add('ff-cart-dislay-grid-header');
+            imageHeaderDiv.innerText = 'Image';
+
+            const productHeaderDiv = document.createElement('div');
+            productHeaderDiv.classList.add('ff-cart-dislay-grid-header');
+            productHeaderDiv.innerText = 'Product';
+
+            const priceHeaderDiv = document.createElement('div');
+            priceHeaderDiv.classList.add('ff-cart-dislay-grid-header');
+            priceHeaderDiv.innerText = 'Price';
+
+            const amountHeaderDiv = document.createElement('div');
+            amountHeaderDiv.classList.add('ff-cart-dislay-grid-header');
+            amountHeaderDiv.innerText = 'Amount';
+
+            // Append header items to the grid container
+            gridContainer.appendChild(imageHeaderDiv);
+            gridContainer.appendChild(productHeaderDiv);
+            gridContainer.appendChild(priceHeaderDiv);
+            gridContainer.appendChild(amountHeaderDiv);
+
+            // Render each cart item directly into the grid container
+            cartItems.forEach(item => {
+                const imageDiv = document.createElement('div');
+                const nameDiv = document.createElement('div');
+                const priceDiv = document.createElement('div');
+                const amountDiv = document.createElement('div');
+
+                // Set content and classes for each cell
+                imageDiv.innerHTML = `<img src="${item.productImageUrl}" class="ff-cart-display-item-image" alt="${item.productName}" />`;
+                nameDiv.innerText = item.productName;
+                nameDiv.classList.add('ff-cart-display-text-centered');
+                priceDiv.innerText = item.productPrice;
+                priceDiv.classList.add('ff-cart-display-text-centered');
+                amountDiv.innerText = item.amount;
+                amountDiv.classList.add('ff-cart-display-text-centered');
+
+                // Append each cell directly to the grid container
+                gridContainer.appendChild(imageDiv);
+                gridContainer.appendChild(nameDiv);
+                gridContainer.appendChild(priceDiv);
+                gridContainer.appendChild(amountDiv);
+            });
         }
-
-        gridContainer.style.display = 'grid';
-        emptyCartMessage.style.display = 'none';
-        gridContainer.innerHTML = '';
-
-        const headers = ['Image', 'Product', 'Price', 'Amount'];
-        headers.forEach(text => {
-            const headerDiv = document.createElement('div');
-            headerDiv.classList.add('ff-cart-dislay-grid-header');
-            headerDiv.innerText = text;
-            gridContainer.appendChild(headerDiv);
-        });
-
-        let groupedCart = {};
-        cartItems.forEach(item => {
-            if (groupedCart[item.productSerialNumber]) {
-                groupedCart[item.productSerialNumber].amount += item.amount;
-            } else {
-                groupedCart[item.productSerialNumber] = { ...item };
-            }
-        });
-
-        Object.values(groupedCart).forEach(item => {
-            const imageDiv = document.createElement('div');
-            imageDiv.innerHTML = `<img src="${item.productImageUrl}" class="ff-cart-display-item-image" alt="${item.productName}" />`;
-            
-            const nameDiv = document.createElement('div');
-            nameDiv.innerText = item.productName;
-            nameDiv.classList.add('ff-cart-display-text-centered');
-            
-            const priceDiv = document.createElement('div');
-            priceDiv.innerText = item.productPrice;
-            priceDiv.classList.add('ff-cart-display-text-centered');
-
-            const amountDiv = document.createElement('div');
-            amountDiv.innerText = item.amount;
-            amountDiv.classList.add('ff-cart-display-text-centered');
-
-            gridContainer.appendChild(imageDiv);
-            gridContainer.appendChild(nameDiv);
-            gridContainer.appendChild(priceDiv);
-            gridContainer.appendChild(amountDiv);
-        });
     }
 
     addToCartButton.addEventListener('click', function () {
         const amount = parseInt(amountInput.value, 10);
         let sideDishes = [];
 
+        // Check if any side dishes are selected
         if (sideDishDiv && sideDishDiv.innerHTML.trim() !== "") {
-            sideDishDiv.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+            const sideDishCheckboxes = sideDishDiv.querySelectorAll('input[type="checkbox"]:checked');
+            sideDishCheckboxes.forEach(function (checkbox) {
                 sideDishes.push(checkbox.value);
             });
         }
 
-        const productImageUrl = getImageUrl(document.querySelector('.ff-food-item-image'));
+        // Get the product image URL
+        const productImageElement = document.querySelector('.ff-food-item-image');
+        const productImageUrl = getImageUrl(productImageElement); // Get image URL
+        
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
+        // Check if the item is already in the cart
         let existingItem = cartItems.find(item => 
             item.productSerialNumber === serialNumber && 
             JSON.stringify(item.sideDishes || []) === JSON.stringify(sideDishes)
         );
 
         if (existingItem) {
+            // If the item exists, increase the amount
             existingItem.amount += amount;
         } else {
+            // If the item is new, add it to the cart
             let cartItem = {
                 productSerialNumber: serialNumber,
                 productName: productName,
                 productPrice: productPrice,
-                amount: amount,
-                productImageUrl: productImageUrl,
-                sideDishes: sideDishes.length > 0 ? sideDishes : undefined
+                amount: amount, // Ensure it's an integer
+                productImageUrl: productImageUrl // Add the image URL to the cart item
             };
+
+            // Add side dishes if any
+            if (sideDishes.length > 0) {
+                cartItem.sideDishes = sideDishes;
+            }
+
             cartItems.push(cartItem);
         }
 
+        // Save the updated cart items to localStorage
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+        // Update the cart number after adding the item
         updateCartNumber();
+
+        // Re-render the cart items
         renderCartItems();
+
         alert('Item added to cart!');
     });
 
+    // Update the cart number and render items when the page loads
     updateCartNumber();
     renderCartItems();
 });
