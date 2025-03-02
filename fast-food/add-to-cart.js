@@ -39,10 +39,29 @@ Webflow.push(function () {
         }
     }
 
+    // Function to update the total price
+    function updateTotalPrice() {
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        let totalPrice = 0;
+
+        // Sum the total price of all items in the cart
+        cartItems.forEach(item => {
+            let price = parseFloat(item.productPrice.replace('$', '')); // Remove '$' and parse float
+            totalPrice += price * item.amount; // Multiply price by the quantity
+        });
+
+        // Update the total price element
+        const totalPriceElement = document.querySelector('.ff-cart-display-total-price');
+        if (totalPriceElement) {
+            totalPriceElement.innerText = `$${totalPrice.toFixed(2)}`; // Format to two decimals
+        }
+    }
+
     // Function to render cart items from localStorage
     function renderCartItems() {
         const gridContainer = document.querySelector('.ff-cart-display-grid');
         const emptyCartMessage = document.querySelector('.ff-emply-cart');
+        const totalPriceElement = document.querySelector('.ff-cart-display-total-price');
 
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
@@ -50,10 +69,12 @@ Webflow.push(function () {
         if (cartItems.length === 0) {
             gridContainer.style.display = 'none';
             emptyCartMessage.style.display = 'block';
+            totalPriceElement.style.display = 'none'; // Hide total price when the cart is empty
         } else {
             // Display the grid and hide the empty cart message
             gridContainer.style.display = 'grid';
             emptyCartMessage.style.display = 'none';
+            totalPriceElement.style.display = 'block'; // Show total price when the cart is not empty
 
             // Clear the grid first before re-rendering the items
             gridContainer.innerHTML = ''; // Clear existing content
@@ -156,35 +177,28 @@ Webflow.push(function () {
             existingItem.amount += amount;
         } else {
             // If the item is new, add it to the cart
-            let cartItem = {
+            let newItem = {
                 productSerialNumber: serialNumber,
                 productName: productName,
                 productPrice: productPrice,
-                amount: amount, // Ensure it's an integer
-                productImageUrl: productImageUrl // Add the image URL to the cart item
+                amount: amount,
+                productImageUrl: productImageUrl,
+                sideDishes: sideDishes
             };
-
-            // Add side dishes if any
-            if (sideDishes.length > 0) {
-                cartItem.sideDishes = sideDishes;
-            }
-
-            cartItems.push(cartItem);
+            cartItems.push(newItem);
         }
 
-        // Save the updated cart items to localStorage
+        // Save updated cart items to localStorage
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
-        // Update the cart number after adding the item
+        // Update cart number and total price
         updateCartNumber();
+        updateTotalPrice();
 
-        // Re-render the cart items
+        // Re-render cart items
         renderCartItems();
-
-        alert('Item added to cart!');
     });
 
-    // Update the cart number and render items when the page loads
-    updateCartNumber();
+    // Initial rendering of cart items
     renderCartItems();
 });
