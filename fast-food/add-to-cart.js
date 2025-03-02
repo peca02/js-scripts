@@ -91,11 +91,8 @@ Webflow.push(function () {
                 // Set content and classes for each cell
                 imageDiv.innerHTML = `<img src="${item.productImageUrl}" class="ff-cart-display-item-image" alt="${item.productName}" />`;
                 nameDiv.innerText = item.productName;
-                nameDiv.classList.add('ff-cart-display-text-centered');
                 priceDiv.innerText = item.productPrice;
-                priceDiv.classList.add('ff-cart-display-text-centered');
                 amountDiv.innerText = item.amount;
-                amountDiv.classList.add('ff-cart-display-text-centered');
 
                 // Append each cell directly to the grid container
                 gridContainer.appendChild(imageDiv);
