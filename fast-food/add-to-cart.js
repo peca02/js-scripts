@@ -46,7 +46,7 @@ Webflow.push(function () {
 
         // Sum the total price of all items in the cart
         cartItems.forEach(item => {
-            let price = parseFloat(item.productPrice.replace('$', '')); // Remove '$' and parse float
+            let price = parseFloat(item.productPrice); // parse float
             totalPrice += price * item.amount; // Multiply price by the quantity
         });
 
