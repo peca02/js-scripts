@@ -199,7 +199,7 @@ Webflow.push(function () {
         renderCartItems();
     });
 
-    // Initial rendering of cart items
+    // Update the cart number, total price and render items when the page loads
     updateCartNumber();
     updateTotalPrice();
     renderCartItems();
