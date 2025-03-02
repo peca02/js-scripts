@@ -83,19 +83,21 @@ Webflow.push(function () {
 
             // Render each cart item directly into the grid container
             cartItems.forEach(item => {
-                const imageDiv = document.createElement('div');
+                const image = document.createElement('img');
                 const nameDiv = document.createElement('div');
                 const priceDiv = document.createElement('div');
                 const amountDiv = document.createElement('div');
 
-                // Set content and classes for each cell
-                imageDiv.innerHTML = `<img src="${item.productImageUrl}" class="ff-cart-display-item-image" alt="${item.productName}" />`;
+                // Set content for each cell
+                image.src = item.productImageUrl;
+                image.alt = item.productName;
+                image.classList.add('ff-cart-display-item-image');
                 nameDiv.innerText = item.productName;
                 priceDiv.innerText = item.productPrice;
                 amountDiv.innerText = item.amount;
 
                 // Append each cell directly to the grid container
-                gridContainer.appendChild(imageDiv);
+                gridContainer.appendChild(image);
                 gridContainer.appendChild(nameDiv);
                 gridContainer.appendChild(priceDiv);
                 gridContainer.appendChild(amountDiv);
