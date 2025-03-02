@@ -172,14 +172,14 @@ function renderCartItems() {
             minusDiv.addEventListener('click', () => {
                 if (item.amount > 1) {
                     item.amount -= 1; // Decrease the quantity
-                    inputDiv.value = item.amount;
+                    input.value = item.amount;
                     updateCartInLocalStorage(cartItems); // Update localStorage
                 }
             });
 
             plusDiv.addEventListener('click', () => {
                 item.amount += 1; // Increase the quantity
-                inputDiv.value = item.amount;
+                input.value = item.amount;
                 updateCartInLocalStorage(cartItems); // Update localStorage
             });
 
