@@ -152,7 +152,7 @@ function renderCartItems() {
             input.type = 'number';
             input.value = item.amount;
             input.min = '1'; // Minimum quantity is 1
-            input.classList.add('quantity-input'); // Add a class for easy styling
+            input.classList.add('ff-cart-display-quantity-input'); // Add a class for easy styling
 
             // Create the minus and plus buttons
             minusDiv.classList.add('quantity-decrease');
@@ -166,6 +166,8 @@ function renderCartItems() {
                 if (newAmount >= 1) {
                     item.amount = newAmount; // Update the item amount
                     updateCartInLocalStorage(cartItems); // Update localStorage
+                    updateCartNumber();
+                    updateTotalPrice();
                 }
             });
 
@@ -174,6 +176,8 @@ function renderCartItems() {
                     item.amount -= 1; // Decrease the quantity
                     input.value = item.amount;
                     updateCartInLocalStorage(cartItems); // Update localStorage
+                    updateCartNumber();
+                    updateTotalPrice();
                 }
             });
 
@@ -181,6 +185,8 @@ function renderCartItems() {
                 item.amount += 1; // Increase the quantity
                 input.value = item.amount;
                 updateCartInLocalStorage(cartItems); // Update localStorage
+                updateCartNumber();
+                updateTotalPrice();
             });
 
             // Append the quantity controls to the container
