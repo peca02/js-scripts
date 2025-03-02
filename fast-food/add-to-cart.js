@@ -53,7 +53,7 @@ Webflow.push(function () {
         // Update the total price element
         const totalPriceElement = document.querySelector('.ff-cart-display-total-price');
         if (totalPriceElement) {
-            totalPriceElement.innerText = `$${totalPrice.toFixed(2)}`; // Format to two decimals
+            totalPriceElement.innerText = `Total price: $${totalPrice.toFixed(2)}`; // Format to two decimals with label
         }
     }
 
