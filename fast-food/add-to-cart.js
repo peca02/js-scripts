@@ -28,9 +28,6 @@ Webflow.push(function () {
             totalAmount += parseInt(item.amount, 10); // Ensure amount is an integer
         });
 
-        // Log for debugging
-        console.log('Cart Items:', cartItems);
-        console.log('Total Amount:', totalAmount);
 
         // Update the cart number element
         const cartNumber = document.querySelector('.ff-cart-number'); // Fix selector
