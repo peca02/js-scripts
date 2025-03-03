@@ -107,7 +107,6 @@ function renderCartItems() {
         gridContainer.appendChild(priceHeaderDiv);
         gridContainer.appendChild(amountHeaderDiv);
 
-        let index = 0;
         // Render each cart item directly into the grid container
         cartItems.forEach(item => {
             const svgNS = "http://www.w3.org/2000/svg";
@@ -134,8 +133,6 @@ function renderCartItems() {
             gElement.appendChild(path1);
             gElement.appendChild(path2);
             svgElement.appendChild(gElement);
-            svgElement.setAttribute('data-index', index);
-            index++;
             
             image.src = item.productImageUrl;
             image.alt = item.productName;
@@ -191,22 +188,6 @@ function renderCartItems() {
                 updateCartNumber();
                 updateTotalPrice();
             });
-
-            svgElement.addEventListener('click', () => {
-            // Filtriraj niz i ukloni kliknuti proizvod
-            cartItems = cartItems.filter(cartItem => cartItem.productName !== item.productName);
-            
-            // Ažuriraj localStorage
-            updateCartInLocalStorage(cartItems);
-            
-            // Ažuriraj prikaz korpe
-            updateCartNumber();
-            updateTotalPrice();
-            renderCartItems(); // Ponovno renderovanje korpe
-        });
-
-
-
 
             // Append the quantity controls to the container
             amountContainer.appendChild(minusDiv);
