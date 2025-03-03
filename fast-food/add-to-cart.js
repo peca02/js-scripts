@@ -200,6 +200,7 @@ function renderCartItems() {
                 updateCartInLocalStorage(cartItems);
                 updateCartNumber();
                 updateTotalPrice();
+                renderCartItems();
                 }
             });
 
