@@ -192,17 +192,19 @@ function renderCartItems() {
                 updateTotalPrice();
             });
 
-            svgElement.addEventListener('click', (event) => {
-            let indexToRemove = event.target.getAttribute('data-index');
-            if (indexToRemove !== null) {
-                let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-                cartItems.splice(indexToRemove, 1);
-                updateCartInLocalStorage(cartItems);
-                updateCartNumber();
-                updateTotalPrice();
-                renderCartItems();
-                }
-            });
+            svgElement.addEventListener('click', () => {
+            // Filtriraj niz i ukloni kliknuti proizvod
+            cartItems = cartItems.filter(cartItem => cartItem.productName !== item.productName);
+            
+            // Ažuriraj localStorage
+            updateCartInLocalStorage(cartItems);
+            
+            // Ažuriraj prikaz korpe
+            updateCartNumber();
+            updateTotalPrice();
+            renderCartItems(); // Ponovno renderovanje korpe
+        });
+
 
 
 
