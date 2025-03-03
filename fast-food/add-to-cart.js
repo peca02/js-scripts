@@ -55,7 +55,7 @@ Webflow.push(function () {
     }
 
 document.querySelector('.ff-cart-display').addEventListener('click', (event) => {
-    if (event.target.classList.contains('button')) {
+    if (event.target.classList.contains('ff-cart-display-recycle-bin')) {
         console.log("kliknuto");
         let indexToRemove = event.target.getAttribute('data-index');
         if (indexToRemove !== null) {
@@ -128,7 +128,6 @@ function renderCartItems() {
             const gElement = document.createElementNS(svgNS, "g");
             const path1 = document.createElementNS(svgNS, "path");
             const path2 = document.createElementNS(svgNS, "path");
-            const button = document.createElement('button');
             const image = document.createElement('img');
             const nameDiv = document.createElement('div');
             const priceDiv = document.createElement('div');
@@ -143,14 +142,13 @@ function renderCartItems() {
             svgElement.setAttribute("width", "100%");
             svgElement.setAttribute("viewBox", "0 0 408.483 408.483");
             svgElement.setAttribute("class", "ff-cart-display-recycle-bin");
+            svgElement.setAttribute("pointer-events", "bounding-box");
             path1.setAttribute("d", "M87.748,388.784c0.461,11.01,9.521,19.699,20.539,19.699h191.911c11.018,0,20.078-8.689,20.539-19.699l13.705-289.316 H74.043L87.748,388.784z M247.655,171.329c0-4.61,3.738-8.349,8.35-8.349h13.355c4.609,0,8.35,3.738,8.35,8.349v165.293 c0,4.611-3.738,8.349-8.35,8.349h-13.355c-4.61,0-8.35-3.736-8.35-8.349V171.329z M189.216,171.329 c0-4.61,3.738-8.349,8.349-8.349h13.355c4.609,0,8.349,3.738,8.349,8.349v165.293c0,4.611-3.737,8.349-8.349,8.349h-13.355 c-4.61,0-8.349-3.736-8.349-8.349V171.329L189.216,171.329z M130.775,171.329c0-4.61,3.738-8.349,8.349-8.349h13.356 c4.61,0,8.349,3.738,8.349,8.349v165.293c0,4.611-3.738,8.349-8.349,8.349h-13.356c-4.61,0-8.349-3.736-8.349-8.349V171.329z");
             path2.setAttribute("d", "M343.567,21.043h-88.535V4.305c0-2.377-1.927-4.305-4.305-4.305h-92.971c-2.377,0-4.304,1.928-4.304,4.305v16.737H64.916 c-7.125,0-12.9,5.776-12.9,12.901V74.47h304.451V33.944C356.467,26.819,350.692,21.043,343.567,21.043z");
             gElement.appendChild(path1);
             gElement.appendChild(path2);
             svgElement.appendChild(gElement);
-            button.classList.add('button');
-            button.innerText = "button";
-            button.setAttribute('data-index', index);
+            svgElement.setAttribute('data-index', index);
             index++;
             
             image.src = item.productImageUrl;
@@ -214,7 +212,7 @@ function renderCartItems() {
             amountContainer.appendChild(plusDiv);
             
             // Append each cell directly to the grid container
-            gridContainer.appendChild(button);
+            gridContainer.appendChild(svgElement);
             gridContainer.appendChild(image);
             gridContainer.appendChild(nameDiv);
             gridContainer.appendChild(priceDiv);
