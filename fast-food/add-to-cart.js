@@ -189,6 +189,20 @@ function renderCartItems() {
                 updateTotalPrice();
             });
 
+            svgElement.addEventListener('click', () => {
+                // Filtriraj niz i ukloni kliknuti proizvod
+                cartItems = cartItems.filter(cartItem => cartItem.productName !== item.productName);
+                
+                // Ažuriraj localStorage
+                updateCartInLocalStorage(cartItems);
+                
+                // Ažuriraj prikaz korpe
+                updateCartNumber();
+                updateTotalPrice();
+                renderCartItems(); // Ponovno renderovanje korpe
+            });
+
+
             // Append the quantity controls to the container
             amountContainer.appendChild(minusDiv);
             amountContainer.appendChild(input);
