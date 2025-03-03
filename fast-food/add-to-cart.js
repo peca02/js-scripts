@@ -56,6 +56,7 @@ Webflow.push(function () {
 
 document.querySelector('.ff-cart-display').addEventListener('click', (event) => {
     if (event.target.classList.contains('svg-wrapper')) {
+        console.log(kliknuto);
         let indexToRemove = event.target.getAttribute('data-index');
         if (indexToRemove !== null) {
             let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
