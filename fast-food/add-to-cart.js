@@ -195,7 +195,6 @@ function renderCartItems() {
             svgElement.addEventListener('click', (event) => {
             let indexToRemove = event.target.getAttribute('data-index');
             if (indexToRemove !== null) {
-                cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
                 cartItems.splice(indexToRemove, 1);
                 updateCartInLocalStorage(cartItems);
                 updateCartNumber();
