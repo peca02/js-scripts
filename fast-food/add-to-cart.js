@@ -55,9 +55,12 @@ Webflow.push(function () {
     }
 
 document.querySelector('.ff-cart-display').addEventListener('click', (event) => {
-    if (event.target.classList.contains('ff-cart-display-recycle-bin')) {
-        console.log("kliknuto");
-        let indexToRemove = event.target.getAttribute('data-index');
+    let svgElement = event.target.closest('.ff-cart-display-recycle-bin'); 
+    
+    if (svgElement) {  // Ako je kliknuto na SVG ili neki njegov child (path, g...)
+        console.log("Kliknuto!");
+        
+        let indexToRemove = svgElement.getAttribute('data-index');
         if (indexToRemove !== null) {
             let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
             cartItems.splice(indexToRemove, 1);
@@ -68,6 +71,7 @@ document.querySelector('.ff-cart-display').addEventListener('click', (event) => 
         }
     }
 });
+
 
     
     // Function to render cart items from localStorage
