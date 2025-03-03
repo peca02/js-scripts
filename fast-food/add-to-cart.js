@@ -55,7 +55,7 @@ Webflow.push(function () {
     }
 
 document.querySelector('.ff-cart-display').addEventListener('click', (event) => {
-    if (event.target.classList.contains('ff-cart-display-recycle-bin')) {
+    if (event.target.classList.contains('svg-wrapper')) {
         let indexToRemove = event.target.getAttribute('data-index');
         if (indexToRemove !== null) {
             let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
@@ -127,6 +127,7 @@ function renderCartItems() {
             const gElement = document.createElementNS(svgNS, "g");
             const path1 = document.createElementNS(svgNS, "path");
             const path2 = document.createElementNS(svgNS, "path");
+            const svgWrapperDiv = document.createElement('div');
             const image = document.createElement('img');
             const nameDiv = document.createElement('div');
             const priceDiv = document.createElement('div');
@@ -146,7 +147,9 @@ function renderCartItems() {
             gElement.appendChild(path1);
             gElement.appendChild(path2);
             svgElement.appendChild(gElement);
-            svgElement.setAttribute('data-index', index);
+            svgWrapperDiv.appendChild(svgElement);
+            svgWrapperDiv.classList.add('svg-wrapper');
+            svgWrapperDiv.setAttribute('data-index', index);
             index++;
             
             image.src = item.productImageUrl;
@@ -210,7 +213,7 @@ function renderCartItems() {
             amountContainer.appendChild(plusDiv);
             
             // Append each cell directly to the grid container
-            gridContainer.appendChild(svgElement);
+            gridContainer.appendChild(svgWrapperDiv);
             gridContainer.appendChild(image);
             gridContainer.appendChild(nameDiv);
             gridContainer.appendChild(priceDiv);
