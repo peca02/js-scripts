@@ -189,7 +189,6 @@ function renderCartItems() {
                 updateTotalPrice();
             });
 
-
             // Append the quantity controls to the container
             amountContainer.appendChild(minusDiv);
             amountContainer.appendChild(input);
