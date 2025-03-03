@@ -215,7 +215,7 @@ function renderCartItems() {
             amountContainer.appendChild(plusDiv);
             
             // Append each cell directly to the grid container
-            gridContainer.appendChild(svgElement);
+            gridContainer.appendChild(svgWrapperDiv);
             gridContainer.appendChild(image);
             gridContainer.appendChild(nameDiv);
             gridContainer.appendChild(priceDiv);
