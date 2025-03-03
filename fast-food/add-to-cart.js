@@ -208,18 +208,6 @@ function renderCartItems() {
                 updateTotalPrice();
             });
 
-            svgElement.addEventListener('click', (event) => {
-            let indexToRemove = event.target.getAttribute('data-index');
-            if (indexToRemove !== null) {
-                let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-                cartItems.splice(indexToRemove, 1);
-                updateCartInLocalStorage(cartItems);
-                updateCartNumber();
-                updateTotalPrice();
-                renderCartItems();
-                }
-            });
-
             // Append the quantity controls to the container
             amountContainer.appendChild(minusDiv);
             amountContainer.appendChild(input);
