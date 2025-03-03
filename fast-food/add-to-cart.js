@@ -54,23 +54,19 @@ Webflow.push(function () {
         }
     }
 
-function attachRemoveEventListeners() {
-    document.querySelectorAll('.ff-cart-display-recycle-bin').forEach((svgElement, index) => {
-        svgElement.replaceWith(svgElement.cloneNode(true)); // Uklanja stari event listener
-        svgElement = document.querySelectorAll('.ff-cart-display-recycle-bin')[index]; // Ponovo dohvatimo novi element
-        svgElement.addEventListener('click', (event) => {
-            let indexToRemove = event.target.getAttribute('data-index');
-            if (indexToRemove !== null) {
-                let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-                cartItems.splice(indexToRemove, 1);
-                updateCartInLocalStorage(cartItems);
-                updateCartNumber();
-                updateTotalPrice();
-                renderCartItems(); // Ponovno iscrtavanje korpe
-            }
-        });
-    });
-}
+document.querySelector('.ff-cart-display').addEventListener('click', (event) => {
+    if (event.target.classList.contains('ff-cart-display-recycle-bin')) {
+        let indexToRemove = event.target.getAttribute('data-index');
+        if (indexToRemove !== null) {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartItems.splice(indexToRemove, 1);
+            updateCartInLocalStorage(cartItems);
+            updateCartNumber();
+            updateTotalPrice();
+            renderCartItems();
+        }
+    }
+});
 
     
     // Function to render cart items from localStorage
@@ -221,7 +217,6 @@ function renderCartItems() {
             gridContainer.appendChild(amountContainer);
         });
     }
-attachRemoveEventListeners();
 }
 
 
