@@ -108,6 +108,7 @@ function renderCartItems() {
         gridContainer.appendChild(amountHeaderDiv);
 
         // Render each cart item directly into the grid container
+        let index = 0;
         cartItems.forEach(item => {
             const svgNS = "http://www.w3.org/2000/svg";
             const svgElement = document.createElementNS(svgNS, "svg");
@@ -133,6 +134,8 @@ function renderCartItems() {
             gElement.appendChild(path1);
             gElement.appendChild(path2);
             svgElement.appendChild(gElement);
+            svgElement.setAttribute('data-index', index);
+            index++;
             
             image.src = item.productImageUrl;
             image.alt = item.productName;
@@ -187,6 +190,18 @@ function renderCartItems() {
                 updateCartInLocalStorage(cartItems); // Update localStorage
                 updateCartNumber();
                 updateTotalPrice();
+            });
+
+            svgElement.addEventListener('click', (event) => {
+            let indexToRemove = event.target.getAttribute('data-index');
+            if (indexToRemove !== null) {
+                cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+                cartItems.splice(indexToRemove, 1);
+                updateCartInLocalStorage(cartItems);
+                updateCartNumber();
+                updateTotalPrice();
+                renderCartItems();
+                }
             });
 
             // Append the quantity controls to the container
