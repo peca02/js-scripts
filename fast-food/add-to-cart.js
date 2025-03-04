@@ -54,6 +54,7 @@ Webflow.push(function () {
         }
     }
 
+// remove specific item from cart
 document.querySelector('.ff-cart-display').addEventListener('click', (event) => {
     let svgElement = event.target.closest('.ff-cart-display-recycle-bin'); 
     
@@ -72,6 +73,13 @@ document.querySelector('.ff-cart-display').addEventListener('click', (event) => 
     }
 });
 
+// remove all items from cart    
+document.querySelector('.ff-clear-cart-button').addEventListener('click', () => {
+    localStorage.removeItem('cartItems'); 
+    updateCartNumber(); 
+    updateTotalPrice(); 
+    renderCartItems(); 
+});
 
     
     // Function to render cart items from localStorage
