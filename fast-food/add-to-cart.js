@@ -79,6 +79,7 @@ function renderCartItems() {
     const gridContainer = document.querySelector('.ff-cart-display-grid');
     const emptyCartMessage = document.querySelector('.ff-emply-cart');
     const totalPriceElement = document.querySelector('.ff-cart-display-total-price');
+    const clearCartButton = document.querySelector('.ff-clear-cart-button');
 
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
@@ -87,12 +88,13 @@ function renderCartItems() {
         gridContainer.style.display = 'none';
         emptyCartMessage.style.display = 'block';
         totalPriceElement.style.display = 'none'; // Hide total price when the cart is empty
+        clearCartButton.style.display = 'none';
     } else {
         // Display the grid and hide the empty cart message
         gridContainer.style.display = 'grid';
         emptyCartMessage.style.display = 'none';
         totalPriceElement.style.display = 'block'; // Show total price when the cart is not empty
-
+        clearCartButton.style.display = 'inline-block';
         // Clear the grid first before re-rendering the items
         gridContainer.innerHTML = ''; // Clear existing content
 
