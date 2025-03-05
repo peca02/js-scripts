@@ -40,6 +40,7 @@ document.querySelector('.ff-container').addEventListener('click', (event) => {
 function renderCartItems() {
     const emptyCartSection = document.querySelector('.ff-checkout-empty-cart-section');
     const orderSection = document.querySelector('#order-section');
+    const gridContainer = document.querySelector('.ff-cart-display-grid');
 
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
