@@ -47,12 +47,12 @@ function renderCartItems() {
 
     // If the cart is empty
     if (cartItems.length === 0) {
-        navbar.style.display = 'fixed';
+        navbar.style.position = 'fixed';
         emptyCartSection.style.display = 'flex';
         orderSection.style.display = 'none';
     } else {
         // Display the grid and hide the empty cart section
-        navbar.style.display = 'sticky';
+        navbar.style.position = 'sticky';
         emptyCartSection.style.display = 'none';
         orderSection.style.display = 'block';
         // Clear the grid first before re-rendering the items
