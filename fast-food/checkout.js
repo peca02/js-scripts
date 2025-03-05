@@ -38,18 +38,21 @@ document.querySelector('.ff-container').addEventListener('click', (event) => {
    
     // Function to render cart items from localStorage
 function renderCartItems() {
+    const navbar = document.querySelector('.ff-navbar');
     const emptyCartSection = document.querySelector('.ff-checkout-empty-cart-section');
     const orderSection = document.querySelector('#order-section');
-    const gridContainer = document.querySelector('.ff-cart-display-grid');
+    const gridContainer = document.querySelector('.ff-checkout-grid');
 
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
     // If the cart is empty
     if (cartItems.length === 0) {
+        navbar.style.display = 'fixed';
         emptyCartSection.style.display = 'flex';
         orderSection.style.display = 'none';
     } else {
         // Display the grid and hide the empty cart section
+        navbar.style.display = 'sticky';
         emptyCartSection.style.display = 'none';
         orderSection.style.display = 'block';
         // Clear the grid first before re-rendering the items
