@@ -19,7 +19,7 @@ Webflow.push(function () {
     }
 
 // remove specific item from cart
-document.querySelector('.ff-container').addEventListener('click', (event) => {
+document.addEventListener('click', (event) => {
     let svgElement = event.target.closest('.ff-cart-display-recycle-bin'); 
     
     if (svgElement) {  // Ako je kliknuto na SVG ili neki njegov child (path, g...)
