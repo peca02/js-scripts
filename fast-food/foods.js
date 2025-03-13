@@ -279,7 +279,7 @@ function renderCartItems() {
             });
         }
 
-        / Get the product image URL
+        // Get the product image URL
         const productImageElement = document.querySelector('.ff-food-item-image');
        
         // Validate and sanitize product details
