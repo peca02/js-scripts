@@ -244,82 +244,55 @@ function renderCartItems() {
     function updateCartInLocalStorage(cartItems) {
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
     }
-
-    // Function to sanitize text input
-    function sanitizeInput(input) {
-        const div = document.createElement('div');
-        div.textContent = input;
-        return div.innerHTML;
-    }
-
-    // Function to validate price format
-    function isValidPrice(price) {
-        return /^\$\d+(\.\d{2})?$/.test(price);
-    }
     
-   addToCartButton.addEventListener('click', function () {
-        // Validate and sanitize amount
+    addToCartButton.addEventListener('click', function () {
         const amount = parseInt(amountInput.value, 10);
-        if (isNaN(amount) || amount <= 0) {
-            alert('Please enter a valid amount.');
-            return;
-        }
-    
         let sideDishes = [];
-    
-        // Check if any side dishes are selected and validate and sanitize side dishes
+
+        // Check if any side dishes are selected
         if (sideDishDiv && sideDishDiv.innerHTML.trim() !== "") {
             const sideDishCheckboxes = sideDishDiv.querySelectorAll('input[type="checkbox"]:checked');
             sideDishCheckboxes.forEach(function (checkbox) {
-                const sanitizedValue = sanitizeInput(checkbox.value);
-                // Validate that the value is from the allowed side dishes (pseudo-validation)
-                if (sanitizedValue && sanitizedValue.length <= 50) {
-                    sideDishes.push(sanitizedValue);
-                }
+                sideDishes.push(checkbox.value);
             });
         }
 
         // Get the product image URL
         const productImageElement = document.querySelector('.ff-food-item-image');
-       
-        // Validate and sanitize product details
-        const sanitizedSerialNumber = sanitizeInput(serialNumber);
-        const sanitizedProductName = sanitizeInput(productName);
-        const sanitizedProductImageUrl = sanitizeInput(getImageUrl(productImageElement));
-    
-        // Validate price format
-        if (!isValidPrice(productPrice)) {
-            alert('Invalid price format.');
-            return;
-        }
-    
+        const productImageUrl = getImageUrl(productImageElement); // Get image URL
+        
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    
+
         // Check if the item is already in the cart
         let existingItem = cartItems.find(item => 
-            item.productSerialNumber === sanitizedSerialNumber && 
+            item.productSerialNumber === serialNumber && 
             JSON.stringify(item.sideDishes || []) === JSON.stringify(sideDishes)
         );
-    
+
         if (existingItem) {
+            // If the item exists, increase the amount
             existingItem.amount += amount;
         } else {
+            // If the item is new, add it to the cart
             let newItem = {
-                productSerialNumber: sanitizedSerialNumber,
-                productName: sanitizedProductName,
+                productSerialNumber: serialNumber,
+                productName: productName,
                 productPrice: productPrice,
                 amount: amount,
-                productImageUrl: sanitizedProductImageUrl,
+                productImageUrl: productImageUrl,
                 sideDishes: sideDishes
             };
             cartItems.push(newItem);
         }
-    
+
         // Save updated cart items to localStorage
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    
+
+        // Update cart number and total price
         updateCartNumber();
         updateTotalPrice();
+
+        // Re-render cart items
         renderCartItems();
     });
 
