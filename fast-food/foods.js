@@ -9,6 +9,7 @@ Webflow.push(function () {
     const productName = document.querySelector('.ff-heading-1-colection-food-item').innerText;
     let productPrice = document.querySelectorAll('.ff-heading-2-colection-food-item')[1].innerText;
     productPrice = `$${productPrice}`;
+    const productImageElement = document.querySelector('.ff-food-item-image');
 
     // Function to get image URL from background-image style
     function getImageUrl(element) {
@@ -279,8 +280,7 @@ function renderCartItems() {
             });
         }
 
-        // Get the product image URL
-        const productImageElement = document.querySelector('.ff-food-item-image');
+       
        
         // Validate and sanitize product details
         const sanitizedSerialNumber = sanitizeInput(serialNumber);
