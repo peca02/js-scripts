@@ -260,10 +260,10 @@ function renderCartItems() {
    addToCartButton.addEventListener('click', function () {
         // Validate and sanitize amount
         const amount = parseInt(amountInput.value, 10);
-        if (!amount.checkValidity()) {
-        amount.reportValidity(); // Prikazuje default poruku browsera
-        return;
-    }
+        if (isNaN(amount) || amount <= 0) {
+            alert('Please enter a valid amount.');
+            return;
+        }
     
         let sideDishes = [];
     
