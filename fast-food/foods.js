@@ -262,7 +262,7 @@ function renderCartItems() {
         // Validate and sanitize amount
         const amount = parseInt(amountInput.value, 10);
         if (isNaN(amount) || amount <= 0) {
-            alert('Please enter a valid amount.');
+            amount.reportValidity();
             return;
         }
     
