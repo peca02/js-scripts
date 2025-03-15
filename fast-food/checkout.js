@@ -191,6 +191,31 @@ function renderCartItems() {
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
     }
     
+    document.querySelector('#ff-order-form').addEventListener('submit', async (e) => {
+      e.preventDefault(); // Sprečava Webflow da šalje formu na svoj server.
+    
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+    
+      try {
+        const response = await fetch('http://ordering-production.up.railway.app/order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+    
+        if (response.ok) {
+          alert('Uspešno naručeno!');
+        } else {
+          alert('Došlo je do greške.');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Greška pri slanju narudžbine.');
+      }
+    });
+
+    
     // Update total price and render items when the page loads
     updateTotalPrice();
     renderCartItems();
