@@ -198,7 +198,7 @@ function renderCartItems() {
       const data = Object.fromEntries(formData.entries());
     
       try {
-        const response = await fetch('http://ordering-production.up.railway.app/order', {
+        const response = await fetch('https://ordering-production.up.railway.app/order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
