@@ -229,7 +229,7 @@ function renderCartItems() {
         }
         else 
         {
-          nameInput.setCustomValidity(""); // Resetuje poruku ako je validno
+          document.querySelector('#ff-name').setCustomValidity(""); // Resetuje poruku ako je validno
         }
           
     
