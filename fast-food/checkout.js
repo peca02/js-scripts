@@ -223,22 +223,22 @@ function renderCartItems() {
     
         // Validate inputs
         if (!isValidName(name)) {
-            document.querySelector('#name').reportValidity();
+            document.querySelector('#ff-name').reportValidity();
             return;
         }
     
         if (!isValidName(surname)) {
-            document.querySelector('#surname').reportValidity();
+            document.querySelector('#ff-surname').reportValidity();
             return;
         }
     
         if (!isValidAddress(address)) {
-            document.querySelector('#address').reportValidity();
+            document.querySelector('#ff-address').reportValidity();
             return;
         }
     
         if (!isValidPhone(phone)) {
-            document.querySelector('#phone').reportValidity();
+            document.querySelector('#ff-phone').reportValidity();
             return;
         }
     
