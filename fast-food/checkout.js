@@ -230,6 +230,7 @@ function renderCartItems() {
         else 
         {
           document.querySelector('#ff-name').setCustomValidity(""); // Resetuje poruku ako je validno
+          document.querySelector('#ff-name').reportValidity(); // Ovo bi trebalo da osveži poruku
         }
           
     
