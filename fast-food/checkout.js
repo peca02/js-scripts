@@ -190,29 +190,78 @@ function renderCartItems() {
     function updateCartInLocalStorage(cartItems) {
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
     }
+
+    // Sanitize input to prevent XSS
+    function sanitizeInput(input) {
+        const div = document.createElement('div');
+        div.textContent = input;
+        return div.innerHTML;
+    }
     
+    // Strict validation rules
+    function isValidName(name) {
+        return /^[A-Za-zČĆŽŠĐčćžšđ\s]{2,50}$/.test(name); // Samo slova i razmak, min 2 karaktera
+    }
+    
+    function isValidAddress(address) {
+        return /^[A-Za-z0-9čćžšđČĆŽŠĐ\s,.-]{5,100}$/.test(address); // Slova, brojevi i osnovna interpunkcija
+    }
+    
+    function isValidPhone(phone) {
+        return /^[0-9]{6,15}$/.test(phone); // Samo brojevi, minimalno 6 cifara
+    }
+
+  
     document.querySelector('#ff-order-form').addEventListener('submit', async (e) => {
-      e.preventDefault(); // Sprečava Webflow da šalje formu na svoj server.
+        e.preventDefault();
     
-      const formData = new FormData(e.target);
-      const data = Object.fromEntries(formData.entries());
+        // Grab and sanitize inputs
+        const name = sanitizeInput(document.querySelector('#name').value.trim());
+        const surname = sanitizeInput(document.querySelector('#surname').value.trim());
+        const address = sanitizeInput(document.querySelector('#address').value.trim());
+        const phone = sanitizeInput(document.querySelector('#phone').value.trim());
     
-      try {
-        const response = await fetch('https://ordering-production.up.railway.app/order', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-    
-        if (response.ok) {
-          alert('Uspešno naručeno!');
-        } else {
-          alert('Došlo je do greške.');
+        // Validate inputs
+        if (!isValidName(name)) {
+            document.querySelector('#name').reportValidity();
+            return;
         }
-      } catch (error) {
-        console.error(error);
-        alert('Greška pri slanju narudžbine.');
-      }
+    
+        if (!isValidName(surname)) {
+            document.querySelector('#surname').reportValidity();
+            return;
+        }
+    
+        if (!isValidAddress(address)) {
+            document.querySelector('#address').reportValidity();
+            return;
+        }
+    
+        if (!isValidPhone(phone)) {
+            document.querySelector('#phone').reportValidity();
+            return;
+        }
+    
+        // Ako sve prođe, šaljemo podatke (pretpostavljamo da API već postoji)
+        const data = { name, surname, address, phone };
+    
+        try {
+            const response = await fetch('https://ordering-production.up.railway.app/order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+    
+            if (response.ok) {
+                alert('Narudžbina uspešno poslata!');
+                form.reset(); // Resetuje formu nakon uspešnog slanja
+            } else {
+                alert('Greška pri slanju narudžbine.');
+            }
+        } catch (error) {
+            console.error('Fetch error:', error);
+            alert('Greška pri slanju narudžbine.');
+        }
     });
 
     
