@@ -223,9 +223,15 @@ function renderCartItems() {
     
         // Validate inputs
         if (!isValidName(name)) {
+            document.querySelector('#ff-name').setCustomValidity("Unesite ispravno ime (samo slova, min. 2 karaktera).");
             document.querySelector('#ff-name').reportValidity();
             return;
         }
+        else 
+        {
+          nameInput.setCustomValidity(""); // Resetuje poruku ako je validno
+        }
+          
     
         if (!isValidName(surname)) {
             document.querySelector('#ff-surname').reportValidity();
