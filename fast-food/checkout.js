@@ -223,16 +223,9 @@ function renderCartItems() {
     
         // Validate inputs
         if (!isValidName(name)) {
-            document.querySelector('#ff-name').setCustomValidity("Unesite ispravno ime (samo slova, min. 2 karaktera).");
-            document.querySelector('#ff-name').reportValidity();
+            alert("Dont do that");
             return;
         }
-        else 
-        {
-          document.querySelector('#ff-name').setCustomValidity(""); // Resetuje poruku ako je validno
-          document.querySelector('#ff-name').reportValidity(); // Ovo bi trebalo da osveži poruku
-        }
-          
     
         if (!isValidName(surname)) {
             document.querySelector('#ff-surname').reportValidity();
