@@ -228,17 +228,17 @@ function renderCartItems() {
         }
     
         if (!isValidName(surname)) {
-            document.querySelector('#ff-surname').reportValidity();
+            alert("Dont do that");
             return;
         }
     
         if (!isValidAddress(address)) {
-            document.querySelector('#ff-address').reportValidity();
+            alert("Dont do that");
             return;
         }
     
         if (!isValidPhone(phone)) {
-            document.querySelector('#ff-phone').reportValidity();
+            alert("Dont do that");
             return;
         }
     
