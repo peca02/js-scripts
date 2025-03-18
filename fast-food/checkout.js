@@ -254,7 +254,7 @@ function renderCartItems() {
     
             if (response.ok) {
                 alert('Narudžbina uspešno poslata!');
-                form.reset(); // Resetuje formu nakon uspešnog slanja
+                document.querySelector('#ff-order-form').reset(); // Resetuje formu nakon uspešnog slanja
             } else {
                 alert('Greška pri slanju narudžbine.');
             }
