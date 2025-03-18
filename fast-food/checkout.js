@@ -216,10 +216,10 @@ function renderCartItems() {
         e.preventDefault();
     
         // Grab and sanitize inputs
-        const name = sanitizeInput(document.querySelector('#name').value.trim());
-        const surname = sanitizeInput(document.querySelector('#surname').value.trim());
-        const address = sanitizeInput(document.querySelector('#address').value.trim());
-        const phone = sanitizeInput(document.querySelector('#phone').value.trim());
+        const name = sanitizeInput(document.querySelector('#ff-name').value.trim());
+        const surname = sanitizeInput(document.querySelector('#ff-surname').value.trim());
+        const address = sanitizeInput(document.querySelector('#ff-address').value.trim());
+        const phone = sanitizeInput(document.querySelector('#ff-phone').value.trim());
     
         // Validate inputs
         if (!isValidName(name)) {
