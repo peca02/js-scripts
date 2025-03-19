@@ -56,7 +56,7 @@ function validateAndSanitizeCart(cartItems) {
         const amount = validateAmount(item.amount) ? item.amount : null;
         const sideDishes = Array.isArray(item.sideDishes) ? item.sideDishes.map(dish => sanitizeInput(dish)) : null;
 
-        if (!serialNumber || amount === null || sideDishes === null) {
+        if (!productSerialNumber || amount === null || sideDishes === null) {
             isValid = false;
         }
 
