@@ -52,7 +52,7 @@ function validateAndSanitizeCart(cartItems) {
     let isValid = true;
 
     const sanitizedCart = cartItems.map(item => {
-        const serialNumber = sanitizeInput(item.productSerialNumber);
+        const productSerialNumber = sanitizeInput(item.productSerialNumber);
         const amount = validateAmount(item.amount) ? item.amount : null;
         const sideDishes = Array.isArray(item.sideDishes) ? item.sideDishes.map(dish => sanitizeInput(dish)) : null;
 
@@ -60,7 +60,7 @@ function validateAndSanitizeCart(cartItems) {
             isValid = false;
         }
 
-        return { serialNumber, amount, sideDishes };
+        return { productSerialNumber, amount, sideDishes };
     });
 
     if (!isValid) {
