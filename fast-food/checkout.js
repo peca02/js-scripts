@@ -67,7 +67,6 @@ function validateAndSanitizeCart(cartItems) {
         localStorage.removeItem("cart");
         alert("Greška u podacima. Resetujemo korpu...");
         location.reload();
-        return null; // Ne šaljemo zahtev!
     }
 
     return sanitizedCart;
