@@ -35,7 +35,44 @@ document.addEventListener('click', (event) => {
         }
     }
 });
-   
+
+
+  function validateAmount(amount) {
+      return Number.isInteger(amount) && amount > 0;
+  }
+
+  // Sanitize input to prevent XSS
+    function sanitizeInput(input) {
+        const div = document.createElement('div');
+        div.textContent = input;
+        return div.innerHTML;
+    }
+  
+function validateAndSanitizeCart(cartItems) {
+    let isValid = true;
+
+    const sanitizedCart = cartItems.map(item => {
+        const serialNumber = sanitizeInput(item.productSerialNumber);
+        const amount = validateAmount(item.amount) ? item.amount : null;
+        const sideDishes = Array.isArray(item.sideDishes) ? item.sideDishes.map(dish => sanitizeInput(dish)) : null;
+
+        if (!serialNumber || amount === null || sideDishes === null) {
+            isValid = false;
+        }
+
+        return { serialNumber, amount, sideDishes };
+    });
+
+    if (!isValid) {
+        alert("Greška u podacima. Resetujemo korpu...");
+        localStorage.removeItem("cart");
+        location.reload();
+        return null; // Ne šaljemo zahtev!
+    }
+
+    return sanitizedCart;
+}
+  
     // Function to render cart items from localStorage
 function renderCartItems() {
     const navbar = document.querySelector('.ff-navbar');
@@ -44,6 +81,7 @@ function renderCartItems() {
     const gridContainer = document.querySelector('.ff-checkout-grid');
 
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const validatedCartItems = validateAndSanitizeCart(cartItems);
 
     // If the cart is empty
     if (cartItems.length === 0) {
@@ -56,8 +94,8 @@ function renderCartItems() {
         emptyCartSection.style.display = 'none';
         orderSection.style.display = 'block';
       
-        // server begin
-        let requestData = cartItems.map(item => ({
+        // SERVER BEGINS
+        let requestData = validatedCartItems.map(item => ({
                 serialNumber: item.productSerialNumber, 
                 amount: item.amount, 
                 sideDishes: item.sideDishes || [] // Ako nema priloga, šaljemo prazan niz
@@ -85,7 +123,7 @@ function renderCartItems() {
             console.error("Greška pri komunikaciji sa serverom:", error);
         });
         
-        // server ends
+        // SERVER ENDS
       
         // Clear the grid first before re-rendering the items
         gridContainer.innerHTML = ''; // Clear existing content
@@ -223,13 +261,6 @@ function renderCartItems() {
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
     }
 
-    // Sanitize input to prevent XSS
-    function sanitizeInput(input) {
-        const div = document.createElement('div');
-        div.textContent = input;
-        return div.innerHTML;
-    }
-    
     // Strict validation rules
     function isValidName(name) {
         return /^[A-Za-zČĆŽŠĐčćžšđ\s]{2,50}$/.test(name); // Samo slova i razmak, min 2 karaktera
