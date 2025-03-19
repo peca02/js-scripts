@@ -55,6 +55,38 @@ function renderCartItems() {
         navbar.style.position = 'sticky';
         emptyCartSection.style.display = 'none';
         orderSection.style.display = 'block';
+      
+        // server begin
+        let requestData = cartItems.map(item => ({
+                serialNumber: item.productSerialNumber, 
+                amount: item.amount, 
+                sideDishes: item.sideDishes || [] // Ako nema priloga, šaljemo prazan niz
+            }));
+
+        // Šaljemo podatke na backend
+        fetch("https://ordering-production.up.railway.app/order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cart: requestData })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                // Ako server vraća grešku, brišemo korpu i prikazujemo upozorenje
+                alert(data.error);
+                localStorage.removeItem("cartItems");
+                location.reload(); // Osvježavamo stranicu da korisnik vidi praznu korpu
+            } else {
+                // Ako je sve okej, prikazujemo ukupnu cenu
+                document.querySelector('.ff-cart-display-total-price').innerText = `$${data.totalPrice}`;
+            }
+        })
+        .catch(error => {
+            console.error("Greška pri komunikaciji sa serverom:", error);
+        });
+        
+        // server ends
+      
         // Clear the grid first before re-rendering the items
         gridContainer.innerHTML = ''; // Clear existing content
 
@@ -266,6 +298,5 @@ function renderCartItems() {
 
     
     // Update total price and render items when the page loads
-    updateTotalPrice();
     renderCartItems();
 });
