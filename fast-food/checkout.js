@@ -64,8 +64,8 @@ function validateAndSanitizeCart(cartItems) {
     });
 
     if (!isValid) {
-        alert("Greška u podacima. Resetujemo korpu...");
         localStorage.removeItem("cart");
+        alert("Greška u podacima. Resetujemo korpu...");
         location.reload();
         return null; // Ne šaljemo zahtev!
     }
