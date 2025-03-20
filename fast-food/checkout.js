@@ -93,6 +93,12 @@ function renderCartItems() {
         navbar.style.position = 'sticky';
         emptyCartSection.style.display = 'none';
         orderSection.style.display = 'block';
+
+        let requestData = validatedCartItems.map(item => ({
+            serialNumber: item.productSerialNumber, 
+            amount: item.amount, 
+            sideDishes: item.sideDishes || [] // Ako nema priloga, šaljemo prazan niz
+        }));
       
         const cachedCart = localStorage.getItem("cachedCart");
         const cachedPrice = localStorage.getItem("cachedPrice");
@@ -104,11 +110,6 @@ function renderCartItems() {
           }
         else {
            // SERVER BEGINS
-          let requestData = validatedCartItems.map(item => ({
-                  serialNumber: item.productSerialNumber, 
-                  amount: item.amount, 
-                  sideDishes: item.sideDishes || [] // Ako nema priloga, šaljemo prazan niz
-              }));
     
           // Šaljemo podatke na backend
           fetch("https://ordering-production.up.railway.app/cart-validate", {
