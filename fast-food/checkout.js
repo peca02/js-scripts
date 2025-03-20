@@ -95,6 +95,7 @@ function renderCartItems() {
         orderSection.style.display = 'block';
       
         // SERVER BEGINS
+      
         let requestData = validatedCartItems.map(item => ({
                 serialNumber: item.productSerialNumber, 
                 amount: item.amount, 
@@ -102,7 +103,7 @@ function renderCartItems() {
             }));
 
         // Šaljemo podatke na backend
-        fetch("https://ordering-production.up.railway.app/order", {
+        fetch("https://ordering-production.up.railway.app/cart-validate", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ cart: requestData })
