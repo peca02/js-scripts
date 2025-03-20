@@ -94,36 +94,50 @@ function renderCartItems() {
         emptyCartSection.style.display = 'none';
         orderSection.style.display = 'block';
       
-        // SERVER BEGINS
+        const cachedCart = localStorage.getItem("cachedCart");
+        const cachedPrice = localStorage.getItem("cachedPrice");
       
-        let requestData = validatedCartItems.map(item => ({
-                serialNumber: item.productSerialNumber, 
-                amount: item.amount, 
-                sideDishes: item.sideDishes || [] // Ako nema priloga, šaljemo prazan niz
-            }));
+        // Provera da li postoji keširana cena i korpa
+        if (cachedCart && cachedPrice && JSON.stringify(requestData) === cachedCart) {
+            // Ako je korpa ista kao keširana, koristimo keširanu cenu
+            document.querySelector('.ff-cart-display-total-price').innerText = `Total price: $${parseFloat(cachedPrice).toFixed(2)}`;
+          }
+        else {
+           // SERVER BEGINS
+          let requestData = validatedCartItems.map(item => ({
+                  serialNumber: item.productSerialNumber, 
+                  amount: item.amount, 
+                  sideDishes: item.sideDishes || [] // Ako nema priloga, šaljemo prazan niz
+              }));
+    
+          // Šaljemo podatke na backend
+          fetch("https://ordering-production.up.railway.app/cart-validate", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ cart: requestData })
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.error) {
+                  // Ako server vraća grešku, brišemo korpu i prikazujemo upozorenje
+                  alert(data.error);
+                  localStorage.removeItem("cartItems");
+                  localStorage.removeItem("cachedCart");
+                  localStorage.removeItem("cachedPrice");
+                  location.reload(); // Osvježavamo stranicu da korisnik vidi praznu korpu
+              } else {
+                  // Ako je sve okej, prikazujemo ukupnu cenu
+                  document.querySelector('.ff-cart-display-total-price').innerText = `Total price: $${data.totalPrice.toFixed(2)}`;
 
-        // Šaljemo podatke na backend
-        fetch("https://ordering-production.up.railway.app/cart-validate", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ cart: requestData })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                // Ako server vraća grešku, brišemo korpu i prikazujemo upozorenje
-                alert(data.error);
-                localStorage.removeItem("cartItems");
-                location.reload(); // Osvježavamo stranicu da korisnik vidi praznu korpu
-            } else {
-                // Ako je sve okej, prikazujemo ukupnu cenu
-                document.querySelector('.ff-cart-display-total-price').innerText = `Total price: $${data.totalPrice.toFixed(2)}`;
-            }
-        })
-        .catch(error => {
-            console.error("Greška pri komunikaciji sa serverom:", error);
-        });
-        
+                  // Sačuvamo nove podatke u kešu
+                  localStorage.setItem("cachedCart", JSON.stringify(requestData));
+                  localStorage.setItem("cachedPrice", data.totalPrice);
+              }
+          })
+          .catch(error => {
+              console.error("Greška pri komunikaciji sa serverom:", error);
+          });
+      }
         // SERVER ENDS
       
         // Clear the grid first before re-rendering the items
