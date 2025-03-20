@@ -116,7 +116,7 @@ function renderCartItems() {
                 location.reload(); // Osvježavamo stranicu da korisnik vidi praznu korpu
             } else {
                 // Ako je sve okej, prikazujemo ukupnu cenu
-                document.querySelector('.ff-cart-display-total-price').innerText = `$${data.totalPrice}`;
+                document.querySelector('.ff-cart-display-total-price').innerText = `Total price: $${data.totalPrice.toFixed(2)}`;
             }
         })
         .catch(error => {
@@ -329,5 +329,6 @@ function renderCartItems() {
 
     
     // Update total price and render items when the page loads
+    updateTotalPrice()
     renderCartItems();
 });
