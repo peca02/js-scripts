@@ -305,6 +305,7 @@ function renderCartItems() {
         if (!isValidName(name) || !isValidName(surname) || !isValidAddress(address) || !isValidPhone(phone)) {
             alert("Dont do that");
             return;
+        }
     
         // Ako sve prođe, šaljemo podatke
         const data = { name, surname, address, phone };
