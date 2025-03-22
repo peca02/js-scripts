@@ -115,7 +115,8 @@ function renderCartItems() {
           fetch("https://ordering-production.up.railway.app/cart-validate", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ cart: requestData })
+              body: JSON.stringify({ cart: requestData }),
+              credentials: "include" // Omogućava slanje session cookie-ja
           })
           .then(response => response.json())
           .then(data => {
