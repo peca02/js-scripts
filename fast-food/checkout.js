@@ -115,8 +115,7 @@ function renderCartItems() {
           fetch("https://ordering-production.up.railway.app/cart-validate", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ cart: requestData }),
-              credentials: "include" // Omogućava slanje session cookie-ja
+              body: JSON.stringify({ cart: requestData })
           })
           .then(response => response.json())
           .then(data => {
@@ -302,12 +301,27 @@ function renderCartItems() {
         const phone = sanitizeInput(document.querySelector('#ff-phone').value.trim());
     
         // Validate inputs
-        if (!isValidName(name) || !isValidName(surname) || !isValidAddress(address) || !isValidPhone(phone)) {
+        if (!isValidName(name)) {
             alert("Dont do that");
             return;
         }
     
-        // Ako sve prođe, šaljemo podatke
+        if (!isValidName(surname)) {
+            alert("Dont do that");
+            return;
+        }
+    
+        if (!isValidAddress(address)) {
+            alert("Dont do that");
+            return;
+        }
+    
+        if (!isValidPhone(phone)) {
+            alert("Dont do that");
+            return;
+        }
+    
+        // Ako sve prođe, šaljemo podatke (pretpostavljamo da API već postoji)
         const data = { name, surname, address, phone };
     
         try {
@@ -315,26 +329,13 @@ function renderCartItems() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
-                credentials: "include" // Omogućava slanje session cookie-ja
             });
-
-            const result = await response.json();
-          
+    
             if (response.ok) {
                 alert('Narudžbina uspešno poslata!');
-                localStorage.removeItem("cartItems");
-                localStorage.removeItem("cachedCart");
-                localStorage.removeItem("cachedPrice");
-                document.querySelector('#ff-order-form').reset(); // Resetuje formu
+                document.querySelector('#ff-order-form').reset(); // Resetuje formu nakon uspešnog slanja
             } else {
-                alert(result.error || 'Greška pri slanju narudžbine.');
-                
-                // Ako je greška zbog nevalidne sesije, brišemo localStorage podatke
-                if (result.error === "Sesija nije validna ili je istekla.") {
-                    localStorage.removeItem("cartItems");
-                    localStorage.removeItem("cachedCart");
-                    localStorage.removeItem("cachedPrice");
-                }
+                alert('Greška pri slanju narudžbine.');
             }
         } catch (error) {
             console.error('Fetch error:', error);
