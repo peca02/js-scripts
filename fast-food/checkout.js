@@ -115,6 +115,7 @@ function renderCartItems() {
           fetch("https://ordering-production.up.railway.app/cart-validate", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
+              credentials: "include",
               body: JSON.stringify({ cart: requestData })
           })
           .then(response => response.json())
@@ -324,16 +325,17 @@ function renderCartItems() {
         // Ako sve prođe, šaljemo podatke (pretpostavljamo da API već postoji)
         const data = { name, surname, address, phone };
     
-        try {
+       try {
             const response = await fetch('https://ordering-production.up.railway.app/order', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
                 body: JSON.stringify(data),
             });
     
             if (response.ok) {
                 alert('Narudžbina uspešno poslata!');
-                document.querySelector('#ff-order-form').reset(); // Resetuje formu nakon uspešnog slanja
+                document.querySelector('#ff-order-form').reset();
             } else {
                 alert('Greška pri slanju narudžbine.');
             }
