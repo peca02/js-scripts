@@ -327,14 +327,13 @@ function renderCartItems() {
                 localStorage.removeItem("cachedPrice");
                 document.querySelector('#ff-order-form').reset(); // Resetuje formu
             } else {
-                if (result.error === "Cart not validated") {
-                    alert("Greška: korpa nije validirana.");
+                alert(result.error || 'Greška pri slanju narudžbine.');
+                
+                // Ako je greška zbog nevalidne sesije, brišemo localStorage podatke
+                if (result.error === "Sesija nije validna ili je istekla.") {
                     localStorage.removeItem("cartItems");
                     localStorage.removeItem("cachedCart");
                     localStorage.removeItem("cachedPrice");
-                    location.reload(); // Osvežava stranicu
-                } else {
-                    alert('Greška pri slanju narudžbine.');
                 }
             }
         } catch (error) {
