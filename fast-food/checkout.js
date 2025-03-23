@@ -336,12 +336,24 @@ function renderCartItems() {
             if (response.ok) {
                 alert('Narudžbina uspešno poslata!');
                 document.querySelector('#ff-order-form').reset();
+                localStorage.removeItem("cartItems");
+                localStorage.removeItem("cachedCart");
+                localStorage.removeItem("cachedPrice");
+                location.reload();
             } else {
                 alert('Greška pri slanju narudžbine.');
+                localStorage.removeItem("cartItems");
+                localStorage.removeItem("cachedCart");
+                localStorage.removeItem("cachedPrice");
+                location.reload();
             }
         } catch (error) {
             console.error('Fetch error:', error);
             alert('Greška pri slanju narudžbine.');
+            localStorage.removeItem("cartItems");
+            localStorage.removeItem("cachedCart");
+            localStorage.removeItem("cachedPrice");
+            location.reload();
         }
     });
 
