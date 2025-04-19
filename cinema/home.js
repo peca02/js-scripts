@@ -33,6 +33,8 @@ if (error) {
     console.error("Greška pri dohvatanju filmova:", error);
   }
 
+const moviesContainer = document.querySelector(".c-container-for-listing-movies.w-container");
+
   movies.forEach((movie) => {
     const movieDiv = document.createElement("div");
 
@@ -48,5 +50,5 @@ if (error) {
     movieDiv.appendChild(image);
     movieDiv.appendChild(title);
 
-    container.appendChild(movieDiv);
+    moviesContainer.appendChild(movieDiv);
   });
