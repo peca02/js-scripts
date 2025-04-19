@@ -29,4 +29,25 @@ let { data: movies, error } = await supabase
   `)
   .gte('screenings.start_time', today);
 
-console.log(movies)
+if (error) {
+    console.error("Greška pri dohvatanju filmova:", error);
+    return;
+  }
+
+  movies.forEach((movie) => {
+    const movieDiv = document.createElement("div");
+
+    const image = document.createElement("img");
+    image.src = movie.poster_url;
+    image.alt = movie.title;
+    image.className = "c-movie-listing-image";
+
+    const title = document.createElement("h2");
+    title.className = "c-title-for-listed-movies";
+    title.textContent = movie.title;
+
+    movieDiv.appendChild(image);
+    movieDiv.appendChild(title);
+
+    container.appendChild(movieDiv);
+  });
