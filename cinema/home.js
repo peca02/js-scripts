@@ -31,7 +31,6 @@ let { data: movies, error } = await supabase
 
 if (error) {
     console.error("Greška pri dohvatanju filmova:", error);
-    return;
   }
 
   movies.forEach((movie) => {
