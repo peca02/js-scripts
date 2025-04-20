@@ -130,21 +130,11 @@ cinemaElements.forEach(el => {
     // 3. Prikaži filtrirane filmove
     renderMovies(filteredMovies);
 
-    // 4. Ručno zatvori dropdown
-    const dropdown = el.closest('.w-dropdown');
-    const toggle = dropdown.querySelector('.w-dropdown-toggle');
-    const list = dropdown.querySelector('.w-dropdown-list');
-
-    toggle.classList.remove('w--open');
-    list.classList.remove('w--open');
-    dropdown.style.zIndex = '';
-
-    // 5. 🔧 Resetuj Webflow-ov interni state — triggeruj klik da se "sinhronizuje"
-    setTimeout(() => {
-      toggle.dispatchEvent(new Event('click'));
-    }, 10);
+    // 4. Triggeruj Webflow dropdown zatvaranje
+    document.body.click(); // Ovo simulira klik van dropdowna i Webflow ga sam zatvara
   });
 });
+
 
 
 
