@@ -139,6 +139,7 @@ cinemaElements.forEach(el => {
     list.classList.remove('w--open');
     dropdown.style.zIndex = ''; // resetuje z-index ako je bio postavljen
     toggle.click();
+    toggle.click();
   });
 });
 
