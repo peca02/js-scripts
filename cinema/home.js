@@ -5,7 +5,11 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 
 const supabase = createClient(supabaseUrl, supabaseKey)
 
+// Sve gore je povezivanje sa Supabase
+
 const today = new Date().toISOString();
+
+// Prikupljanje filmova i ostalih podataka
 
 let { data: movies, error } = await supabase
   .from('movies')
@@ -33,6 +37,8 @@ if (error) {
     console.error("Greška pri dohvatanju filmova:", error);
   }
 
+// Renderovanje filmova
+
 const moviesContainer = document.querySelector(".c-container-for-listing-movies");
 
   movies.forEach((movie) => {
@@ -52,3 +58,32 @@ const moviesContainer = document.querySelector(".c-container-for-listing-movies"
 
     moviesContainer.appendChild(movieDiv);
   });
+
+
+// 1. Izvuci unikatne bioskope
+const cinemasSet = new Set();
+
+movies.forEach(movie => {
+  movie.screenings.forEach(screening => {
+    const cinemaName = screening.halls?.cinemas?.name;
+    if (cinemaName) {
+      cinemasSet.add(cinemaName);
+    }
+  });
+});
+
+const uniqueCinemas = Array.from(cinemasSet);
+
+// 2. Ubaci u dropdown
+const dropdownList = document.querySelector('.w-dropdown-list');
+dropdownList.innerHTML = '';
+
+uniqueCinemas.forEach(cinema => {
+  const div = document.createElement('div');
+  div.classList.add('c-dropdown-list-element');
+  div.setAttribute('data-cinema', cinema);
+  div.textContent = cinema;
+
+  dropdownList.appendChild(div);
+});
+
