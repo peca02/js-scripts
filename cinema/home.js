@@ -48,7 +48,7 @@ function renderMovies(moviesToShow) {
     moviesContainer.innerHTML = "";
 
     // Dodaj nove
-    filteredMovies.forEach((movie) => {
+    moviesToShow.forEach((movie) => {
       const movieDiv = document.createElement("div");
 
       const image = document.createElement("img");
