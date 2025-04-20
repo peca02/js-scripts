@@ -33,6 +33,8 @@ let { data: movies, error } = await supabase
   `)
   .gte('screenings.start_time', today);
 
+console.log(movies);
+
 if (error) {
     console.error("Greška pri dohvatanju filmova:", error);
   }
