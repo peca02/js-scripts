@@ -130,11 +130,16 @@ cinemaElements.forEach(el => {
     // 3. Prikaži filtrirane filmove
     renderMovies(filteredMovies);
 
-    // 4. Zatvori dropdown
-    const dropdown = el.closest(".w-dropdown");
-    const toggle = dropdown.querySelector(".w-dropdown-toggle");
-    toggle.click();
+    // 4. Zatvori dropdown ručno
+    const dropdown = el.closest('.w-dropdown');
+    const toggle = dropdown.querySelector('.w-dropdown-toggle');
+    const list = dropdown.querySelector('.w-dropdown-list');
+
+    toggle.classList.remove('w--open');
+    list.classList.remove('w--open');
+    dropdown.style.zIndex = ''; // resetuje z-index ako je bio postavljen
   });
 });
+
 
 
