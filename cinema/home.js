@@ -117,32 +117,18 @@ cinemaElements.forEach(el => {
   el.addEventListener('click', () => {
     const selectedCinema = el.getAttribute('data-cinema');
 
-    // 1. Setuj tekst u dropdown toggle
+    // Setuj tekst u dropdown toggle
     document.querySelector('#dropdown-cinemas').textContent = selectedCinema;
 
-    // 2. Filtriraj filmove
+    // Filtriraj filmove
     const filteredMovies = movies.filter(movie =>
       movie.screenings.some(screening =>
         screening.halls?.cinemas?.name === selectedCinema
       )
     );
 
-    // 3. Prikaži filtrirane filmove
+    // Prikaži ih
     renderMovies(filteredMovies);
-
-    // 4. Zatvori dropdown ručno
-    const dropdown = el.closest('.w-dropdown');
-    const toggle = dropdown.querySelector('.w-dropdown-toggle');
-    const list = dropdown.querySelector('.w-dropdown-list');
-
-    toggle.classList.remove('w--open');
-    list.classList.remove('w--open');
-    dropdown.style.zIndex = ''; // resetuje z-index ako je bio postavljen
-    document.body.click();
-
   });
 });
-
-
-
 
