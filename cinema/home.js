@@ -33,7 +33,6 @@ let { data: movies, error } = await supabase
   `)
   .gte('screenings.start_time', today);
 
-console.log(movies);
 
 if (error) {
     console.error("Greška pri dohvatanju filmova:", error);
@@ -118,18 +117,24 @@ cinemaElements.forEach(el => {
   el.addEventListener('click', () => {
     const selectedCinema = el.getAttribute('data-cinema');
 
-    // Setuj tekst u dropdown toggle
+    // 1. Setuj tekst u dropdown toggle
     document.querySelector('#dropdown-cinemas').textContent = selectedCinema;
 
-    // Filtriraj filmove
+    // 2. Filtriraj filmove
     const filteredMovies = movies.filter(movie =>
       movie.screenings.some(screening =>
         screening.halls?.cinemas?.name === selectedCinema
       )
     );
 
-    // Prikaži ih
+    // 3. Prikaži filtrirane filmove
     renderMovies(filteredMovies);
+
+    // 4. Zatvori dropdown
+    const dropdown = el.closest(".w-dropdown");
+    const toggle = dropdown.querySelector(".w-dropdown-toggle");
+    toggle.click();
   });
 });
+
 
