@@ -132,12 +132,7 @@ cinemaElements.forEach(el => {
 
     // 4. Zatvori dropdown ručno
     const dropdown = el.closest('.w-dropdown');
-    const toggle = dropdown.querySelector('.w-dropdown-toggle');
-    const list = dropdown.querySelector('.w-dropdown-list');
-
-    toggle.classList.remove('w--open');
-    list.classList.remove('w--open');
-    dropdown.style.zIndex = ''; // resetuje z-index ako je bio postavljen
+    Webflow.require('dropdown').close(dropdown);
   });
 });
 
