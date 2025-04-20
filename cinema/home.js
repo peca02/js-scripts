@@ -130,8 +130,14 @@ cinemaElements.forEach(el => {
     // 3. Prikaži filtrirane filmove
     renderMovies(filteredMovies);
 
-    // 4. Triggeruj Webflow dropdown zatvaranje
-    document.querySelector('#w-dropdown-toggle-0').click(); // Ovo simulira klik van dropdowna i Webflow ga sam zatvara
+    // 4. Zatvori dropdown ručno
+    const dropdown = el.closest('.w-dropdown');
+    const toggle = dropdown.querySelector('.w-dropdown-toggle');
+    const list = dropdown.querySelector('.w-dropdown-list');
+
+    toggle.classList.remove('w--open');
+    list.classList.remove('w--open');
+    dropdown.style.zIndex = ''; // resetuje z-index ako je bio postavljen
   });
 });
 
