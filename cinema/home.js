@@ -131,7 +131,7 @@ cinemaElements.forEach(el => {
     renderMovies(filteredMovies);
 
     // 4. Triggeruj Webflow dropdown zatvaranje
-    document.querySelector('#govno').click(); // Ovo simulira klik van dropdowna i Webflow ga sam zatvara
+    document.querySelector('.c-dropdown-toggle').click(); // Ovo simulira klik van dropdowna i Webflow ga sam zatvara
   });
 });
 
