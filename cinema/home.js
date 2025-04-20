@@ -37,11 +37,11 @@ if (error) {
     console.error("Greška pri dohvatanju filmova:", error);
   }
 
-// Renderovanje filmova
+function renderMovies(moviesToShow) {
+  const moviesContainer = document.querySelector(".c-container-for-listing-movies");
+  moviesContainer.innerHTML = ''; // Očisti stare
 
-const moviesContainer = document.querySelector(".c-container-for-listing-movies");
-
-  movies.forEach((movie) => {
+  moviesToShow.forEach((movie) => {
     const movieDiv = document.createElement("div");
 
     const image = document.createElement("img");
@@ -58,9 +58,14 @@ const moviesContainer = document.querySelector(".c-container-for-listing-movies"
 
     moviesContainer.appendChild(movieDiv);
   });
+}
 
 
-// 1. Izvuci unikatne bioskope
+// Renderovanje filmova
+renderMovies(movies);
+
+
+// Izvuci unikatne bioskope
 const cinemasSet = new Set();
 
 movies.forEach(movie => {
@@ -74,7 +79,7 @@ movies.forEach(movie => {
 
 const uniqueCinemas = Array.from(cinemasSet);
 
-// 2. Ubaci u dropdown
+// Ubaci u dropdown
 const dropdownList = document.querySelector('.w-dropdown-list');
 dropdownList.innerHTML = '';
 
@@ -85,5 +90,27 @@ uniqueCinemas.forEach(cinema => {
   div.textContent = cinema;
 
   dropdownList.appendChild(div);
+});
+
+// Filtriranje filmova po kliku
+const cinemaElements = document.querySelectorAll('.c-dropdown-list-element');
+
+cinemaElements.forEach(el => {
+  el.addEventListener('click', () => {
+    const selectedCinema = el.getAttribute('data-cinema');
+
+    // Setuj tekst u dropdown toggle
+    document.querySelector('#dropdown-cinemas').textContent = selectedCinema;
+
+    // Filtriraj filmove
+    const filteredMovies = movies.filter(movie =>
+      movie.screenings.some(screening =>
+        screening.halls?.cinemas?.name === selectedCinema
+      )
+    );
+
+    // Prikaži ih
+    renderMovies(filteredMovies);
+  });
 });
 
