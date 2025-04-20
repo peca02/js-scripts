@@ -37,27 +37,44 @@ if (error) {
     console.error("Greška pri dohvatanju filmova:", error);
   }
 
+const moviesContainer = document.querySelector(".c-container-for-listing-movies");
+
 function renderMovies(moviesToShow) {
-  const moviesContainer = document.querySelector(".c-container-for-listing-movies");
-  moviesContainer.innerHTML = ''; // Očisti stare
+  // FADE OUT
+  moviesContainer.classList.add("fade-out");
 
-  moviesToShow.forEach((movie) => {
-    const movieDiv = document.createElement("div");
+  setTimeout(() => {
+    // Očisti stare filmove
+    moviesContainer.innerHTML = "";
 
-    const image = document.createElement("img");
-    image.src = movie.poster_url;
-    image.alt = movie.title;
-    image.className = "c-movie-listing-image";
+    // Dodaj nove
+    filteredMovies.forEach((movie) => {
+      const movieDiv = document.createElement("div");
 
-    const title = document.createElement("h2");
-    title.className = "c-title-for-listed-movies";
-    title.textContent = movie.title;
+      const image = document.createElement("img");
+      image.src = movie.poster_url;
+      image.alt = movie.title;
+      image.className = "c-movie-listing-image";
 
-    movieDiv.appendChild(image);
-    movieDiv.appendChild(title);
+      const title = document.createElement("h2");
+      title.className = "c-title-for-listed-movies";
+      title.textContent = movie.title;
 
-    moviesContainer.appendChild(movieDiv);
-  });
+      movieDiv.appendChild(image);
+      movieDiv.appendChild(title);
+
+      moviesContainer.appendChild(movieDiv);
+    });
+
+    // FADE IN
+    moviesContainer.classList.remove("fade-out");
+    moviesContainer.classList.add("fade-in");
+
+    // Ukloni fade-in klasu posle animacije da bi moglo opet da se koristi
+    setTimeout(() => {
+      moviesContainer.classList.remove("fade-in");
+    }, 300);
+  }, 300); // trajanje fade-out mora da se poklopi sa transition u CSS-u
 }
 
 
