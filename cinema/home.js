@@ -99,7 +99,7 @@ const uniqueCinemas = Array.from(cinemasSet);
 
 // Ubaci u dropdown
 const dropdownList = document.querySelector('.w-dropdown-list');
-dropdownList.innerHTML = '';
+// dropdownList.innerHTML = '';
 
 uniqueCinemas.forEach(cinema => {
   const div = document.createElement('div');
