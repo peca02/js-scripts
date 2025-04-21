@@ -99,18 +99,15 @@ const uniqueCinemas = Array.from(cinemasSet);
 
 // Ubaci u dropdown
 const dropdownList = document.querySelector('.w-dropdown-list');
-
-// Nemoj brisati sadržaj ako ostavljaš "All cinemas" kao statički prvi link
-// dropdownList.innerHTML = ''; // ovo preskačemo
+// dropdownList.innerHTML = '';
 
 uniqueCinemas.forEach(cinema => {
-  const link = document.createElement('a');
-  link.classList.add('c-dropdown-list-element', 'w-dropdown-link');
-  link.setAttribute('href', '#listed-movies');
-  link.setAttribute('data-cinema', cinema);
-  link.textContent = cinema;
+  const div = document.createElement('div');
+  div.classList.add('c-dropdown-list-element');
+  div.setAttribute('data-cinema', cinema);
+  div.textContent = cinema;
 
-  dropdownList.appendChild(link);
+  dropdownList.appendChild(div);
 });
 
 // Filtriranje filmova po kliku
@@ -132,20 +129,6 @@ cinemaElements.forEach(el => {
 
     // Prikaži ih
     renderMovies(filteredMovies);
-  });
-});
-
-document.querySelectorAll('.w-dropdown-link').forEach(link => {
-  link.addEventListener('click', function (e) {
-    // Ručno zatvori dropdown
-    const dropdown = this.closest('.w-dropdown');
-    dropdown.classList.remove('w--open');
-
-    const toggle = dropdown.querySelector('.w-dropdown-toggle');
-    const list = dropdown.querySelector('.w-dropdown-list');
-
-    toggle.classList.remove('w--open');
-    list.classList.remove('w--open');
   });
 });
 
