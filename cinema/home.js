@@ -134,13 +134,12 @@ cinemaElements.forEach(el => {
 
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', function (e) {
-    const targetId = this.getAttribute('href').slice(1);
-    const targetElement = document.getElementById(targetId);
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
 
-    // Ako postoji element, spreči skrol
-    if (targetElement) {
-      e.preventDefault();
-      console.log("Klik bez skrola");
-    }
+    setTimeout(() => {
+      window.scrollTo(scrollX, scrollY);
+    }, 1); // Vrati scroll poziciju odmah posle Webflow pokušaja
   });
 });
+
