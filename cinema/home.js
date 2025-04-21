@@ -145,6 +145,14 @@ cinemaElements.forEach(el => {
   el.addEventListener('click', () => {
     const selectedCinema = el.getAttribute('data-cinema');
 
+    // Ukloni selektovanu klasu sa svih elemenata
+    cinemaElements.forEach(item => {
+      item.classList.remove('c-dropdown-list-element-selected');
+    });
+
+    // Dodaj selektovanu klasu na kliknuti element
+    el.classList.add('c-dropdown-list-element-selected');
+    
     // Ako nema data-cinema, znači "All cinemas" je kliknut → resetuj filter
     if (!selectedCinema) {
       document.querySelector('#dropdown-cinemas').textContent = 'All cinemas';
