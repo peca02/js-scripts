@@ -135,3 +135,17 @@ cinemaElements.forEach(el => {
   });
 });
 
+document.querySelectorAll('.w-dropdown-link').forEach(link => {
+  link.addEventListener('click', function (e) {
+    // Ručno zatvori dropdown
+    const dropdown = this.closest('.w-dropdown');
+    dropdown.classList.remove('w--open');
+
+    const toggle = dropdown.querySelector('.w-dropdown-toggle');
+    const list = dropdown.querySelector('.w-dropdown-list');
+
+    toggle.classList.remove('w--open');
+    list.classList.remove('w--open');
+  });
+});
+
