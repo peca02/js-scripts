@@ -132,13 +132,15 @@ cinemaElements.forEach(el => {
   });
 });
 
-document.querySelectorAll('.dropdown-link').forEach(link => {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', function (e) {
+    const targetId = this.getAttribute('href').slice(1);
+    const targetElement = document.getElementById(targetId);
 
-        const target = this.getAttribute('data-target');
-        console.log("Kliknuto na:", target);
-
-        // Ovde možeš da dodaš filtriranje filmova itd.
-      });
-    });
+    // Ako postoji element, spreči skrol
+    if (targetElement) {
+      e.preventDefault();
+      console.log("Klik bez skrola");
+    }
+  });
+});
