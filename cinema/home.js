@@ -145,6 +145,13 @@ cinemaElements.forEach(el => {
   el.addEventListener('click', () => {
     const selectedCinema = el.getAttribute('data-cinema');
 
+    // Ako nema data-cinema, znači "All cinemas" je kliknut → resetuj filter
+    if (!selectedCinema) {
+      document.querySelector('#dropdown-cinemas').textContent = 'All cinemas';
+      renderMovies(movies);
+      return; // PREKINI dalje izvršavanje
+    }
+    
     // Setuj tekst u dropdown toggle
     document.querySelector('#dropdown-cinemas').textContent = selectedCinema;
 
