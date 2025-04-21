@@ -98,7 +98,7 @@ movies.forEach(movie => {
 const uniqueCinemas = Array.from(cinemasSet);
 
 // Ubaci u dropdown
-const dropdownList = document.querySelector('.w-dropdown-list');
+const dropdownList = document.querySelector('.c-dropdown-list');
 // dropdownList.innerHTML = '';
 
 uniqueCinemas.forEach(cinema => {
