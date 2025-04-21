@@ -132,10 +132,13 @@ cinemaElements.forEach(el => {
   });
 });
 
-document.querySelectorAll('a[href^="#"]').forEach(link => {
+document.querySelectorAll('.dropdown-link').forEach(link => {
       link.addEventListener('click', function (e) {
-        e.preventDefault(); // ← blokira skrolovanje do ID-a
-        // Ovde ide šta god želiš da se desi kad se klikne
-        console.log("Kliknut link:", this.getAttribute("href"));
+        e.preventDefault();
+
+        const target = this.getAttribute('data-target');
+        console.log("Kliknuto na:", target);
+
+        // Ovde možeš da dodaš filtriranje filmova itd.
       });
     });
