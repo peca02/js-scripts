@@ -99,15 +99,18 @@ const uniqueCinemas = Array.from(cinemasSet);
 
 // Ubaci u dropdown
 const dropdownList = document.querySelector('.w-dropdown-list');
-// dropdownList.innerHTML = '';
+
+// Nemoj brisati sadržaj ako ostavljaš "All cinemas" kao statički prvi link
+// dropdownList.innerHTML = ''; // ovo preskačemo
 
 uniqueCinemas.forEach(cinema => {
-  const div = document.createElement('div');
-  div.classList.add('c-dropdown-list-element');
-  div.setAttribute('data-cinema', cinema);
-  div.textContent = cinema;
+  const link = document.createElement('a');
+  link.classList.add('c-dropdown-list-element', 'w-dropdown-link');
+  link.setAttribute('href', '#listed-movies');
+  link.setAttribute('data-cinema', cinema);
+  link.textContent = cinema;
 
-  dropdownList.appendChild(div);
+  dropdownList.appendChild(link);
 });
 
 // Filtriranje filmova po kliku
