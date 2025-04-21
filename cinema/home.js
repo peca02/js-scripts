@@ -97,9 +97,36 @@ movies.forEach(movie => {
 
 const uniqueCinemas = Array.from(cinemasSet);
 
-// Ubaci u dropdown
+// Hvatanje dropdown elemenata
+
+const dropdown = document.querySelector('.c-custom-dropdown');
+const toggle = dropdown.querySelector('.c-dropdown-toggle');
 const dropdownList = document.querySelector('.c-dropdown-list');
-// dropdownList.innerHTML = '';
+const cinemaElements = document.querySelectorAll('.c-dropdown-list-element');
+
+// Animacija za dropdown
+
+// Otvori/zatvori dropdown na klik
+toggle.addEventListener('click', (e) => {
+  e.stopPropagation(); // Da klik na toggle ne zatvori odmah dropdown
+  dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block';
+});
+
+// Zatvori dropdown kada se klikne na neki item
+cinemaElements.forEach(item => {
+  item.addEventListener('click', () => {
+    dropdownList.style.display = 'none';
+  });
+});
+
+// Zatvori dropdown ako se klikne van njega
+document.addEventListener('click', (e) => {
+  if (!dropdown.contains(e.target)) {
+    dropdownList.style.display = 'none';
+  }
+});
+
+// Punjenje dropdowna
 
 uniqueCinemas.forEach(cinema => {
   const div = document.createElement('div');
@@ -111,7 +138,7 @@ uniqueCinemas.forEach(cinema => {
 });
 
 // Filtriranje filmova po kliku
-const cinemaElements = document.querySelectorAll('.c-dropdown-list-element');
+
 
 cinemaElements.forEach(el => {
   el.addEventListener('click', () => {
