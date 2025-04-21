@@ -46,7 +46,7 @@ function renderMovies(moviesToShow) {
 
   setTimeout(() => {
     // Očisti stare filmove
-    moviesContainer.innerHTML = "";
+    // moviesContainer.innerHTML = "";
 
     // Dodaj nove
     moviesToShow.forEach((movie) => {
