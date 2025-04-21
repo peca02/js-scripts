@@ -99,7 +99,7 @@ const uniqueCinemas = Array.from(cinemasSet);
 
 // Ubaci u dropdown
 const dropdownList = document.querySelector('.w-dropdown-list');
-// dropdownList.innerHTML = '';
+dropdownList.innerHTML = '';
 
 uniqueCinemas.forEach(cinema => {
   const div = document.createElement('div');
@@ -129,17 +129,6 @@ cinemaElements.forEach(el => {
 
     // Prikaži ih
     renderMovies(filteredMovies);
-  });
-});
-
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', function (e) {
-    const scrollX = window.scrollX;
-    const scrollY = window.scrollY;
-
-    setTimeout(() => {
-      window.scrollTo(scrollX, scrollY);
-    }, 1); // Vrati scroll poziciju odmah posle Webflow pokušaja
   });
 });
 
