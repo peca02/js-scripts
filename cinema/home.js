@@ -168,8 +168,13 @@ uniqueDates.forEach(date => {
   const div = document.createElement('div');
   div.classList.add('c-dropdown-list-element');
   div.setAttribute('data-date', date);
-  div.textContent = date;
-
+  const rawDate = new Date(date);
+  const formattedDate = rawDate.toLocaleDateString('en-US', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+  div.textContent = formattedDate;
   dropdownListDates.appendChild(div);
 });
 
