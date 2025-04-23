@@ -97,14 +97,31 @@ movies.forEach(movie => {
 
 const uniqueCinemas = Array.from(cinemasSet);
 
+// Izvuci unikatne zanrove
+
+const genresSet = new Set();
+
+movies.forEach(movie => {
+  movie.movie_genres.forEach(mg => {
+    const genreName = mg.genres?.name;
+    if (genreName) {
+      genresSet.add(genreName);
+    }
+  });
+});
+
+const uniqueGenres = Array.from(genresSet);
+
+
 // Hvatanje dropdown elemenata
 
 const dropdownCinema = document.querySelector('#dropdown-cinema');
 const dropdownGenre = document.querySelector('#dropdown-genre');
 const toggle = dropdownCinema.querySelector('.c-dropdown-toggle');
 const dropdownListCinemas = dropdownCinema.querySelector('.c-dropdown-list');
+const dropdownListGenres = dropdownGenre.querySelector('.c-dropdown-list');
 
-// Punjenje dropdowna
+// Punjenje dropdowna za bioskope
 
 uniqueCinemas.forEach(cinema => {
   const div = document.createElement('div');
@@ -114,6 +131,19 @@ uniqueCinemas.forEach(cinema => {
 
   dropdownListCinemas.appendChild(div);
 });
+
+// Punjenje dropdowna za zanrove
+
+uniqueGenres.forEach(genre => {
+  const div = document.createElement('div');
+  div.classList.add('c-dropdown-list-element');
+  div.setAttribute('data-genre', genre);
+  div.textContent = genre;
+
+  dropdownListGenres.appendChild(div);
+});
+
+
 
 const cinemaElements = document.querySelectorAll('.c-dropdown-list-element');
 
