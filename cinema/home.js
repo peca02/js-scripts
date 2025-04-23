@@ -99,9 +99,9 @@ const uniqueCinemas = Array.from(cinemasSet);
 
 // Hvatanje dropdown elemenata
 
-const dropdown = document.querySelector('.c-custom-dropdown');
-const toggle = dropdown.querySelector('.c-dropdown-toggle');
-const dropdownList = document.querySelector('.c-dropdown-list');
+const dropdownCinema = document.querySelector('#dropdown-cinema');
+const toggle = dropdownCinema.querySelector('.c-dropdown-toggle');
+const dropdownList = dropdownCinema.querySelector('.c-dropdown-list');
 
 // Punjenje dropdowna
 
@@ -133,7 +133,7 @@ cinemaElements.forEach(item => {
 
 // Zatvori dropdown ako se klikne van njega
 document.addEventListener('click', (e) => {
-  if (!dropdown.contains(e.target)) {
+  if (!dropdownCinema.contains(e.target)) {
     dropdownList.style.display = 'none';
   }
 });
@@ -155,13 +155,13 @@ cinemaElements.forEach(el => {
     
     // Ako nema data-cinema, znači "All cinemas" je kliknut → resetuj filter
     if (!selectedCinema) {
-      document.querySelector('#dropdown-cinemas').textContent = 'All cinemas';
+      document.querySelector('#dropdown-cinema-text').textContent = 'All cinemas';
       renderMovies(movies);
       return; // PREKINI dalje izvršavanje
     }
     
     // Setuj tekst u dropdown toggle
-    document.querySelector('#dropdown-cinemas').textContent = selectedCinema;
+    document.querySelector('#dropdown-cinema-text').textContent = selectedCinema;
 
     // Filtriraj filmove
     const filteredMovies = movies.filter(movie =>
