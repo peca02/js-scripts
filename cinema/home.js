@@ -100,8 +100,9 @@ const uniqueCinemas = Array.from(cinemasSet);
 // Hvatanje dropdown elemenata
 
 const dropdownCinema = document.querySelector('#dropdown-cinema');
+const dropdownGenre = document.querySelector('#dropdown-genre');
 const toggle = dropdownCinema.querySelector('.c-dropdown-toggle');
-const dropdownList = dropdownCinema.querySelector('.c-dropdown-list');
+const dropdownListCinemas = dropdownCinema.querySelector('.c-dropdown-list');
 
 // Punjenje dropdowna
 
@@ -111,7 +112,7 @@ uniqueCinemas.forEach(cinema => {
   div.setAttribute('data-cinema', cinema);
   div.textContent = cinema;
 
-  dropdownList.appendChild(div);
+  dropdownListCinemas.appendChild(div);
 });
 
 const cinemaElements = document.querySelectorAll('.c-dropdown-list-element');
@@ -121,20 +122,20 @@ const cinemaElements = document.querySelectorAll('.c-dropdown-list-element');
 // Otvori/zatvori dropdown na klik
 toggle.addEventListener('click', (e) => {
   e.stopPropagation(); // Da klik na toggle ne zatvori odmah dropdown
-  dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block';
+  dropdownListCinemas.style.display = dropdownListCinemas.style.display === 'block' ? 'none' : 'block';
 });
 
 // Zatvori dropdown kada se klikne na neki item
 cinemaElements.forEach(item => {
   item.addEventListener('click', () => {
-    dropdownList.style.display = 'none';
+    dropdownListCinemas.style.display = 'none';
   });
 });
 
 // Zatvori dropdown ako se klikne van njega
 document.addEventListener('click', (e) => {
   if (!dropdownCinema.contains(e.target)) {
-    dropdownList.style.display = 'none';
+    dropdownListCinemas.style.display = 'none';
   }
 });
 
