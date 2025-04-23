@@ -83,7 +83,7 @@ function renderMovies(moviesToShow) {
 renderMovies(movies);
 
 
-// Izvuci unikatne bioskope
+// Izvuci bioskope
 const cinemasSet = new Set();
 
 movies.forEach(movie => {
@@ -97,7 +97,7 @@ movies.forEach(movie => {
 
 const uniqueCinemas = Array.from(cinemasSet);
 
-// Izvuci unikatne zanrove
+// Izvuci zanrove
 
 const genresSet = new Set();
 
@@ -112,14 +112,33 @@ movies.forEach(movie => {
 
 const uniqueGenres = Array.from(genresSet);
 
+//Izvuci datume
+
+const datesSet = new Set();
+
+movies.forEach(movie => {
+  movie.screenings.forEach(screening => {
+    const startTime = screening.start_time;
+    if (startTime) {
+      const dateOnly = new Date(startTime).toISOString().split('T')[0]; // 'YYYY-MM-DD'
+      datesSet.add(dateOnly);
+    }
+  });
+});
+
+const uniqueDates = Array.from(datesSet).sort(); // sortiramo da bude pregledno
+
 
 // Hvatanje dropdown elemenata
 
 const dropdownCinema = document.querySelector('#dropdown-cinema');
 const dropdownGenre = document.querySelector('#dropdown-genre');
+const dropdownDate = document.querySelector('#dropdown-date');
 const toggle = dropdownCinema.querySelector('.c-dropdown-toggle');
 const dropdownListCinemas = dropdownCinema.querySelector('.c-dropdown-list');
 const dropdownListGenres = dropdownGenre.querySelector('.c-dropdown-list');
+const dropdownListDates = dropdownDate.querySelector('.c-dropdown-list');
+
 
 // Punjenje dropdowna za bioskope
 
@@ -143,7 +162,16 @@ uniqueGenres.forEach(genre => {
   dropdownListGenres.appendChild(div);
 });
 
+// Punjenje dropdowna za datume
 
+uniqueDates.forEach(date => {
+  const div = document.createElement('div');
+  div.classList.add('c-dropdown-list-element');
+  div.setAttribute('data-date', date);
+  div.textContent = date;
+
+  dropdownListDates.appendChild(div);
+});
 
 const cinemaElements = document.querySelectorAll('.c-dropdown-list-element');
 
