@@ -38,6 +38,8 @@ if (error) {
     console.error("Greška pri dohvatanju filmova:", error);
   }
 
+console.log(movies);
+
 const moviesContainer = document.querySelector(".c-container-for-listing-movies");
 
 function renderMovies(moviesToShow) {
