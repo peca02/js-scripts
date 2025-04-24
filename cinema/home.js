@@ -33,12 +33,15 @@ let { data: movies, error } = await supabase
   `)
   .gte('screenings.start_time', today);
 
-
 if (error) {
     console.error("Greška pri dohvatanju filmova:", error);
   }
 
 console.log(movies);
+
+const { data: govno, error } = await supabase.rpc('get_upcoming_movies');
+console.log(govno);
+
 
 const moviesContainer = document.querySelector(".c-container-for-listing-movies");
 
