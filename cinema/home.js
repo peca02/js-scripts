@@ -39,7 +39,7 @@ if (error) {
 
 console.log(movies);
 
-const { data: govno, error } = await supabase.rpc('get_upcoming_movies');
+const { data: govno, error: rpcError } = await supabase.rpc('get_upcoming_movies');
 console.log(govno);
 
 
