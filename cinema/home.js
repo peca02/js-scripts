@@ -1,26 +1,19 @@
 const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm')
-
 const supabaseUrl = 'https://ypestrqwjqmgkpidrdct.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZXN0cnF3anFtZ2twaWRyZGN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1ODQ3MzIsImV4cCI6MjA2MDE2MDczMn0.jIpa-xwIDEdcqBIAFW4NBAtPIvdQRLiaKUwp51p_HkY'
-
 const supabase = createClient(supabaseUrl, supabaseKey)
-
 // Sve gore je povezivanje sa Supabase
 
-const today = new Date().toISOString();
 
-// Prikupljanje filmova i ostalih podataka
-
+// Prikupljanje filmova i ostalih podataka, ima duplikata, rezultat kao u sql
 const { data: movies, error } = await supabase.rpc('get_upcoming_movies');
-
 if (error) {
     console.error("Greška pri dohvatanju filmova:", error);
   }
-
 console.log(movies);
 
-// Funkcija koja filtrira filmove
 
+// Funkcija koja filtrira filmove, ima duplikata
 function filterMovies(movies, selectedCinema, selectedGenres, selectedDate) {
   return movies.filter(movie => {
     const matchCinema = selectedCinema
@@ -39,8 +32,25 @@ function filterMovies(movies, selectedCinema, selectedGenres, selectedDate) {
   });
 }
 
-const filtered = filterMovies(movies, null, [], null);
-console.log(filtered);
+//  prikupljanje svih filmova pri ucitavanju stranice, ima duplikata
+let filteredMovies = filterMovies(movies, null, [], null);
+
+
+// funkcija za uklanjanje duplikata
+function removeDuplicateMovies(filteredMovies) {
+  const seen = new Set();
+  return filteredMovies.filter(movie => {
+    if (seen.has(movie.movie_id)) {
+      return false;
+    }
+    seen.add(movie.movie_id);
+    return true;
+  });
+}
+
+const uniqueFilteredMovies = removeDuplicateMovies(filtered);
+
+console.log(uniqueFilteredMovies);
 
 const moviesContainer = document.querySelector(".c-container-for-listing-movies");
 
