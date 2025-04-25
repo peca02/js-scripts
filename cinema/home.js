@@ -52,8 +52,8 @@ const uniqueFilteredMovies = removeDuplicateMovies(filteredMovies);
 
 console.log(uniqueFilteredMovies);
 
-const moviesContainer = document.querySelector(".c-container-for-listing-movies");
 
+// funkcija za renderovanje filmova
 function renderMovies(moviesToShow) {
   // FADE OUT
   moviesContainer.classList.add("fade-out");
@@ -68,12 +68,12 @@ function renderMovies(moviesToShow) {
 
       const image = document.createElement("img");
       image.src = movie.poster_url;
-      image.alt = movie.title;
+      image.alt = movie.movie_title;
       image.className = "c-movie-listing-image";
 
       const title = document.createElement("h2");
       title.className = "c-title-for-listed-movies";
-      title.textContent = movie.title;
+      title.textContent = movie.movie_title;
 
       movieDiv.appendChild(image);
       movieDiv.appendChild(title);
@@ -92,9 +92,10 @@ function renderMovies(moviesToShow) {
   }, 300); // trajanje fade-out mora da se poklopi sa transition u CSS-u
 }
 
+const moviesContainer = document.querySelector(".c-container-for-listing-movies");
 
 // Renderovanje filmova
-renderMovies(movies);
+renderMovies(uniqueFilteredMovies);
 
 
 // Izvuci bioskope
