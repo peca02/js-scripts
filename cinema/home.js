@@ -119,7 +119,7 @@ function extractGenres(filteredMovies) {
   const genresSet = new Set();
 
   filteredMovies.forEach(movie => {
-    genresSet.add(movie.genre.trim());
+    genresSet.add(movie.genre);
   });
 
   return Array.from(genresSet).sort();
@@ -128,22 +128,21 @@ function extractGenres(filteredMovies) {
 let genres = extractGenres(filteredMovies);
 console.log(genres);
 
-//Izvuci datume
 
-const datesSet = new Set();
+// Funkcija za izvlacenje datuma, bez duplikata
+function extractDates(filteredMovies) {
+  const datesSet = new Set();
 
-movies.forEach(movie => {
-  movie.screenings.forEach(screening => {
-    const startTime = screening.start_time;
-    if (startTime) {
-      const dateOnly = new Date(startTime).toISOString().split('T')[0]; // 'YYYY-MM-DD'
-      datesSet.add(dateOnly);
-    }
+  filteredMovies.forEach(movie => {
+    const dateStr = new Date(movie.screening_start_time).toDateString();
+    datesSet.add(dateStr);
   });
-});
 
-const uniqueDates = Array.from(datesSet).sort(); // sortiramo da bude pregledno
+  return Array.from(datesSet).sort((a, b) => new Date(a) - new Date(b));
+}
 
+let dates = extractDates(filteredMovies);
+console.log(dates);
 
 // Hvatanje dropdown elemenata
 
