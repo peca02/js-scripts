@@ -40,7 +40,7 @@ function filterMovies(movies, selectedCinema, selectedGenres, selectedDate) {
 }
 
 const filtered = filterMovies(movies, null, [], null);
-console.log(movies);
+console.log(filtered);
 
 const moviesContainer = document.querySelector(".c-container-for-listing-movies");
 
