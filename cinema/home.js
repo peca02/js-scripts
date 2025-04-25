@@ -11,27 +11,7 @@ const today = new Date().toISOString();
 
 // Prikupljanje filmova i ostalih podataka
 
-let { data: movies, error } = await supabase
-  .from('movies')
-  .select(`
-    id,
-    title,
-    poster_url,
-    movie_genres (
-      genres (
-        name
-      )
-    ),
-    screenings (
-      start_time,
-      halls (
-        cinemas (
-          name
-        )
-      )
-    )
-  `)
-  .gte('screenings.start_time', today);
+const { data: movies, error } = await supabase.rpc('get_upcoming_movies');
 
 if (error) {
     console.error("Greška pri dohvatanju filmova:", error);
@@ -39,9 +19,28 @@ if (error) {
 
 console.log(movies);
 
-const { data: govno, error: rpcError } = await supabase.rpc('get_upcoming_movies');
-console.log(govno);
+// Funkcija koja filtrira filmove
 
+function filterMovies(movies, selectedCinema, selectedGenres, selectedDate) {
+  return movies.filter(movie => {
+    const matchCinema = selectedCinema
+      ? movie.cinema === selectedCinema
+      : true;
+
+    const matchGenre = selectedGenres.length > 0
+      ? selectedGenres.includes(movie.genre)
+      : true;
+
+    const matchDate = selectedDate
+      ? new Date(movie.screening_start_time).toDateString() === new Date(selectedDate).toDateString()
+      : true;
+
+    return matchCinema && matchGenre && matchDate;
+  });
+}
+
+const filtered = filterMovies(movies, null, [], null);
+console.log(movies);
 
 const moviesContainer = document.querySelector(".c-container-for-listing-movies");
 
