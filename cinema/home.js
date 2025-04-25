@@ -48,7 +48,7 @@ function removeDuplicateMovies(filteredMovies) {
   });
 }
 
-const uniqueFilteredMovies = removeDuplicateMovies(filtered);
+const uniqueFilteredMovies = removeDuplicateMovies(filteredMovies);
 
 console.log(uniqueFilteredMovies);
 
