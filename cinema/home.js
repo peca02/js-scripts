@@ -50,6 +50,7 @@ function removeDuplicateMovies(filteredMovies) {
 
 const uniqueFilteredMovies = removeDuplicateMovies(filteredMovies);
 
+console.log(filteredMovies);
 console.log(uniqueFilteredMovies);
 
 
