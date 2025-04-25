@@ -99,19 +99,19 @@ const moviesContainer = document.querySelector(".c-container-for-listing-movies"
 renderMovies(uniqueFilteredMovies);
 
 
-// Izvuci bioskope
-const cinemasSet = new Set();
+// Funckija za izvlacenje bioskopa iz filtriranih filmova
+function extractCinemas(filteredMovies) {
+  const cinemasSet = new Set();
 
-movies.forEach(movie => {
-  movie.screenings.forEach(screening => {
-    const cinemaName = screening.halls?.cinemas?.name;
-    if (cinemaName) {
-      cinemasSet.add(cinemaName);
-    }
+  filteredMovies.forEach(movie => {
+    cinemasSet.add(movie.cinema);
   });
-});
 
-const uniqueCinemas = Array.from(cinemasSet);
+  return Array.from(cinemasSet).sort();
+}
+
+const cinemas = extractCinemas(filteredMovies);
+console.log(cinemas);
 
 // Izvuci zanrove
 
