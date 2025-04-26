@@ -153,26 +153,32 @@ const dropdownListCinemas = dropdownCinema.querySelector('.c-dropdown-list');
 const dropdownListGenres = dropdownGenre.querySelector('.c-dropdown-list');
 const dropdownListDates = dropdownDate.querySelector('.c-dropdown-list');
 
+
 // funkcija za punjenje svih dropdownova
 function populateDropdowns(cinemas, genres, dates) {
   // Helper funkcija za punjenje jednog dropdowna
-  function populateList(listElement, items, attributeName) {
+  function populateList(listElement, items, attributeName, defaultText) {
     listElement.innerHTML = ''; // očisti postojeće stavke
 
+    // Dodaj "All" kao prvi izbor
+    const defaultDiv = document.createElement('div');
+    defaultDiv.classList.add('c-dropdown-list-element');
+    defaultDiv.textContent = defaultText;
+    listElement.appendChild(defaultDiv);
+      
     items.forEach(item => {
       const div = document.createElement('div');
       div.classList.add('c-dropdown-list-element');
       div.setAttribute(attributeName, item);
       div.textContent = item;
-
       listElement.appendChild(div);
     });
   }
 
   // Puni sve 3 liste
-  populateList(dropdownListCinemas, cinemas, 'data-cinema');
-  populateList(dropdownListGenres, genres, 'data-genre');
-  populateList(dropdownListDates, dates, 'data-date');
+  populateList(dropdownListCinemas, cinemas, 'data-cinema', 'All cinemas');
+  populateList(dropdownListGenres, genres, 'data-genre', 'All genres');
+  populateList(dropdownListDates, dates, 'data-date', 'All dates');
 }
 
 populateDropdowns(cinemas, genres, dates);
