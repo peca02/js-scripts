@@ -145,7 +145,6 @@ let dates = extractDates(filteredMovies);
 console.log(dates);
 
 // Hvatanje dropdown elemenata
-
 const dropdownCinema = document.querySelector('#dropdown-cinema');
 const dropdownGenre = document.querySelector('#dropdown-genre');
 const dropdownDate = document.querySelector('#dropdown-date');
@@ -154,44 +153,29 @@ const dropdownListCinemas = dropdownCinema.querySelector('.c-dropdown-list');
 const dropdownListGenres = dropdownGenre.querySelector('.c-dropdown-list');
 const dropdownListDates = dropdownDate.querySelector('.c-dropdown-list');
 
+// funkcija za punjenje svih dropdownova
+function populateDropdowns(cinemas, genres, dates) {
+  // Helper funkcija za punjenje jednog dropdowna
+  function populateList(listElement, items, attributeName) {
+    listElement.innerHTML = ''; // očisti postojeće stavke
 
-// Punjenje dropdowna za bioskope
+    items.forEach(item => {
+      const div = document.createElement('div');
+      div.classList.add('c-dropdown-list-element');
+      div.setAttribute(attributeName, item);
+      div.textContent = item;
 
-uniqueCinemas.forEach(cinema => {
-  const div = document.createElement('div');
-  div.classList.add('c-dropdown-list-element');
-  div.setAttribute('data-cinema', cinema);
-  div.textContent = cinema;
+      listElement.appendChild(div);
+    });
+  }
 
-  dropdownListCinemas.appendChild(div);
-});
+  // Puni sve 3 liste
+  populateList(dropdownListCinemas, cinemas, 'data-cinema');
+  populateList(dropdownListGenres, genres, 'data-genre');
+  populateList(dropdownListDates, dates, 'data-date');
+}
 
-// Punjenje dropdowna za zanrove
-
-uniqueGenres.forEach(genre => {
-  const div = document.createElement('div');
-  div.classList.add('c-dropdown-list-element');
-  div.setAttribute('data-genre', genre);
-  div.textContent = genre;
-
-  dropdownListGenres.appendChild(div);
-});
-
-// Punjenje dropdowna za datume
-
-uniqueDates.forEach(date => {
-  const div = document.createElement('div');
-  div.classList.add('c-dropdown-list-element');
-  div.setAttribute('data-date', date);
-  const rawDate = new Date(date);
-  const formattedDate = rawDate.toLocaleDateString('en-US', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
-  div.textContent = formattedDate;
-  dropdownListDates.appendChild(div);
-});
+populateDropdowns(cinemas, genres, dates);
 
 const cinemaElements = document.querySelectorAll('.c-dropdown-list-element');
 
