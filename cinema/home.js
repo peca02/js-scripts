@@ -148,7 +148,9 @@ console.log(dates);
 const dropdownCinema = document.querySelector('#dropdown-cinema');
 const dropdownGenre = document.querySelector('#dropdown-genre');
 const dropdownDate = document.querySelector('#dropdown-date');
-const toggle = dropdownCinema.querySelector('.c-dropdown-toggle');
+const toggleCinemaDropdown = dropdownCinema.querySelector('.c-dropdown-toggle');
+const toggleGenreDropdown = dropdownGenre.querySelector('.c-dropdown-toggle');
+const toggleDateDropdown = dropdownDate.querySelector('.c-dropdown-toggle');
 const dropdownListCinemas = dropdownCinema.querySelector('.c-dropdown-list');
 const dropdownListGenres = dropdownGenre.querySelector('.c-dropdown-list');
 const dropdownListDates = dropdownDate.querySelector('.c-dropdown-list');
@@ -185,12 +187,25 @@ populateDropdowns(cinemas, genres, dates);
 
 const cinemaElements = document.querySelectorAll('.c-dropdown-list-element');
 
-// Animacija za dropdown
 
-// Otvori/zatvori dropdown na klik
-toggle.addEventListener('click', (e) => {
-  e.stopPropagation(); // Da klik na toggle ne zatvori odmah dropdown
-  dropdownListCinemas.style.display = dropdownListCinemas.style.display === 'block' ? 'none' : 'block';
+// Funkcija za prikazivanje i skrivanje dropdowna kad se klikne na toggle div
+function toggleDropdown(dropdownList) {
+  const isVisible = dropdownList.style.display === 'block';
+  dropdownList.style.display = isVisible ? 'none' : 'block';
+}
+
+
+// Listeneri za svaki toggle od 3 dropdowna
+toggleCinemaDropdown.addEventListener('click', () => {
+  toggleDropdown(dropdownListCinemas);
+});
+
+toggleGenreDropdown.addEventListener('click', () => {
+  toggleDropdown(dropdownListGenres);
+});
+
+toggleDateDropdown.addEventListener('click', () => {
+  toggleDropdown(dropdownListDates);
 });
 
 // Zatvori dropdown kada se klikne na neki item
