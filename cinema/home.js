@@ -248,7 +248,7 @@ dropdownListCinemas.addEventListener('click', (e) => {
     filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
     uniqueFilteredMovies = removeDuplicateMovies(filteredMovies);
     renderMovies(uniqueFilteredMovies);
-    cinemas = extractCinemas(filteredMovies);
+    cinemas = extractCinemas(movies);
     genres = extractGenres(filteredMovies);
     dates = extractDates(filteredMovies);
     populateDropdowns(cinemas, genres, dates);
@@ -286,7 +286,7 @@ dropdownListDates.addEventListener('click', (e) => {
     renderMovies(uniqueFilteredMovies);
     cinemas = extractCinemas(filteredMovies);
     genres = extractGenres(filteredMovies);
-    dates = extractDates(filteredMovies);
+    dates = extractDates(movies);
     populateDropdowns(cinemas, genres, dates);
     
 });
