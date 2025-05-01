@@ -156,6 +156,8 @@ const dropdownListCinemas = dropdownCinema.querySelector('.c-dropdown-list');
 const dropdownListGenres = dropdownGenre.querySelector('.c-dropdown-list');
 const dropdownListDates = dropdownDate.querySelector('.c-dropdown-list');
 const dropdownCinemaText = document.querySelector('#dropdown-cinema-text');
+const dropdownGenreText = document.querySelector('#dropdown-genre-text');
+const dropdownDateText = document.querySelector('#dropdown-date-text');
 
 
 // funkcija za punjenje svih dropdownova
@@ -167,7 +169,6 @@ function populateDropdowns(cinemas, genres, dates) {
     // Dodaj "All" kao prvi izbor
     const defaultDiv = document.createElement('div');
     defaultDiv.classList.add('c-dropdown-list-element');
-    defaultDiv.classList.add('c-dropdown-list-element-selected');  
     defaultDiv.textContent = defaultText;
     listElement.appendChild(defaultDiv);
       
@@ -187,7 +188,9 @@ function populateDropdowns(cinemas, genres, dates) {
 }
 
 populateDropdowns(cinemas, genres, dates);
-
+dropdownListCinemas[0].classList.add('c-dropdown-list-element-selected');  
+dropdownListGenres[0].classList.add('c-dropdown-list-element-selected');
+dropdownListDates[0].classList.add('c-dropdown-list-element-selected'); 
 
 // Funkcija za prikazivanje i skrivanje dropdowna kad se klikne na toggle div
 function toggleDropdown(dropdownList) {
@@ -231,11 +234,47 @@ dropdownListCinemas.addEventListener('click', (e) => {
   target.classList.add('c-dropdown-list-element-selected');
 
   // Preuzmi vrednost
-  const cinemaValue = target.getAttribute('data-cinema');
+  const value = target.getAttribute('data-cinema');
 
-  if (cinemaValue) {
-    selectedCinema = cinemaValue;
-    dropdownCinemaText.textContent = cinemaValue;
+  if (value) {
+    selectedCinema = value;
+    dropdownCinemaText.textContent = value;
+  } else {
+    selectedCinema = '';
+    dropdownCinemaText.textContent = 'All cinemas';
+  }
+
+    filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
+    uniqueFilteredMovies = removeDuplicateMovies(filteredMovies);
+    renderMovies(uniqueFilteredMovies);
+    cinemas = extractCinemas(filteredMovies);
+    genres = extractGenres(filteredMovies);
+    dates = extractDates(filteredMovies);
+    populateDropdowns(cinemas, genres, dates);
+    
+});
+
+// Listener za date dropdown elemente
+dropdownListDates.addEventListener('click', (e) => {
+  const target = e.target.closest('.c-dropdown-list-element');
+  if (!target) return;
+
+  // Zatvori dropdown
+  dropdownListDates.style.display = 'none';
+
+  // Ukloni selekciju sa svih
+  const allElements = dropdownListDates.querySelectorAll('.c-dropdown-list-element');
+  allElements.forEach(el => el.classList.remove('c-dropdown-list-element-selected'));
+
+  // Dodaj selekciju na kliknutog
+  target.classList.add('c-dropdown-list-element-selected');
+
+  // Preuzmi vrednost
+  const value = target.getAttribute('data-date');
+
+  if (value) {
+    selectedDate = value;
+    dropdownDateText.textContent = value;
   } else {
     selectedCinema = '';
     dropdownCinemaText.textContent = 'All cinemas';
