@@ -165,6 +165,7 @@ function populateDropdowns(cinemas, genres, dates) {
     // Dodaj "All" kao prvi izbor
     const defaultDiv = document.createElement('div');
     defaultDiv.classList.add('c-dropdown-list-element');
+    defaultDiv.classList.add('c-dropdown-list-element-selected');  
     defaultDiv.textContent = defaultText;
     listElement.appendChild(defaultDiv);
       
