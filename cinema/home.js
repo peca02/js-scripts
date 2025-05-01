@@ -188,9 +188,10 @@ function populateDropdowns(cinemas, genres, dates) {
 }
 
 populateDropdowns(cinemas, genres, dates);
-dropdownListCinemas[0].classList.add('c-dropdown-list-element-selected');  
-dropdownListGenres[0].classList.add('c-dropdown-list-element-selected');
-dropdownListDates[0].classList.add('c-dropdown-list-element-selected'); 
+dropdownCinema.querySelectorAll('.c-dropdown-list-element')[0].classList.add('c-dropdown-list-element-selected');  
+dropdownGenre.querySelectorAll('.c-dropdown-list-element')[0].classList.add('c-dropdown-list-element-selected');  
+dropdownDate.querySelectorAll('.c-dropdown-list-element')[0].classList.add('c-dropdown-list-element-selected');  
+
 
 // Funkcija za prikazivanje i skrivanje dropdowna kad se klikne na toggle div
 function toggleDropdown(dropdownList) {
