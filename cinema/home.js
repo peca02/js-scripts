@@ -245,10 +245,11 @@ dropdownListCinemas.addEventListener('click', (e) => {
     dropdownCinemaText.textContent = 'All cinemas';
   }
 
+    const previousFilteredMovies = filteredMovies;
     filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
     uniqueFilteredMovies = removeDuplicateMovies(filteredMovies);
     renderMovies(uniqueFilteredMovies);
-    cinemas = extractCinemas(movies);
+    cinemas = extractCinemas(previousFilteredMovies);
     genres = extractGenres(filteredMovies);
     dates = extractDates(filteredMovies);
     populateDropdowns(cinemas, genres, dates);
@@ -281,12 +282,13 @@ dropdownListDates.addEventListener('click', (e) => {
     dropdownDateText.textContent = 'All dates';
   }
 
+    const previousFilteredMovies = filteredMovies;
     filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
     uniqueFilteredMovies = removeDuplicateMovies(filteredMovies);
     renderMovies(uniqueFilteredMovies);
     cinemas = extractCinemas(filteredMovies);
     genres = extractGenres(filteredMovies);
-    dates = extractDates(movies);
+    dates = extractDates(previousFilteredMovies);
     populateDropdowns(cinemas, genres, dates);
     
 });
