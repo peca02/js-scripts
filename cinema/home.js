@@ -277,8 +277,8 @@ dropdownListDates.addEventListener('click', (e) => {
     selectedDate = value;
     dropdownDateText.textContent = value;
   } else {
-    selectedCinema = '';
-    dropdownCinemaText.textContent = 'All cinemas';
+    selectedDate = '';
+    dropdownDateText.textContent = 'All dates';
   }
 
     filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
