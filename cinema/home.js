@@ -195,6 +195,25 @@ toggleDateDropdown.addEventListener('click', () => {
 });
 
 
+// Listener za zatvaranje dropdownova kad se klikne van njih
+document.addEventListener('click', (e) => {
+  // Zatvori cinema dropdown ako klik nije unutar njega
+  if (!dropdownCinema.contains(e.target)) {
+    dropdownListCinemas.style.display = 'none';
+  }
+
+  // Zatvori genre dropdown ako klik nije unutar njega
+  if (!dropdownGenre.contains(e.target)) {
+    dropdownListGenres.style.display = 'none';
+  }
+
+  // Zatvori date dropdown ako klik nije unutar njega
+  if (!dropdownDate.contains(e.target)) {
+    dropdownListDates.style.display = 'none';
+  }
+});
+
+
 // Globalne promenljive za selektovane vrednosti
 let selectedCinema = '';
 let selectedGenres = [];
