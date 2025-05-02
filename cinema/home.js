@@ -269,7 +269,7 @@ dropdownListGenres.addEventListener('click', (e) => {
   if (!target) return;
 
   // Zatvori dropdown
-  dropdownListDates.style.display = 'none';
+  dropdownListGenres.style.display = 'none';
     
   const value = target.getAttribute('data-genre');
 
