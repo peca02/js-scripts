@@ -97,40 +97,40 @@ renderMovies(uniqueMovies);
 
 
 // Funkcija za izvlacenje bioskopa, bez duplikata
-function extractCinemas(filteredMovies) {
+function extractCinemas(movies) {
   const cinemasSet = new Set();
 
-  filteredMovies.forEach(movie => {
+  movies.forEach(movie => {
     cinemasSet.add(movie.cinema);
   });
 
   return Array.from(cinemasSet).sort();
 }
 
-let cinemas = extractCinemas(filteredMovies);
+let cinemas = extractCinemas(movies);
 console.log(cinemas);
 
 
 // Funkcija za izvlacenje zanrova, bez duplikata
-function extractGenres(filteredMovies) {
+function extractGenres(movies) {
   const genresSet = new Set();
 
-  filteredMovies.forEach(movie => {
+  movies.forEach(movie => {
     genresSet.add(movie.genre);
   });
 
   return Array.from(genresSet).sort();
 }
 
-let genres = extractGenres(filteredMovies);
+let genres = extractGenres(movies);
 console.log(genres);
 
 
 // Funkcija za izvlacenje datuma, bez duplikata
-function extractDates(filteredMovies) {
+function extractDates(movies) {
   const datesSet = new Set();
 
-  filteredMovies.forEach(movie => {
+  movies.forEach(movie => {
     const dateStr = new Date(movie.screening_start_time).toDateString();
     datesSet.add(dateStr);
   });
@@ -138,8 +138,9 @@ function extractDates(filteredMovies) {
   return Array.from(datesSet).sort((a, b) => new Date(a) - new Date(b));
 }
 
-let dates = extractDates(filteredMovies);
+let dates = extractDates(movies);
 console.log(dates);
+
 
 // Hvatanje dropdown elemenata
 const dropdownCinema = document.querySelector('#dropdown-cinema');
@@ -156,18 +157,8 @@ const dropdownGenreText = document.querySelector('#dropdown-genre-text');
 const dropdownDateText = document.querySelector('#dropdown-date-text');
 
 
-// funkcija za punjenje svih dropdownova
-function populateDropdowns(cinemas, genres, dates) {
-  // Helper funkcija za punjenje jednog dropdowna
+  // funkcija za punjenje jednog dropdowna
   function populateList(listElement, items, attributeName, defaultText) {
-    listElement.innerHTML = ''; // očisti postojeće stavke
-
-    // Dodaj "All" kao prvi izbor
-    const defaultDiv = document.createElement('div');
-    defaultDiv.classList.add('c-dropdown-list-element');
-    defaultDiv.textContent = defaultText;
-    listElement.appendChild(defaultDiv);
-      
     items.forEach(item => {
       const div = document.createElement('div');
       div.classList.add('c-dropdown-list-element');
@@ -177,16 +168,10 @@ function populateDropdowns(cinemas, genres, dates) {
     });
   }
 
-  // Puni sve 3 liste
+  // Puni sva 3 dropdowna
   populateList(dropdownListCinemas, cinemas, 'data-cinema', 'All cinemas');
   populateList(dropdownListGenres, genres, 'data-genre', 'All genres');
   populateList(dropdownListDates, dates, 'data-date', 'All dates');
-}
-
-populateDropdowns(cinemas, genres, dates);
-dropdownCinema.querySelectorAll('.c-dropdown-list-element')[0].classList.add('c-dropdown-list-element-selected');  
-dropdownGenre.querySelectorAll('.c-dropdown-list-element')[0].classList.add('c-dropdown-list-element-selected');  
-dropdownDate.querySelectorAll('.c-dropdown-list-element')[0].classList.add('c-dropdown-list-element-selected');  
 
 
 // Funkcija za prikazivanje i skrivanje dropdowna kad se klikne na toggle div
@@ -244,10 +229,6 @@ dropdownListCinemas.addEventListener('click', (e) => {
     const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
     uniqueMovies = removeDuplicateMovies(filteredMovies);
     renderMovies(uniqueMovies);
-    cinemas = extractCinemas(filteredMovies);
-    genres = extractGenres(filteredMovies);
-    dates = extractDates(filteredMovies);
-    populateDropdowns(cinemas, genres, dates);
     
 });
 
@@ -280,9 +261,5 @@ dropdownListDates.addEventListener('click', (e) => {
     const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
     uniqueMovies = removeDuplicateMovies(filteredMovies);
     renderMovies(uniqueMovies);
-    cinemas = extractCinemas(filteredMovies);
-    genres = extractGenres(filteredMovies);
-    dates = extractDates(filteredMovies);
-    populateDropdowns(cinemas, genres, dates);
     
 });
