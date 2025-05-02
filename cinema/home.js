@@ -285,9 +285,9 @@ dropdownListGenres.addEventListener('click', (e) => {
 
   // Ažuriraj tekst u dropdown-u
   if (selectedGenres.length === 0) {
-    dropdownGenresText.textContent = 'All genres';
+    dropdownGenreText.textContent = 'All genres';
   } else {
-    dropdownGenresText.textContent = `${selectedGenres.length} selected`;
+    dropdownGenreText.textContent = `${selectedGenres.length} selected`;
   }
 
   // Filtriraj i prikaži filmove
