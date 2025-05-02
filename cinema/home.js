@@ -32,14 +32,11 @@ function filterMovies(movies, selectedCinema, selectedGenres, selectedDate) {
   });
 }
 
-//  prikupljanje svih filmova pri ucitavanju stranice, ima duplikata
-let filteredMovies = filterMovies(movies, null, [], null);
-
 
 // funkcija za uklanjanje duplikata
-function removeDuplicateMovies(filteredMovies) {
+function removeDuplicateMovies(movies) {
   const seen = new Set();
-  return filteredMovies.filter(movie => {
+  return movies.filter(movie => {
     if (seen.has(movie.movie_id)) {
       return false;
     }
@@ -48,10 +45,9 @@ function removeDuplicateMovies(filteredMovies) {
   });
 }
 
-let uniqueFilteredMovies = removeDuplicateMovies(filteredMovies);
+let uniqueMovies = removeDuplicateMovies(movies);
 
-console.log(filteredMovies);
-console.log(uniqueFilteredMovies);
+console.log(uniqueMovies);
 
 
 const moviesContainer = document.querySelector(".c-container-for-listing-movies");
@@ -97,7 +93,7 @@ function renderMovies(moviesToShow) {
 
 
 // Renderovanje filmova
-renderMovies(uniqueFilteredMovies);
+renderMovies(uniqueMovies);
 
 
 // Funkcija za izvlacenje bioskopa, bez duplikata
@@ -245,11 +241,10 @@ dropdownListCinemas.addEventListener('click', (e) => {
     dropdownCinemaText.textContent = 'All cinemas';
   }
 
-    const previousFilteredMovies = filteredMovies;
-    filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
-    uniqueFilteredMovies = removeDuplicateMovies(filteredMovies);
-    renderMovies(uniqueFilteredMovies);
-    cinemas = extractCinemas(previousFilteredMovies);
+    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
+    uniqueMovies = removeDuplicateMovies(filteredMovies);
+    renderMovies(uniqueMovies);
+    cinemas = extractCinemas(filteredMovies);
     genres = extractGenres(filteredMovies);
     dates = extractDates(filteredMovies);
     populateDropdowns(cinemas, genres, dates);
@@ -282,13 +277,12 @@ dropdownListDates.addEventListener('click', (e) => {
     dropdownDateText.textContent = 'All dates';
   }
 
-    const previousFilteredMovies = filteredMovies;
-    filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
-    uniqueFilteredMovies = removeDuplicateMovies(filteredMovies);
-    renderMovies(uniqueFilteredMovies);
+    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
+    uniqueMovies = removeDuplicateMovies(filteredMovies);
+    renderMovies(uniqueMovies);
     cinemas = extractCinemas(filteredMovies);
     genres = extractGenres(filteredMovies);
-    dates = extractDates(previousFilteredMovies);
+    dates = extractDates(filteredMovies);
     populateDropdowns(cinemas, genres, dates);
     
 });
