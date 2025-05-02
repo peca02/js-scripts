@@ -268,6 +268,9 @@ dropdownListGenres.addEventListener('click', (e) => {
   const target = e.target.closest('.c-dropdown-list-element');
   if (!target) return;
 
+  // Zatvori dropdown
+  dropdownListDates.style.display = 'none';
+    
   const value = target.getAttribute('data-genre');
 
   // Ako je kliknuto na "All genres" (nema data-genre atribut)
