@@ -229,7 +229,6 @@ dropdownListCinemas.addEventListener('click', (e) => {
     const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
     uniqueMovies = removeDuplicateMovies(filteredMovies);
     renderMovies(uniqueMovies);
-    
 });
 
 // Listener za date dropdown elemente
@@ -261,5 +260,36 @@ dropdownListDates.addEventListener('click', (e) => {
     const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
     uniqueMovies = removeDuplicateMovies(filteredMovies);
     renderMovies(uniqueMovies);
-    
 });
+
+// Listener za genre dropdown elemente
+dropdownListGenres.addEventListener('click', (e) => {
+  const target = e.target.closest('.c-dropdown-list-element');
+  if (!target) return;
+
+  const value = target.getAttribute('data-genre');
+  const index = selectedGenres.indexOf(value);
+
+  if (index > -1) {
+    // Ako je već selektovan, skloni iz niza i ukloni klasu
+    selectedGenres.splice(index, 1);
+    target.classList.remove('c-dropdown-list-element-selected');
+  } else {
+    // Inače dodaj u niz i dodaj klasu
+    selectedGenres.push(value);
+    target.classList.add('c-dropdown-list-element-selected');
+  }
+
+  // Ažuriraj tekst u dropdown-u
+  if (selectedGenres.length === 0) {
+    dropdownGenresText.textContent = 'All genres';
+  } else {
+    dropdownGenresText.textContent = `${selectedGenres.length} selected`;
+  }
+
+  // Filtriraj i prikaži filmove
+  const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
+  uniqueMovies = removeDuplicateMovies(filteredMovies);
+  renderMovies(uniqueMovies);
+});
+
