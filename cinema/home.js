@@ -270,8 +270,11 @@ dropdownListGenres.addEventListener('click', (e) => {
   const value = target.getAttribute('data-genre');
   const index = selectedGenres.indexOf(value);
 
+
+  // Ako value postoji u nizu, indexOf vrati njegov indeks (npr. 0, 1, itd.), ako ne postoji, vrati -1.
   if (index > -1) {
     // Ako je već selektovan, skloni iz niza i ukloni klasu
+    // splice funkcija je da izbaci 1 element iz niza počev od index
     selectedGenres.splice(index, 1);
     target.classList.remove('c-dropdown-list-element-selected');
   } else {
