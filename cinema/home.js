@@ -52,57 +52,45 @@ console.log(uniqueMovies);
 
 const moviesContainer = document.querySelector(".c-movies-grid");
 
-function fadeOut(element) {
-  return new Promise((resolve) => {
-    element.classList.add("fade-out");
-    element.classList.remove("fade-in");
-
-    // Čekaj da animacija prođe
-    setTimeout(() => {
-      resolve();
-    }, 300); // mora se poklopiti sa transition u CSS-u
-  });
-}
-
-function fadeIn(element) {
-  return new Promise((resolve) => {
-    element.classList.remove("fade-out");
-    element.classList.add("fade-in");
-
-    setTimeout(() => {
-      element.classList.remove("fade-in");
-      resolve();
-    }, 300);
-  });
-}
-
-
 // funkcija za renderovanje filmova, klase fade in i fade out u webflow podesavanja stranice za custom css
-async function renderMovies(moviesToShow) {
-  await fadeOut(moviesContainer);
+function renderMovies(moviesToShow) {
+  // FADE OUT
+  moviesContainer.classList.add("fade-out");
 
-  moviesContainer.innerHTML = "";
+  setTimeout(() => {
+    // Očisti stare filmove
+    moviesContainer.innerHTML = "";
 
-  moviesToShow.forEach((movie) => {
-    const movieDiv = document.createElement("div");
+    // Dodaj nove
+    moviesToShow.forEach((movie) => {
+      const movieDiv = document.createElement("div");
 
-    const image = document.createElement("img");
-    image.src = movie.poster_url;
-    image.alt = movie.movie_title;
-    image.className = "c-movie-listing-image";
+      const image = document.createElement("img");
+      image.src = movie.poster_url;
+      image.alt = movie.movie_title;
+      image.className = "c-movie-listing-image";
 
-    const title = document.createElement("h2");
-    title.className = "c-title-for-listed-movies";
-    title.textContent = movie.movie_title;
+      const title = document.createElement("h2");
+      title.className = "c-title-for-listed-movies";
+      title.textContent = movie.movie_title;
 
-    movieDiv.appendChild(image);
-    movieDiv.appendChild(title);
+      movieDiv.appendChild(image);
+      movieDiv.appendChild(title);
 
-    moviesContainer.appendChild(movieDiv);
-  });
+      moviesContainer.appendChild(movieDiv);
+    });
 
-  await fadeIn(moviesContainer);
+    // FADE IN
+    moviesContainer.classList.remove("fade-out");
+    moviesContainer.classList.add("fade-in");
+
+    // Ukloni fade-in klasu posle animacije da bi moglo opet da se koristi
+    setTimeout(() => {
+      moviesContainer.classList.remove("fade-in");
+    }, 300);
+  }, 300); // trajanje fade-out mora da se poklopi sa transition u CSS-u
 }
+
 
 // Renderovanje filmova
 renderMovies(uniqueMovies);
@@ -231,28 +219,6 @@ let selectedCinema = '';
 let selectedGenres = [];
 let selectedDate = '';
 
-
-const noMoviesMessage = document.querySelector(".c-no-movies-message");
-
-
-// funkcija koja skriva i prikazuje poruku da nema filmova u zavisnosti od filtera
-async function updateMovieDisplay(moviesToShow) {
-  if (moviesToShow.length === 0) {
-    await fadeOut(moviesContainer);
-    moviesContainer.style.display = "none";
-
-    noMoviesMessage.style.display = "flex";
-    await fadeIn(noMoviesMessage);
-  } else {
-    await fadeOut(noMoviesMessage);
-    noMoviesMessage.style.display = "none";
-
-    moviesContainer.style.display = "grid";
-    await renderMovies(moviesToShow);
-  }
-}
-
-
 // Listener za cinema dropdown elemente
 dropdownListCinemas.addEventListener('click', (e) => {
   const target = e.target.closest('.c-dropdown-list-element');
@@ -281,7 +247,7 @@ dropdownListCinemas.addEventListener('click', (e) => {
 
     const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
     uniqueMovies = removeDuplicateMovies(filteredMovies);
-    updateMovieDisplay(uniqueMovies);
+    renderMovies(uniqueMovies);
 });
 
 // Listener za date dropdown elemente
@@ -312,7 +278,7 @@ dropdownListDates.addEventListener('click', (e) => {
 
     const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
     uniqueMovies = removeDuplicateMovies(filteredMovies);
-    updateMovieDisplay(uniqueMovies);
+    renderMovies(uniqueMovies);
 });
 
 
@@ -393,7 +359,7 @@ dropdownListGenres.addEventListener('click', (e) => {
   // Filtriraj i renderuj filmove
   const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
   uniqueMovies = removeDuplicateMovies(filteredMovies);
-  updateMovieDisplay(uniqueMovies);
+  renderMovies(uniqueMovies);
 });
 
 
