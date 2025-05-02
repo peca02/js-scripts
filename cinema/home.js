@@ -158,7 +158,7 @@ const dropdownDateText = document.querySelector('#dropdown-date-text');
 
 
   // funkcija za punjenje jednog dropdowna
-  function populateList(listElement, items, attributeName, defaultText) {
+  function populateList(listElement, items, attributeName) {
     items.forEach(item => {
       const div = document.createElement('div');
       div.classList.add('c-dropdown-list-element');
@@ -169,9 +169,9 @@ const dropdownDateText = document.querySelector('#dropdown-date-text');
   }
 
   // Puni sva 3 dropdowna
-  populateList(dropdownListCinemas, cinemas, 'data-cinema', 'All cinemas');
-  populateList(dropdownListGenres, genres, 'data-genre', 'All genres');
-  populateList(dropdownListDates, dates, 'data-date', 'All dates');
+  populateList(dropdownListCinemas, cinemas, 'data-cinema');
+  populateList(dropdownListGenres, genres, 'data-genre');
+  populateList(dropdownListDates, dates, 'data-date');
 
 
 // Funkcija za prikazivanje i skrivanje dropdowna kad se klikne na toggle div
