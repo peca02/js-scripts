@@ -52,45 +52,57 @@ console.log(uniqueMovies);
 
 const moviesContainer = document.querySelector(".c-movies-grid");
 
-// funkcija za renderovanje filmova, klase fade in i fade out u webflow podesavanja stranice za custom css
-function renderMovies(moviesToShow) {
-  // FADE OUT
-  moviesContainer.classList.add("fade-out");
+function fadeOut(element) {
+  return new Promise((resolve) => {
+    element.classList.add("fade-out");
+    element.classList.remove("fade-in");
 
-  setTimeout(() => {
-    // Očisti stare filmove
-    moviesContainer.innerHTML = "";
-
-    // Dodaj nove
-    moviesToShow.forEach((movie) => {
-      const movieDiv = document.createElement("div");
-
-      const image = document.createElement("img");
-      image.src = movie.poster_url;
-      image.alt = movie.movie_title;
-      image.className = "c-movie-listing-image";
-
-      const title = document.createElement("h2");
-      title.className = "c-title-for-listed-movies";
-      title.textContent = movie.movie_title;
-
-      movieDiv.appendChild(image);
-      movieDiv.appendChild(title);
-
-      moviesContainer.appendChild(movieDiv);
-    });
-
-    // FADE IN
-    moviesContainer.classList.remove("fade-out");
-    moviesContainer.classList.add("fade-in");
-
-    // Ukloni fade-in klasu posle animacije da bi moglo opet da se koristi
+    // Čekaj da animacija prođe
     setTimeout(() => {
-      moviesContainer.classList.remove("fade-in");
-    }, 300);
-  }, 300); // trajanje fade-out mora da se poklopi sa transition u CSS-u
+      resolve();
+    }, 300); // mora se poklopiti sa transition u CSS-u
+  });
 }
 
+function fadeIn(element) {
+  return new Promise((resolve) => {
+    element.classList.remove("fade-out");
+    element.classList.add("fade-in");
+
+    setTimeout(() => {
+      element.classList.remove("fade-in");
+      resolve();
+    }, 300);
+  });
+}
+
+
+// funkcija za renderovanje filmova, klase fade in i fade out u webflow podesavanja stranice za custom css
+async function renderMovies(moviesToShow) {
+  await fadeOut(moviesContainer);
+
+  moviesContainer.innerHTML = "";
+
+  moviesToShow.forEach((movie) => {
+    const movieDiv = document.createElement("div");
+
+    const image = document.createElement("img");
+    image.src = movie.poster_url;
+    image.alt = movie.movie_title;
+    image.className = "c-movie-listing-image";
+
+    const title = document.createElement("h2");
+    title.className = "c-title-for-listed-movies";
+    title.textContent = movie.movie_title;
+
+    movieDiv.appendChild(image);
+    movieDiv.appendChild(title);
+
+    moviesContainer.appendChild(movieDiv);
+  });
+
+  await fadeIn(moviesContainer);
+}
 
 // Renderovanje filmova
 renderMovies(uniqueMovies);
@@ -224,35 +236,19 @@ const noMoviesMessage = document.querySelector(".c-no-movies-message");
 
 
 // funkcija koja skriva i prikazuje poruku da nema filmova u zavisnosti od filtera
-function updateMovieDisplay(moviesToShow) {
+async function updateMovieDisplay(moviesToShow) {
   if (moviesToShow.length === 0) {
-    // FADE OUT moviesContainer
-    moviesContainer.classList.add("fade-out");
+    await fadeOut(moviesContainer);
+    moviesContainer.style.display = "none";
 
-    setTimeout(() => {
-      moviesContainer.style.display = "none";
-      moviesContainer.classList.remove("fade-out");
-
-      // Prikaži poruku
-      noMoviesMessage.style.display = "flex";
-      noMoviesMessage.classList.add("fade-in");
-
-      setTimeout(() => {
-        noMoviesMessage.classList.remove("fade-in");
-      }, 300);
-    }, 300);
+    noMoviesMessage.style.display = "flex";
+    await fadeIn(noMoviesMessage);
   } else {
-    // FADE OUT noMoviesMessage ako je bio prikazan
-    noMoviesMessage.classList.add("fade-out");
+    await fadeOut(noMoviesMessage);
+    noMoviesMessage.style.display = "none";
 
-    setTimeout(() => {
-      noMoviesMessage.style.display = "none";
-      noMoviesMessage.classList.remove("fade-out");
-
-      // Prikaži filmove
-      moviesContainer.style.display = "grid";
-      renderMovies(moviesToShow);
-    }, 300);
+    moviesContainer.style.display = "grid";
+    await renderMovies(moviesToShow);
   }
 }
 
