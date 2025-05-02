@@ -219,6 +219,44 @@ let selectedCinema = '';
 let selectedGenres = [];
 let selectedDate = '';
 
+
+const noMoviesMessage = document.querySelector(".c-no-movies-message");
+
+
+// funkcija koja skriva i prikazuje poruku da nema filmova u zavisnosti od filtera
+function updateMovieDisplay(moviesToShow) {
+  if (moviesToShow.length === 0) {
+    // FADE OUT moviesContainer
+    moviesContainer.classList.add("fade-out");
+
+    setTimeout(() => {
+      moviesContainer.style.display = "none";
+      moviesContainer.classList.remove("fade-out");
+
+      // Prikaži poruku
+      noMoviesMessage.style.display = "block";
+      noMoviesMessage.classList.add("fade-in");
+
+      setTimeout(() => {
+        noMoviesMessage.classList.remove("fade-in");
+      }, 300);
+    }, 300);
+  } else {
+    // FADE OUT noMoviesMessage ako je bio prikazan
+    noMoviesMessage.classList.add("fade-out");
+
+    setTimeout(() => {
+      noMoviesMessage.style.display = "none";
+      noMoviesMessage.classList.remove("fade-out");
+
+      // Prikaži filmove
+      moviesContainer.style.display = "grid";
+      renderMovies(moviesToShow);
+    }, 300);
+  }
+}
+
+
 // Listener za cinema dropdown elemente
 dropdownListCinemas.addEventListener('click', (e) => {
   const target = e.target.closest('.c-dropdown-list-element');
@@ -247,7 +285,7 @@ dropdownListCinemas.addEventListener('click', (e) => {
 
     const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
     uniqueMovies = removeDuplicateMovies(filteredMovies);
-    renderMovies(uniqueMovies);
+    updateMovieDisplay(uniqueMovies);
 });
 
 // Listener za date dropdown elemente
@@ -278,7 +316,7 @@ dropdownListDates.addEventListener('click', (e) => {
 
     const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
     uniqueMovies = removeDuplicateMovies(filteredMovies);
-    renderMovies(uniqueMovies);
+    updateMovieDisplay(uniqueMovies);
 });
 
 
@@ -359,7 +397,7 @@ dropdownListGenres.addEventListener('click', (e) => {
   // Filtriraj i renderuj filmove
   const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
   uniqueMovies = removeDuplicateMovies(filteredMovies);
-  renderMovies(uniqueMovies);
+  updateMovieDisplay(uniqueMovies);
 });
 
 
