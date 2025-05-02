@@ -50,7 +50,7 @@ let uniqueMovies = removeDuplicateMovies(movies);
 console.log(uniqueMovies);
 
 
-const moviesContainer = document.querySelector(".c-container-for-listing-movies");
+const moviesContainer = document.querySelector(".c-movies-grid");
 
 // funkcija za renderovanje filmova
 function renderMovies(moviesToShow) {
