@@ -346,7 +346,7 @@ dropdownListGenres.addEventListener('click', (e) => {
 
     } else {
       // Inače prikaži broj selektovanih
-      dropdownGenreText.textContent = `${selectedGenres.length} selected`;
+      dropdownGenreText.textContent = `${selectedGenres.length} genres selected`;
 
       // Ukloni selekciju sa "All genres"
       const allGenresOption = dropdownListGenres.querySelector('.c-dropdown-list-element:not([data-genre])');
