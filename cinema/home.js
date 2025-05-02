@@ -234,7 +234,7 @@ function updateMovieDisplay(moviesToShow) {
       moviesContainer.classList.remove("fade-out");
 
       // Prikaži poruku
-      noMoviesMessage.style.display = "block";
+      noMoviesMessage.style.display = "flex";
       noMoviesMessage.classList.add("fade-in");
 
       setTimeout(() => {
