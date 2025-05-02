@@ -52,7 +52,7 @@ console.log(uniqueMovies);
 
 const moviesContainer = document.querySelector(".c-movies-grid");
 
-// funkcija za renderovanje filmova
+// funkcija za renderovanje filmova, klase fade in i fade out u webflow podesavanja stranice za custom css
 function renderMovies(moviesToShow) {
   // FADE OUT
   moviesContainer.classList.add("fade-out");
