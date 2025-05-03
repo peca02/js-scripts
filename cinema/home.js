@@ -265,14 +265,14 @@ dropdownListCinemas.addEventListener('click', async (e) => {
         await fadeOut(moviesContainer);
         moviesContainer.style.display = "none";
         noMoviesMessage.classList.add("fade-out");
-        noMoviesMessage.style.display = "flex"; // stvori se odmah jer se bukvalno stvori sa opacity 1 pa se onda desi fade in, treba da se stvori sa opacity 0
+        noMoviesMessage.style.display = "flex";
         await fadeIn(noMoviesMessage);
     }
     else
     {
         if(noMoviesMessage.style.display == "flex")
         {
-            await fadeOut(noMoviesMessage); // kad kliknes na film uvek ima mali delay jer se ovo uvek izvrsi, a ne treba uvek nego samo kad je pre toga bilo prikazano no movies message
+            await fadeOut(noMoviesMessage);
             noMoviesMessage.style.display = "none";
             moviesContainer.style.display = "grid";
         }
@@ -313,14 +313,14 @@ dropdownListDates.addEventListener('click', async (e) => {
         await fadeOut(moviesContainer);
         moviesContainer.style.display = "none";
         noMoviesMessage.classList.add("fade-out");
-        noMoviesMessage.style.display = "flex"; // stvori se odmah jer se bukvalno stvori sa opacity 1 pa se onda desi fade in, treba da se stvori sa opacity 0
+        noMoviesMessage.style.display = "flex";
         await fadeIn(noMoviesMessage);
     }
     else
     {
         if(noMoviesMessage.style.display == "flex")
         {
-            await fadeOut(noMoviesMessage); // kad kliknes na film uvek ima mali delay jer se ovo uvek izvrsi, a ne treba uvek nego samo kad je pre toga bilo prikazano no movies message
+            await fadeOut(noMoviesMessage); 
             noMoviesMessage.style.display = "none";
             moviesContainer.style.display = "grid";
         }
@@ -410,15 +410,15 @@ dropdownListGenres.addEventListener('click', async (e) => {
     {
         await fadeOut(moviesContainer);
         moviesContainer.style.display = "none";
-        noMoviesMessage.classList.add("fade-out");
-        noMoviesMessage.style.display = "flex"; // stvori se odmah jer se bukvalno stvori sa opacity 1 pa se onda desi fade in, treba da se stvori sa opacity 0
+        noMoviesMessage.classList.add("fade-out"); // nzm sto ovo ne radi opet se samo stvori a rekli smo da je opacity 0 to jest to je ovo klasa, mozda jer ima onaj ease
+        noMoviesMessage.style.display = "flex";
         await fadeIn(noMoviesMessage);
     }
     else
     {
-        if(noMoviesMessage.style.display == "flex")
+        if(noMoviesMessage.style.display == "flex") // ovo smo ovako u if da se ne odvija uvek animacija i da ima delay 3 sec
         {
-            await fadeOut(noMoviesMessage); // kad kliknes na film uvek ima mali delay jer se ovo uvek izvrsi, a ne treba uvek nego samo kad je pre toga bilo prikazano no movies message
+            await fadeOut(noMoviesMessage); 
             noMoviesMessage.style.display = "none";
             moviesContainer.style.display = "grid";
         }
