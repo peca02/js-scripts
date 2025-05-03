@@ -402,12 +402,12 @@ dropdownListGenres.addEventListener('click', async (e) => {
     {
         await fadeOut(moviesContainer);
         moviesContainer.style.display = "none";
-        noMoviesMessage.style.display = "flex";
+        noMoviesMessage.style.display = "flex"; // stvori se odmah jer se bukvalno stvori sa opacity 1 pa se onda desi fade in, treba da se stvori sa opacity 0
         await fadeIn(noMoviesMessage);
     }
     else
     {
-        await fadeOut(noMoviesMessage);
+        await fadeOut(noMoviesMessage); // kad kliknes na film uvek ima mali delay jer se ovo uvek izvrsi, a ne treba uvek nego samo kad je pre toga bilo prikazano no movies message
         noMoviesMessage.style.display = "none";
         moviesContainer.style.display = "grid";
         renderMovies(uniqueMovies);
