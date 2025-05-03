@@ -264,7 +264,7 @@ dropdownListCinemas.addEventListener('click', async (e) => {
     {
         await fadeOut(moviesContainer);
         moviesContainer.style.display = "none";
-        noMoviesMessage.classList.add("fade-out");
+        noMoviesMessage.classList.add("fade-out-instant");
         noMoviesMessage.style.display = "flex";
         await fadeIn(noMoviesMessage);
     }
@@ -312,7 +312,7 @@ dropdownListDates.addEventListener('click', async (e) => {
     {
         await fadeOut(moviesContainer);
         moviesContainer.style.display = "none";
-        noMoviesMessage.classList.add("fade-out");
+        noMoviesMessage.classList.add("fade-out-instant");
         noMoviesMessage.style.display = "flex";
         await fadeIn(noMoviesMessage);
     }
@@ -410,7 +410,7 @@ dropdownListGenres.addEventListener('click', async (e) => {
     {
         await fadeOut(moviesContainer);
         moviesContainer.style.display = "none";
-        noMoviesMessage.classList.add("fade-out"); // nzm sto ovo ne radi opet se samo stvori a rekli smo da je opacity 0 to jest to je ovo klasa, mozda jer ima onaj ease
+        noMoviesMessage.classList.add("fade-out-instant"); // nzm sto ovo ne radi opet se samo stvori a rekli smo da je opacity 0 to jest to je ovo klasa, mozda jer ima onaj ease
         noMoviesMessage.style.display = "flex";
         await fadeIn(noMoviesMessage);
     }
