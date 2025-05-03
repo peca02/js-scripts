@@ -230,7 +230,7 @@ let selectedCinema = '';
 let selectedGenres = [];
 let selectedDate = '';
 
-const noMoviesMessage = document.querySelector(".no-movies-message");
+const noMoviesMessage = document.querySelector(".c-no-movies-message");
 
 // Listener za cinema dropdown elemente
 dropdownListCinemas.addEventListener('click', async (e) => {
