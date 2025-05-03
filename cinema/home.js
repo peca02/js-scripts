@@ -264,8 +264,8 @@ dropdownListCinemas.addEventListener('click', async (e) => {
     {
         await fadeOut(moviesContainer);
         moviesContainer.style.display = "none";
-        noMoviesMessage.style.display = "flex"; // stvori se odmah jer se bukvalno stvori sa opacity 1 pa se onda desi fade in, treba da se stvori sa opacity 0
         nomoviesMessage.style.opacity = 0;
+        noMoviesMessage.style.display = "flex"; // stvori se odmah jer se bukvalno stvori sa opacity 1 pa se onda desi fade in, treba da se stvori sa opacity 0
         await fadeIn(noMoviesMessage);
     }
     else
@@ -312,8 +312,8 @@ dropdownListDates.addEventListener('click', async (e) => {
     {
         await fadeOut(moviesContainer);
         moviesContainer.style.display = "none";
-        noMoviesMessage.style.display = "flex"; // stvori se odmah jer se bukvalno stvori sa opacity 1 pa se onda desi fade in, treba da se stvori sa opacity 0
         nomoviesMessage.style.opacity = 0;
+        noMoviesMessage.style.display = "flex"; // stvori se odmah jer se bukvalno stvori sa opacity 1 pa se onda desi fade in, treba da se stvori sa opacity 0
         await fadeIn(noMoviesMessage);
     }
     else
@@ -410,8 +410,8 @@ dropdownListGenres.addEventListener('click', async (e) => {
     {
         await fadeOut(moviesContainer);
         moviesContainer.style.display = "none";
-        noMoviesMessage.style.display = "flex"; // stvori se odmah jer se bukvalno stvori sa opacity 1 pa se onda desi fade in, treba da se stvori sa opacity 0
         nomoviesMessage.style.opacity = 0;
+        noMoviesMessage.style.display = "flex"; // stvori se odmah jer se bukvalno stvori sa opacity 1 pa se onda desi fade in, treba da se stvori sa opacity 0
         await fadeIn(noMoviesMessage);
     }
     else
