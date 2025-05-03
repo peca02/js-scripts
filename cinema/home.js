@@ -230,6 +230,8 @@ let selectedCinema = '';
 let selectedGenres = [];
 let selectedDate = '';
 
+const noMoviesMessage = document.querySelector(".c-no-movies-message");
+
 // Listener za cinema dropdown elemente
 dropdownListCinemas.addEventListener('click', (e) => {
   const target = e.target.closest('.c-dropdown-list-element');
@@ -258,7 +260,20 @@ dropdownListCinemas.addEventListener('click', (e) => {
 
     const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
     uniqueMovies = removeDuplicateMovies(filteredMovies);
-    renderMovies(uniqueMovies);
+    if(uniqueMovies.length === 0)
+    {
+        await fadeOut(moviesContainer);
+        moviesContainer.style.display = "none";
+        noMoviesMessage.style.display = "flex";
+        await fadeIn(noMoviesMessage);
+    }
+    else
+    {
+        await fadeOut(noMoviesMessage);
+        noMoviesMessage.style.display = "none";
+        moviesContainer.style.display = "grid";
+        renderMovies(uniqueMovies);
+    }
 });
 
 // Listener za date dropdown elemente
@@ -289,7 +304,20 @@ dropdownListDates.addEventListener('click', (e) => {
 
     const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
     uniqueMovies = removeDuplicateMovies(filteredMovies);
-    renderMovies(uniqueMovies);
+    if(uniqueMovies.length === 0)
+    {
+        await fadeOut(moviesContainer);
+        moviesContainer.style.display = "none";
+        noMoviesMessage.style.display = "flex";
+        await fadeIn(noMoviesMessage);
+    }
+    else
+    {
+        await fadeOut(noMoviesMessage);
+        noMoviesMessage.style.display = "none";
+        moviesContainer.style.display = "grid";
+        renderMovies(uniqueMovies);
+    }
 });
 
 
@@ -370,7 +398,21 @@ dropdownListGenres.addEventListener('click', (e) => {
   // Filtriraj i renderuj filmove
   const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
   uniqueMovies = removeDuplicateMovies(filteredMovies);
-  renderMovies(uniqueMovies);
+    if(uniqueMovies.length === 0)
+    {
+        await fadeOut(moviesContainer);
+        moviesContainer.style.display = "none";
+        noMoviesMessage.style.display = "flex";
+        await fadeIn(noMoviesMessage);
+    }
+    else
+    {
+        await fadeOut(noMoviesMessage);
+        noMoviesMessage.style.display = "none";
+        moviesContainer.style.display = "grid";
+        renderMovies(uniqueMovies);
+    }
+  
 });
 
 
