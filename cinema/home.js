@@ -230,10 +230,8 @@ let selectedCinema = '';
 let selectedGenres = [];
 let selectedDate = '';
 
-const noMoviesMessage = document.querySelector(".c-no-movies-message");
-
 // Listener za cinema dropdown elemente
-dropdownListCinemas.addEventListener('click', async (e) => {
+dropdownListCinemas.addEventListener('click', (e) => {
   const target = e.target.closest('.c-dropdown-list-element');
   if (!target) return;
 
@@ -258,30 +256,13 @@ dropdownListCinemas.addEventListener('click', async (e) => {
     dropdownCinemaText.textContent = 'All cinemas';
   }
 
-    // Filtriraj i renderuj filmove
-  const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
-  uniqueMovies = removeDuplicateMovies(filteredMovies);
-    if(uniqueMovies.length === 0)
-    {
-        await fadeOut(moviesContainer);
-        moviesContainer.style.display = "none";
-        noMoviesMessage.style.display = "flex"; 
-        await fadeIn(noMoviesMessage);
-    }
-    else
-    {
-        if(noMoviesMessage.style.display == "flex")
-        {
-            await fadeOut(noMoviesMessage); 
-            noMoviesMessage.style.display = "none";
-            moviesContainer.style.display = "grid";
-        }
-        renderMovies(uniqueMovies);
-    }
+    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
+    uniqueMovies = removeDuplicateMovies(filteredMovies);
+    renderMovies(uniqueMovies);
 });
 
 // Listener za date dropdown elemente
-dropdownListDates.addEventListener('click', async (e) => {
+dropdownListDates.addEventListener('click', (e) => {
   const target = e.target.closest('.c-dropdown-list-element');
   if (!target) return;
 
@@ -306,31 +287,14 @@ dropdownListDates.addEventListener('click', async (e) => {
     dropdownDateText.textContent = 'All dates';
   }
 
-    // Filtriraj i renderuj filmove
-  const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
-  uniqueMovies = removeDuplicateMovies(filteredMovies);
-    if(uniqueMovies.length === 0)
-    {
-        await fadeOut(moviesContainer);
-        moviesContainer.style.display = "none";
-        noMoviesMessage.style.display = "flex"; 
-        await fadeIn(noMoviesMessage);
-    }
-    else
-    {
-        if(noMoviesMessage.style.display == "flex")
-        {
-            await fadeOut(noMoviesMessage); 
-            noMoviesMessage.style.display = "none";
-            moviesContainer.style.display = "grid";
-        }
-        renderMovies(uniqueMovies);
-    }
+    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
+    uniqueMovies = removeDuplicateMovies(filteredMovies);
+    renderMovies(uniqueMovies);
 });
 
 
 // Listener za genre dropdown elemente
-dropdownListGenres.addEventListener('click', async (e) => {
+dropdownListGenres.addEventListener('click', (e) => {
   const target = e.target.closest('.c-dropdown-list-element');
   if (!target) return;
 
@@ -406,23 +370,7 @@ dropdownListGenres.addEventListener('click', async (e) => {
   // Filtriraj i renderuj filmove
   const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
   uniqueMovies = removeDuplicateMovies(filteredMovies);
-    if(uniqueMovies.length === 0)
-    {
-        await fadeOut(moviesContainer);
-        moviesContainer.style.display = "none";
-        noMoviesMessage.style.display = "flex"; 
-        await fadeIn(noMoviesMessage);
-    }
-    else
-    {
-        if(noMoviesMessage.style.display == "flex")
-        {
-            await fadeOut(noMoviesMessage); 
-            noMoviesMessage.style.display = "none";
-            moviesContainer.style.display = "grid";
-        }
-        renderMovies(uniqueMovies);
-    }
+  renderMovies(uniqueMovies);
 });
 
 
