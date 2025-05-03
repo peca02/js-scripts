@@ -62,7 +62,6 @@ function fadeOut(element) {
 function fadeIn(element) {
   return new Promise((resolve) => {
     element.classList.remove("fade-out");
-    element.classList.remove("fade-out-instant");
     element.classList.add("fade-in");
     setTimeout(() => {
       element.classList.remove("fade-in");
@@ -265,15 +264,14 @@ dropdownListCinemas.addEventListener('click', async (e) => {
     {
         await fadeOut(moviesContainer);
         moviesContainer.style.display = "none";
-        noMoviesMessage.classList.add("fade-out-instant");
         noMoviesMessage.style.display = "flex";
         await fadeIn(noMoviesMessage);
     }
     else
     {
-        if(noMoviesMessage.style.display == "flex")
+        if(noMoviesMessage.style.display == "flex") // ovo smo ovako u if da se ne odvija uvek animacija i da ima delay 3 sec
         {
-            await fadeOut(noMoviesMessage);
+            await fadeOut(noMoviesMessage); 
             noMoviesMessage.style.display = "none";
             moviesContainer.style.display = "grid";
         }
@@ -310,16 +308,16 @@ dropdownListDates.addEventListener('click', async (e) => {
     const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
     uniqueMovies = removeDuplicateMovies(filteredMovies);
     if(uniqueMovies.length === 0)
+    if(uniqueMovies.length === 0)
     {
         await fadeOut(moviesContainer);
         moviesContainer.style.display = "none";
-        noMoviesMessage.classList.add("fade-out-instant");
         noMoviesMessage.style.display = "flex";
         await fadeIn(noMoviesMessage);
     }
     else
     {
-        if(noMoviesMessage.style.display == "flex")
+        if(noMoviesMessage.style.display == "flex") // ovo smo ovako u if da se ne odvija uvek animacija i da ima delay 3 sec
         {
             await fadeOut(noMoviesMessage); 
             noMoviesMessage.style.display = "none";
@@ -411,7 +409,6 @@ dropdownListGenres.addEventListener('click', async (e) => {
     {
         await fadeOut(moviesContainer);
         moviesContainer.style.display = "none";
-        noMoviesMessage.classList.add("fade-out-instant"); // nzm sto ovo ne radi opet se samo stvori a rekli smo da je opacity 0 to jest to je ovo klasa, mozda jer ima onaj ease
         noMoviesMessage.style.display = "flex";
         await fadeIn(noMoviesMessage);
     }
