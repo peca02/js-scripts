@@ -85,7 +85,7 @@ async function renderMovies(moviesToShow) {
     }
     else
     {
-        if noMoviesMessage.style.display == "flex";
+        if (noMoviesMessage.style.display == "flex")
         {
             await fadeOut(noMoviesMessage);
             noMoviesMessage.style.display = "none";
