@@ -50,71 +50,45 @@ let uniqueMovies = removeDuplicateMovies(movies);
 console.log(uniqueMovies);
 
 
-function fadeOut(element) {
-  return new Promise((resolve) => {
-    element.classList.add("fade-out");
-    setTimeout(() => {
-      resolve();
-    }, 300); // mora da se poklopi sa transition trajanjem
-  });
-}
-
-function fadeIn(element) {
-  return new Promise((resolve) => {
-    element.classList.remove("fade-out");
-    element.classList.add("fade-in");
-    setTimeout(() => {
-      element.classList.remove("fade-in");
-      resolve();
-    }, 300);
-  });
-}
-
-
 const moviesContainer = document.querySelector(".c-movies-grid");
-const noMoviesMessage = document.querySelector(".c-no-movies-message")
 
 // funkcija za renderovanje filmova, klase fade in i fade out u webflow podesavanja stranice za custom css
-async function renderMovies(moviesToShow) {
-    if(moviesToShow.length === 0)
-    {
-        await fadeOut(moviesContainer);
-        moviesContainer.style.display = "none";
-        noMoviesMessage.style.display = "flex";
-        await fadeIn(noMoviesMessage);
-    }
-    else
-    {
-        if (noMoviesMessage.style.display == "flex")
-        {
-            await fadeOut(noMoviesMessage);
-            noMoviesMessage.style.display = "none";
-            moviesContainer.style.display = "grid"; // Pa pokaži (nevidljivo)
-        }
-            await fadeOut(moviesContainer);
-            // Očisti stare filmove
-          moviesContainer.innerHTML = "";
-        
-          // Dodaj nove
-          moviesToShow.forEach((movie) => {
-            const movieDiv = document.createElement("div");
-        
-            const image = document.createElement("img");
-            image.src = movie.poster_url;
-            image.alt = movie.movie_title;
-            image.className = "c-movie-listing-image";
-        
-            const title = document.createElement("h2");
-            title.className = "c-title-for-listed-movies";
-            title.textContent = movie.movie_title;
-        
-            movieDiv.appendChild(image);
-            movieDiv.appendChild(title);
-        
-            moviesContainer.appendChild(movieDiv);
-          });
-          await fadeIn(moviesContainer);
-    }
+function renderMovies(moviesToShow) {
+  // FADE OUT
+  moviesContainer.classList.add("fade-out");
+
+  setTimeout(() => {
+    // Očisti stare filmove
+    moviesContainer.innerHTML = "";
+
+    // Dodaj nove
+    moviesToShow.forEach((movie) => {
+      const movieDiv = document.createElement("div");
+
+      const image = document.createElement("img");
+      image.src = movie.poster_url;
+      image.alt = movie.movie_title;
+      image.className = "c-movie-listing-image";
+
+      const title = document.createElement("h2");
+      title.className = "c-title-for-listed-movies";
+      title.textContent = movie.movie_title;
+
+      movieDiv.appendChild(image);
+      movieDiv.appendChild(title);
+
+      moviesContainer.appendChild(movieDiv);
+    });
+
+    // FADE IN
+    moviesContainer.classList.remove("fade-out");
+    moviesContainer.classList.add("fade-in");
+
+    // Ukloni fade-in klasu posle animacije da bi moglo opet da se koristi
+    setTimeout(() => {
+      moviesContainer.classList.remove("fade-in");
+    }, 300);
+  }, 300); // trajanje fade-out mora da se poklopi sa transition u CSS-u
 }
 
 
