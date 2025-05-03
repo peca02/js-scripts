@@ -72,7 +72,7 @@ function fadeIn(element) {
 
 
 const moviesContainer = document.querySelector(".c-movies-grid");
-const noMoviesMessage = document.querySelecotr(".c-no-movies-message")
+const noMoviesMessage = document.querySelector(".c-no-movies-message")
 
 // funkcija za renderovanje filmova, klase fade in i fade out u webflow podesavanja stranice za custom css
 async function renderMovies(moviesToShow) {
