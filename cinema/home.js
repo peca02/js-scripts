@@ -63,6 +63,7 @@ function fadeIn(element) {
   return new Promise((resolve) => {
     element.classList.remove("fade-out");
     element.classList.add("fade-in");
+    element.style.opacity = 1; // ← Osiguraj da opacity ide ka 1
     setTimeout(() => {
       element.classList.remove("fade-in");
       resolve();
