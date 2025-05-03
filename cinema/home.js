@@ -233,7 +233,7 @@ let selectedDate = '';
 const noMoviesMessage = document.querySelector(".c-no-movies-message");
 
 // Listener za cinema dropdown elemente
-dropdownListCinemas.addEventListener('click', (e) => {
+dropdownListCinemas.addEventListener('click', async (e) => {
   const target = e.target.closest('.c-dropdown-list-element');
   if (!target) return;
 
@@ -277,7 +277,7 @@ dropdownListCinemas.addEventListener('click', (e) => {
 });
 
 // Listener za date dropdown elemente
-dropdownListDates.addEventListener('click', (e) => {
+dropdownListDates.addEventListener('click', async (e) => {
   const target = e.target.closest('.c-dropdown-list-element');
   if (!target) return;
 
@@ -322,7 +322,7 @@ dropdownListDates.addEventListener('click', (e) => {
 
 
 // Listener za genre dropdown elemente
-dropdownListGenres.addEventListener('click', (e) => {
+dropdownListGenres.addEventListener('click', async (e) => {
   const target = e.target.closest('.c-dropdown-list-element');
   if (!target) return;
 
