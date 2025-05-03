@@ -62,6 +62,7 @@ function fadeOut(element) {
 function fadeIn(element) {
   return new Promise((resolve) => {
     element.classList.remove("fade-out");
+    element.classList.remove("fade-out-instant");
     element.classList.add("fade-in");
     setTimeout(() => {
       element.classList.remove("fade-in");
