@@ -90,8 +90,6 @@ async function renderMovies(moviesToShow) {
             await fadeOut(noMoviesMessage);
             noMoviesMessage.style.display = "none";
             moviesContainer.style.display = "grid";
-        }
-        await fadeOut(moviesContainer);
 
           // Očisti stare filmove
           moviesContainer.innerHTML = "";
@@ -116,6 +114,35 @@ async function renderMovies(moviesToShow) {
           });
         
           await fadeIn(moviesContainer);
+        }
+        else
+        {
+            await fadeOut(moviesContainer);
+            // Očisti stare filmove
+          moviesContainer.innerHTML = "";
+        
+          // Dodaj nove
+          moviesToShow.forEach((movie) => {
+            const movieDiv = document.createElement("div");
+        
+            const image = document.createElement("img");
+            image.src = movie.poster_url;
+            image.alt = movie.movie_title;
+            image.className = "c-movie-listing-image";
+        
+            const title = document.createElement("h2");
+            title.className = "c-title-for-listed-movies";
+            title.textContent = movie.movie_title;
+        
+            movieDiv.appendChild(image);
+            movieDiv.appendChild(title);
+        
+            moviesContainer.appendChild(movieDiv);
+          });
+        
+          await fadeIn(moviesContainer);
+        }
+       
     }
   
 }
