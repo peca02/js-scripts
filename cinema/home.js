@@ -70,6 +70,17 @@ function fadeIn(element) {
   });
 }
 
+function fadeIn2(element) {
+  return new Promise((resolve) => {
+    element.classList.remove("fade-out-instant");
+    element.classList.add("fade-in");
+    setTimeout(() => {
+      element.classList.remove("fade-in");
+      resolve();
+    }, 300);
+  });
+}
+
 
 const moviesContainer = document.querySelector(".c-movies-grid");
 const noMoviesMessage = document.querySelector(".c-no-movies-message")
@@ -112,7 +123,9 @@ async function renderMovies(moviesToShow) {
         
             moviesContainer.appendChild(movieDiv);
           });
-          await fadeIn(moviesContainer);
+            moviesContainer.classList.add("fade-out-instant");
+            element.classList.remove("fade-out");
+          await fadeIn2(moviesContainer);
         }
         else
         {
