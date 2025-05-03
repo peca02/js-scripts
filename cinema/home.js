@@ -89,7 +89,6 @@ async function renderMovies(moviesToShow) {
         {
             await fadeOut(noMoviesMessage);
             noMoviesMessage.style.display = "none";
-            moviesContainer.style.opacity = 0; // Prvo sakrij
             moviesContainer.style.display = "grid"; // Pa pokaži (nevidljivo)
         }
             await fadeOut(moviesContainer);
