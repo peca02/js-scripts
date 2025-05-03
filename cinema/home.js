@@ -124,7 +124,7 @@ async function renderMovies(moviesToShow) {
             moviesContainer.appendChild(movieDiv);
           });
             moviesContainer.classList.add("fade-out-instant");
-            element.classList.remove("fade-out");
+            moviesContainer.classList.remove("fade-out");
           await fadeIn2(moviesContainer);
         }
         else
