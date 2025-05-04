@@ -93,7 +93,7 @@ async function renderMovies(moviesToShow) {
 
       moviesContainer.style.display = "grid";
       moviesContainer.style.opacity = "0";
-      await sleep(10); // Mali delay da transition registruje promenu
+      await sleep(300); // Mali delay da transition registruje promenu
       moviesContainer.style.opacity = "1";
       await sleep(300);
 
