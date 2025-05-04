@@ -135,8 +135,12 @@ async function renderMovies(moviesToShow) {
 
       // Prikaži poruku
       noMoviesMessage.style.display = "flex";
-      await sleep(300); // kada ovo maknem instant se stvara
-      noMoviesMessage.style.opacity = "1"; // ovo se instant prikaze ne znam zasto
+        noMoviesMessage.style.opacity = "0";
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            noMoviesMessage.style.opacity = "1";
+          });
+        });
      await sleep(300);
         // kad posle duze vreme promenis filter i treba nestane nesto i da se stvori ubaguje se dom i povuce stranicu nagore, tkd mora uradim samo sa opacity barem za movieskontejner, i da pitam chatgpt koja je razlika
         // izmedju visibility i opacity 0
