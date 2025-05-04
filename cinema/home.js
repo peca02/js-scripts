@@ -128,7 +128,7 @@ async function renderMovies(moviesToShow) {
 
   } else {
     // Nema filmova
-    if (moviesVisible) {
+    // if (moviesVisible) {
       // Fade out filmova
       moviesContainer.style.opacity = "0";
       await sleep(300);
@@ -140,7 +140,7 @@ async function renderMovies(moviesToShow) {
       await sleep(300);
         // kad posle duze vreme promenis filter i treba nestane nesto i da se stvori ubaguje se dom i povuce stranicu nagore, tkd mora uradim samo sa opacity barem za movieskontejner, i da pitam chatgpt koja je razlika
         // izmedju visibility i opacity 0
-    }
+    // }
   }
 }
 
