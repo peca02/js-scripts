@@ -140,9 +140,8 @@ async function renderMovies(moviesToShow) {
 
       // Prikaži poruku
       noMoviesMessage.style.display = "flex";
-        noMoviesMessage.classList.remove("transition");
       noMoviesMessage.style.opacity = "0";
-      noMoviesMessage.classList.add("transition"); // ovde sam brisao
+      await sleep(300);
       noMoviesMessage.style.opacity = "1";
       await sleep(300);
     }
