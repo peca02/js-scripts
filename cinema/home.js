@@ -122,7 +122,7 @@ async function renderMovies(moviesToShow) {
 
       moviesContainer.style.opacity = "0";
       moviesContainer.style.display = "grid";
-      await sleep(10);
+      await sleep(300);
       moviesContainer.style.opacity = "1";
       await sleep(300);
     }
@@ -140,7 +140,7 @@ async function renderMovies(moviesToShow) {
       // Prikaži poruku
       noMoviesMessage.style.display = "flex";
       noMoviesMessage.style.opacity = "0";
-      await sleep(10);
+      await sleep(300);
       noMoviesMessage.style.opacity = "1";
       await sleep(300);
     }
