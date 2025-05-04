@@ -94,7 +94,7 @@ async function renderMovies(moviesToShow) {
       });
 
       moviesContainer.style.display = "grid";
-      moviesContainer.style.opacity = "0";
+      // moviesContainer.style.opacity = "0";
           requestAnimationFrame(() => {
             moviesContainer.style.opacity = "1";
           });
@@ -137,7 +137,7 @@ async function renderMovies(moviesToShow) {
 
       // Prikaži poruku
       noMoviesMessage.style.display = "flex";
-        noMoviesMessage.style.opacity = "0";
+      //  noMoviesMessage.style.opacity = "0";
           requestAnimationFrame(() => {
             noMoviesMessage.style.opacity = "1";
           });
