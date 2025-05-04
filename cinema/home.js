@@ -268,6 +268,11 @@ searchInput.addEventListener("input", (event) => {
   updateMovies(uniqueMovies);
 });
 
+searchInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault(); // sprečava submit forme
+  }
+});
 
 // Listener za cinema dropdown elemente
 dropdownListCinemas.addEventListener('click', (e) => {
