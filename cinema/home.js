@@ -94,7 +94,7 @@ async function renderMovies(moviesToShow) {
       });
 
       moviesContainer.style.display = "grid";
-      // moviesContainer.style.opacity = "0";
+        // moramo staviti ovu funkciju jer bez nje nema animacije, bez obzira sto je pre toga bio opacity 0 kad se od display none samo nesto pojavi nema animacije, mora da se stavi ovo
           requestAnimationFrame(() => {
             moviesContainer.style.opacity = "1";
           });
@@ -137,7 +137,7 @@ async function renderMovies(moviesToShow) {
 
       // Prikaži poruku
       noMoviesMessage.style.display = "flex";
-      //  noMoviesMessage.style.opacity = "0";
+         // moramo staviti ovu funkciju jer bez nje nema animacije, bez obzira sto je pre toga bio opacity 0 kad se od display none samo nesto pojavi nema animacije, mora da se stavi ovo
           requestAnimationFrame(() => {
             noMoviesMessage.style.opacity = "1";
           });
