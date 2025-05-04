@@ -94,7 +94,7 @@ async function renderMovies(moviesToShow) {
       });
 
       moviesContainer.style.display = "grid";
-// ovde se instant stvori
+        await sleep(300);
       moviesContainer.style.opacity = "1";
       await sleep(300);
 
@@ -121,8 +121,6 @@ async function renderMovies(moviesToShow) {
         moviesContainer.appendChild(movieDiv);
       });
 
-        console.log("ja sam slepac");
-      // moviesContainer.style.display = "grid"; // ovde ga ne ujebuje
       moviesContainer.style.opacity = "1";
       await sleep(300);
     }
@@ -137,6 +135,7 @@ async function renderMovies(moviesToShow) {
 
       // Prikaži poruku
       noMoviesMessage.style.display = "flex";
+        await sleep(300);
       noMoviesMessage.style.opacity = "1"; // ovo se instant prikaze ne znam zasto
       await sleep(300);
         // kad posle duze vreme promenis filter i treba nestane nesto i da se stvori ubaguje se dom i povuce stranicu nagore, tkd mora uradim samo sa opacity barem za movieskontejner, i da pitam chatgpt koja je razlika
