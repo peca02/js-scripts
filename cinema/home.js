@@ -122,7 +122,7 @@ async function renderMovies(moviesToShow) {
         moviesContainer.appendChild(movieDiv);
       });
 
-      moviesContainer.style.opacity = "0";
+      // moviesContainer.style.opacity = "0";
       moviesContainer.style.display = "grid";
       moviesContainer.style.opacity = "1";
       await sleep(300);
