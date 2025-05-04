@@ -140,8 +140,10 @@ async function renderMovies(moviesToShow) {
 
       // Prikaži poruku
       noMoviesMessage.style.display = "flex";
+        noMoviesMessage.classList.remove("transition");
       noMoviesMessage.style.opacity = "0";
-      await sleep(300);
+      // await sleep(300);
+        noMoviesMessage.classList.add("transition"); // sad se fade-in desi animirano
       noMoviesMessage.style.opacity = "1";
       await sleep(300);
     }
