@@ -14,7 +14,7 @@ console.log(movies);
 
 
 // Funkcija koja filtrira filmove, ima duplikata
-function filterMovies(movies, selectedCinema, selectedGenres, selectedDate) {
+function filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery) {
   return movies.filter(movie => {
     const matchCinema = selectedCinema
       ? movie.cinema === selectedCinema
@@ -28,10 +28,13 @@ function filterMovies(movies, selectedCinema, selectedGenres, selectedDate) {
       ? new Date(movie.screening_start_time).toDateString() === new Date(selectedDate).toDateString()
       : true;
 
-    return matchCinema && matchGenre && matchDate;
+    const matchSearch = searchQuery
+      ? movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+      : true;
+
+    return matchCinema && matchGenre && matchDate && matchSearch;
   });
 }
-
 
 // funkcija za uklanjanje duplikata
 function removeDuplicateMovies(movies) {
@@ -252,6 +255,19 @@ document.addEventListener('click', (e) => {
 let selectedCinema = '';
 let selectedGenres = [];
 let selectedDate = '';
+let searchQuery = '';
+
+const searchInput = document.querySelector(".c-search-bar-for-movies");
+
+
+// Listener input
+searchInput.addEventListener("input", (event) => {
+  searchQuery = event.target.value.trim(); // može i .toLowerCase() ovde ako želiš odmah da normalizuješ
+  const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
+  uniqueMovies = removeDuplicateMovies(filteredMovies);
+  updateMovies(uniqueMovies);
+});
+
 
 // Listener za cinema dropdown elemente
 dropdownListCinemas.addEventListener('click', (e) => {
@@ -279,7 +295,7 @@ dropdownListCinemas.addEventListener('click', (e) => {
     dropdownCinemaText.textContent = 'All cinemas';
   }
 
-    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
+    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
     uniqueMovies = removeDuplicateMovies(filteredMovies);
     updateMovies(uniqueMovies);
 });
@@ -310,7 +326,7 @@ dropdownListDates.addEventListener('click', (e) => {
     dropdownDateText.textContent = 'All dates';
   }
 
-    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
+    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
     uniqueMovies = removeDuplicateMovies(filteredMovies);
     updateMovies(uniqueMovies);
 });
@@ -391,7 +407,7 @@ dropdownListGenres.addEventListener('click', (e) => {
   }
 
   // Filtriraj i renderuj filmove
-  const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
+  const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
   uniqueMovies = removeDuplicateMovies(filteredMovies);
   updateMovies(uniqueMovies);
 });
