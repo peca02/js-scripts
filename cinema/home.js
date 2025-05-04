@@ -146,6 +146,8 @@ async function renderMovies(moviesToShow) {
         noMoviesMessage.classList.add("transition"); // sad se fade-in desi animirano
       noMoviesMessage.style.opacity = "1";
       await sleep(300);
+        // kad posle duze vreme promenis filter i treba nestane nesto i da se stvori ubaguje se dom i povuce stranicu nagore, tkd mora uradim samo sa opacity barem za movieskontejner, i da pitam chatgpt koja je razlika
+        // izmedju visibility i opacity 0
     }
   }
 }
