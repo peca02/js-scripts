@@ -52,6 +52,8 @@ console.log(uniqueMovies);
 
 const moviesContainer = document.querySelector(".c-movies-grid");
 const noMoviesMessage = document.querySelector(".c-no-movies-message");
+moviesContainer.classList.add("transition");
+noMoviesMessage.classList.add("transition");
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
