@@ -142,7 +142,7 @@ async function renderMovies(moviesToShow) {
       noMoviesMessage.style.display = "flex";
         noMoviesMessage.classList.remove("transition");
         await sleep(300); // pod neki fazon ovo radi al mora sutra skontam sto uopste ispod liniju stavljamo opacity 0 kad bi vec trebalo da je 0
-      noMoviesMessage.style.opacity = "0";
+      // noMoviesMessage.style.opacity = "0";
       // await sleep(300);
         noMoviesMessage.classList.add("transition"); // sad se fade-in desi animirano
       noMoviesMessage.style.opacity = "1";
