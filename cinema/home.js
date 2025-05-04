@@ -60,7 +60,7 @@ function sleep(ms) {
 }
 
 
-// funkcija za renderovanje filmova, klase fade in i fade out u webflow podesavanja stranice za custom css
+// funkcija za renderovanje filmova
 async function renderMovies(moviesToShow) {
   const hasMovies = moviesToShow.length > 0;
   const moviesVisible = moviesContainer.children.length > 0;
