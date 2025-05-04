@@ -121,7 +121,7 @@ async function renderMovies(moviesToShow) {
         moviesContainer.appendChild(movieDiv);
       });
 
-      moviesContainer.style.display = "grid";
+      // moviesContainer.style.display = "grid"; // ovde ga ne ujebuje
       moviesContainer.style.opacity = "1";
       await sleep(300);
     }
