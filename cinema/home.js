@@ -53,8 +53,13 @@ console.log(uniqueMovies);
 const moviesContainer = document.querySelector(".c-movies-grid");
 const noMoviesMessage = document.querySelector(".c-no-movies-message");
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
 // funkcija za renderovanje filmova, klase fade in i fade out u webflow podesavanja stranice za custom css
-function renderMovies(moviesToShow) {
+async function renderMovies(moviesToShow) {
   const hasMovies = moviesToShow.length > 0;
   const moviesVisible = moviesContainer.children.length > 0;
   const messageVisible = noMoviesMessage.style.display !== "none";
@@ -62,94 +67,82 @@ function renderMovies(moviesToShow) {
   if (hasMovies) {
     // Treba prikazati filmove
     if (messageVisible) {
-      // Prvo sakrij poruku
       noMoviesMessage.classList.add("fade-out");
-      setTimeout(() => {
-        noMoviesMessage.style.display = "none";
-        noMoviesMessage.classList.remove("fade-out");
+      await sleep(300);
 
-        // Sada prikaži filmove
-        moviesContainer.innerHTML = ""; // očisti prethodne, ako ih je bilo
-        moviesToShow.forEach((movie) => {
-          const movieDiv = document.createElement("div");
+      noMoviesMessage.style.display = "none";
+      noMoviesMessage.classList.remove("fade-out");
 
-          const image = document.createElement("img");
-          image.src = movie.poster_url;
-          image.alt = movie.movie_title;
-          image.className = "c-movie-listing-image";
+      // Očisti i prikaži filmove
+      moviesContainer.innerHTML = "";
+      moviesToShow.forEach((movie) => {
+        const movieDiv = document.createElement("div");
 
-          const title = document.createElement("h2");
-          title.className = "c-title-for-listed-movies";
-          title.textContent = movie.movie_title;
+        const image = document.createElement("img");
+        image.src = movie.poster_url;
+        image.alt = movie.movie_title;
+        image.className = "c-movie-listing-image";
 
-          movieDiv.appendChild(image);
-          movieDiv.appendChild(title);
+        const title = document.createElement("h2");
+        title.className = "c-title-for-listed-movies";
+        title.textContent = movie.movie_title;
 
-          moviesContainer.appendChild(movieDiv);
-        });
+        movieDiv.appendChild(image);
+        movieDiv.appendChild(title);
+        moviesContainer.appendChild(movieDiv);
+      });
 
-        moviesContainer.style.display = "grid";
-        moviesContainer.classList.add("fade-in");
+      moviesContainer.style.display = "grid";
+      moviesContainer.classList.add("fade-in");
+      await sleep(300);
+      moviesContainer.classList.remove("fade-in");
 
-        setTimeout(() => {
-          moviesContainer.classList.remove("fade-in");
-        }, 300);
-      }, 300);
     } else {
-      // Normalno ažuriranje filmova (fade out → zamena → fade in)
       moviesContainer.classList.add("fade-out");
+      await sleep(300);
 
-      setTimeout(() => {
-        moviesContainer.innerHTML = "";
+      moviesContainer.innerHTML = "";
+      moviesToShow.forEach((movie) => {
+        const movieDiv = document.createElement("div");
 
-        moviesToShow.forEach((movie) => {
-          const movieDiv = document.createElement("div");
+        const image = document.createElement("img");
+        image.src = movie.poster_url;
+        image.alt = movie.movie_title;
+        image.className = "c-movie-listing-image";
 
-          const image = document.createElement("img");
-          image.src = movie.poster_url;
-          image.alt = movie.movie_title;
-          image.className = "c-movie-listing-image";
+        const title = document.createElement("h2");
+        title.className = "c-title-for-listed-movies";
+        title.textContent = movie.movie_title;
 
-          const title = document.createElement("h2");
-          title.className = "c-title-for-listed-movies";
-          title.textContent = movie.movie_title;
+        movieDiv.appendChild(image);
+        movieDiv.appendChild(title);
+        moviesContainer.appendChild(movieDiv);
+      });
 
-          movieDiv.appendChild(image);
-          movieDiv.appendChild(title);
-
-          moviesContainer.appendChild(movieDiv);
-        });
-
-        moviesContainer.classList.remove("fade-out");
-        moviesContainer.classList.add("fade-in");
-
-        setTimeout(() => {
-          moviesContainer.classList.remove("fade-in");
-        }, 300);
-      }, 300);
+      moviesContainer.classList.remove("fade-out");
+      moviesContainer.classList.add("fade-in");
+      await sleep(300);
+      moviesContainer.classList.remove("fade-in");
     }
+
   } else {
     // Nema filmova — treba prikazati poruku
     if (moviesVisible) {
-      // Prvo sakrij filmove
       moviesContainer.classList.add("fade-out");
+      await sleep(300);
 
-      setTimeout(() => {
-        moviesContainer.style.display = "none";
-        moviesContainer.innerHTML = "";
-        moviesContainer.classList.remove("fade-out");
+      moviesContainer.style.display = "none";
+      moviesContainer.innerHTML = "";
+      moviesContainer.classList.remove("fade-out");
 
-        // Prikaži poruku
-        noMoviesMessage.style.display = "flex";
-        noMoviesMessage.classList.add("fade-in");
-
-        setTimeout(() => {
-          noMoviesMessage.classList.remove("fade-in");
-        }, 300);
-      }, 300);
+      noMoviesMessage.style.display = "flex";
+      noMoviesMessage.classList.add("fade-in");
+      await sleep(300);
+      noMoviesMessage.classList.remove("fade-in");
     }
   }
 }
+
 
 // Renderovanje filmova
 renderMovies(uniqueMovies);
