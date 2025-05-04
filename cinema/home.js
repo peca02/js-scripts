@@ -122,7 +122,6 @@ async function renderMovies(moviesToShow) {
         moviesContainer.appendChild(movieDiv);
       });
 
-      // moviesContainer.style.opacity = "0";
       moviesContainer.style.display = "grid";
       moviesContainer.style.opacity = "1";
       await sleep(300);
@@ -136,13 +135,9 @@ async function renderMovies(moviesToShow) {
       await sleep(300);
 
       moviesContainer.style.display = "none";
-      moviesContainer.innerHTML = "";
 
       // Prikaži poruku
       noMoviesMessage.style.display = "flex";
-       // noMoviesMessage.classList.remove("transition");
-        // await sleep(300); // pod neki fazon ovo radi al mora sutra skontam sto uopste ispod liniju stavljamo opacity 0 kad bi vec trebalo da je 0
-        // noMoviesMessage.classList.add("transition"); // sad se fade-in desi animirano
       noMoviesMessage.style.opacity = "1";
       await sleep(300);
         // kad posle duze vreme promenis filter i treba nestane nesto i da se stvori ubaguje se dom i povuce stranicu nagore, tkd mora uradim samo sa opacity barem za movieskontejner, i da pitam chatgpt koja je razlika
