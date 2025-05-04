@@ -139,6 +139,7 @@ async function renderMovies(moviesToShow) {
         await sleep(300);
       noMoviesMessage.style.display = "flex";
       noMoviesMessage.classList.add("fade-in");
+         noMoviesMessage.classList.remove("fade-out");
       await sleep(300);
       noMoviesMessage.classList.remove("fade-in");
     }
