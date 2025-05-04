@@ -29,7 +29,7 @@ function filterMovies(movies, selectedCinema, selectedGenres, selectedDate, sear
       : true;
 
     const matchSearch = searchQuery
-      ? movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+      ? movie.movie_title.toLowerCase().includes(searchQuery.toLowerCase())
       : true;
 
     return matchCinema && matchGenre && matchDate && matchSearch;
