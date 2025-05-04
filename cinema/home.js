@@ -61,7 +61,29 @@ function sleep(ms) {
 
 
 // funkcija za renderovanje filmova
-async function renderMovies(moviesToShow) {
+async function updateMovies(moviesToShow) {
+
+    function renderMovies(moviesToRender){
+        // Prikaži filmove
+      moviesContainer.innerHTML = "";
+      moviesToRender.forEach((movie) => {
+        const movieDiv = document.createElement("div");
+
+        const image = document.createElement("img");
+        image.src = movie.poster_url;
+        image.alt = movie.movie_title;
+        image.className = "c-movie-listing-image";
+
+        const title = document.createElement("h2");
+        title.className = "c-title-for-listed-movies";
+        title.textContent = movie.movie_title;
+
+        movieDiv.appendChild(image);
+        movieDiv.appendChild(title);
+        moviesContainer.appendChild(movieDiv);
+      });
+    }
+    
   const hasMovies = moviesToShow.length > 0;
   const messageVisible = noMoviesMessage.style.display !== "none";
 
@@ -73,25 +95,8 @@ async function renderMovies(moviesToShow) {
 
       noMoviesMessage.style.display = "none";
 
-      // Prikaži filmove
-      moviesContainer.innerHTML = "";
-      moviesToShow.forEach((movie) => {
-        const movieDiv = document.createElement("div");
-
-        const image = document.createElement("img");
-        image.src = movie.poster_url;
-        image.alt = movie.movie_title;
-        image.className = "c-movie-listing-image";
-
-        const title = document.createElement("h2");
-        title.className = "c-title-for-listed-movies";
-        title.textContent = movie.movie_title;
-
-        movieDiv.appendChild(image);
-        movieDiv.appendChild(title);
-        moviesContainer.appendChild(movieDiv);
-      });
-
+      renderMovies(moviesToShow);
+        
       moviesContainer.style.display = "grid";
         // moramo staviti ovu funkciju jer bez nje nema animacije, bez obzira sto je pre toga bio opacity 0 kad se od display none samo nesto pojavi nema animacije, mora da se stavi ovo
           requestAnimationFrame(() => {
@@ -103,25 +108,7 @@ async function renderMovies(moviesToShow) {
       // Fade out filmova
       moviesContainer.style.opacity = "0";
       await sleep(300);
-
-      moviesContainer.innerHTML = "";
-      moviesToShow.forEach((movie) => {
-        const movieDiv = document.createElement("div");
-
-        const image = document.createElement("img");
-        image.src = movie.poster_url;
-        image.alt = movie.movie_title;
-        image.className = "c-movie-listing-image";
-
-        const title = document.createElement("h2");
-        title.className = "c-title-for-listed-movies";
-        title.textContent = movie.movie_title;
-
-        movieDiv.appendChild(image);
-        movieDiv.appendChild(title);
-        moviesContainer.appendChild(movieDiv);
-      });
-
+      renderMovies(moviesToShow);
       moviesContainer.style.opacity = "1";
       await sleep(300);
     }
@@ -147,7 +134,7 @@ async function renderMovies(moviesToShow) {
 }
 
 // Renderovanje filmova
-renderMovies(uniqueMovies);
+updateMovies(uniqueMovies);
 
 
 // Funkcija za izvlacenje bioskopa, bez duplikata
@@ -301,7 +288,7 @@ dropdownListCinemas.addEventListener('click', (e) => {
 
     const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
     uniqueMovies = removeDuplicateMovies(filteredMovies);
-    renderMovies(uniqueMovies);
+    updateMovies(uniqueMovies);
 });
 
 // Listener za date dropdown elemente
@@ -332,7 +319,7 @@ dropdownListDates.addEventListener('click', (e) => {
 
     const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
     uniqueMovies = removeDuplicateMovies(filteredMovies);
-    renderMovies(uniqueMovies);
+    updateMovies(uniqueMovies);
 });
 
 
@@ -413,7 +400,7 @@ dropdownListGenres.addEventListener('click', (e) => {
   // Filtriraj i renderuj filmove
   const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate);
   uniqueMovies = removeDuplicateMovies(filteredMovies);
-  renderMovies(uniqueMovies);
+  updateMovies(uniqueMovies);
 });
 
 
