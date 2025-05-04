@@ -94,8 +94,10 @@ async function renderMovies(moviesToShow) {
       });
 
       moviesContainer.style.display = "grid";
-      await sleep(300); // kada ovo maknem instant se stvara
-      moviesContainer.style.opacity = "1";
+      moviesContainer.style.opacity = "0";
+          requestAnimationFrame(() => {
+            moviesContainer.style.opacity = "1";
+          });
      await sleep(300);
 
     } else {
