@@ -122,7 +122,6 @@ async function renderMovies(moviesToShow) {
 
       moviesContainer.style.opacity = "0";
       moviesContainer.style.display = "grid";
-      await sleep(300);
       moviesContainer.style.opacity = "1";
       await sleep(300);
     }
