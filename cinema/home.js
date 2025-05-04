@@ -63,6 +63,7 @@ function sleep(ms) {
 // funkcija za renderovanje filmova
 async function updateMovies(moviesToShow) {
 
+    // helper funkcija da ne ponavljamo kod u funkciji
     function renderMovies(moviesToRender){
         // Prikaži filmove
       moviesContainer.innerHTML = "";
@@ -83,29 +84,27 @@ async function updateMovies(moviesToShow) {
         moviesContainer.appendChild(movieDiv);
       });
     }
-    
+
+    // ovde pocinje real funkcija
   const hasMovies = moviesToShow.length > 0;
   const messageVisible = noMoviesMessage.style.display !== "none";
 
   if (hasMovies) {
     if (messageVisible) {
-      // Fade out poruke
+      // kada ima filmova, a pre toga nije imalo filmova
       noMoviesMessage.style.opacity = "0";
       await sleep(300);
-
       noMoviesMessage.style.display = "none";
-
       renderMovies(moviesToShow);
-        
       moviesContainer.style.display = "grid";
         // moramo staviti ovu funkciju jer bez nje nema animacije, bez obzira sto je pre toga bio opacity 0 kad se od display none samo nesto pojavi nema animacije, mora da se stavi ovo
           requestAnimationFrame(() => {
             moviesContainer.style.opacity = "1";
           });
      await sleep(300);
-
+        
     } else {
-      // Fade out filmova
+      // kada ima filmova, a pre toga je imalo filmova
       moviesContainer.style.opacity = "0";
       await sleep(300);
       renderMovies(moviesToShow);
@@ -114,22 +113,16 @@ async function updateMovies(moviesToShow) {
     }
 
   } else {
-    // Nema filmova
-      
-      // Fade out filmova
+    // kada nema filmova
       moviesContainer.style.opacity = "0";
       await sleep(300);
       moviesContainer.style.display = "none";
-
-      // Prikaži poruku
       noMoviesMessage.style.display = "flex";
          // moramo staviti ovu funkciju jer bez nje nema animacije, bez obzira sto je pre toga bio opacity 0 kad se od display none samo nesto pojavi nema animacije, mora da se stavi ovo
           requestAnimationFrame(() => {
             noMoviesMessage.style.opacity = "1";
           });
      await sleep(300);
-        // kad posle duze vreme promenis filter i treba nestane nesto i da se stvori ubaguje se dom i povuce stranicu nagore, tkd mora uradim samo sa opacity barem za movieskontejner, i da pitam chatgpt koja je razlika
-        // izmedju visibility i opacity 0
   }
 }
 
