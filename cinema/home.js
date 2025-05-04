@@ -94,8 +94,7 @@ async function renderMovies(moviesToShow) {
       });
 
       moviesContainer.style.display = "grid";
-      moviesContainer.style.opacity = "0";
-      await sleep(300); // Mali delay da transition registruje promenu
+// ovde se instant stvori
       moviesContainer.style.opacity = "1";
       await sleep(300);
 
@@ -133,12 +132,11 @@ async function renderMovies(moviesToShow) {
       // Fade out filmova
       moviesContainer.style.opacity = "0";
       await sleep(300);
-
       moviesContainer.style.display = "none";
 
       // Prikaži poruku
       noMoviesMessage.style.display = "flex";
-      noMoviesMessage.style.opacity = "1";
+      noMoviesMessage.style.opacity = "1"; // ovo se instant prikaze ne znam zasto
       await sleep(300);
         // kad posle duze vreme promenis filter i treba nestane nesto i da se stvori ubaguje se dom i povuce stranicu nagore, tkd mora uradim samo sa opacity barem za movieskontejner, i da pitam chatgpt koja je razlika
         // izmedju visibility i opacity 0
