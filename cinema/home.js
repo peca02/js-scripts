@@ -258,7 +258,7 @@ let selectedDate = '';
 let searchQuery = '';
 
 const searchInput = document.querySelector(".c-search-bar-for-movies");
-
+const resetFilters = document.querySelector(".c-reset-filters");
 
 // Listener input
 searchInput.addEventListener("input", (event) => {
@@ -272,6 +272,16 @@ searchInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     event.preventDefault(); // sprečava submit forme
   }
+});
+
+resetFilters.addEventListener('click', () => {
+    selectedCinema = '';
+    selectedGenres = [];
+    selectedDate = '';
+    searchQuery = '';
+    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
+    uniqueMovies = removeDuplicateMovies(filteredMovies);
+    updateMovies(uniqueMovies);
 });
 
 // Listener za cinema dropdown elemente
