@@ -287,7 +287,7 @@ resetFilters.addEventListener('click', () => {
     searchInput.value='';
     
     dropdownCinemaText.textContent = 'All cinemas';
-    const allElements = dropdownListCinemas.querySelectorAll('.c-dropdown-list-element');
+    let allElements = dropdownListCinemas.querySelectorAll('.c-dropdown-list-element');
     allElements.forEach(el => el.classList.remove('c-dropdown-list-element-selected'));
     dropdownListCinemas.querySelector('.c-dropdown-list-element:not([data-cinema])').classList.add('c-dropdown-list-element-selected');
     
