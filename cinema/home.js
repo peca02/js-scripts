@@ -260,7 +260,7 @@ let searchQuery = '';
 const searchInput = document.querySelector(".c-search-bar-for-movies");
 const resetFilters = document.querySelector(".c-reset-filters");
 
-// Listener input
+// Search listener
 searchInput.addEventListener("input", (event) => {
   searchQuery = event.target.value.trim(); // može i .toLowerCase() ovde ako želiš odmah da normalizuješ
   const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
@@ -274,6 +274,8 @@ searchInput.addEventListener("keydown", (event) => {
   }
 });
 
+
+// event listener za resetovanje filtera
 resetFilters.addEventListener('click', () => {
     selectedCinema = '';
     selectedGenres = [];
@@ -283,9 +285,21 @@ resetFilters.addEventListener('click', () => {
     uniqueMovies = removeDuplicateMovies(filteredMovies);
     updateMovies(uniqueMovies);
     searchInput.value='';
+    
     dropdownCinemaText.textContent = 'All cinemas';
+    const allElements = dropdownListCinemas.querySelectorAll('.c-dropdown-list-element');
+    allElements.forEach(el => el.classList.remove('c-dropdown-list-element-selected'));
+    dropdownListCinemas.querySelector('.c-dropdown-list-element:not([data-cinema])').classList.add('c-dropdown-list-element-selected');
+    
     dropdownGenreText.textContent = 'All genres';
+    allElements = dropdownListGenres.querySelectorAll('.c-dropdown-list-element');
+    allElements.forEach(el => el.classList.remove('c-dropdown-list-element-selected'));
+    dropdownListGenres.querySelector('.c-dropdown-list-element:not([data-genre])').classList.add('c-dropdown-list-element-selected');
+    
     dropdownDateText.textContent = 'All dates';
+    allElements = dropdownListDates.querySelectorAll('.c-dropdown-list-element');
+    allElements.forEach(el => el.classList.remove('c-dropdown-list-element-selected'));
+    dropdownListDates.querySelector('.c-dropdown-list-element:not([data-date])').classList.add('c-dropdown-list-element-selected');
 });
 
 // Listener za cinema dropdown elemente
