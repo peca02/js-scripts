@@ -282,7 +282,7 @@ resetFilters.addEventListener('click', () => {
     const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
     uniqueMovies = removeDuplicateMovies(filteredMovies);
     updateMovies(uniqueMovies);
-    searchInput.textContent='';
+    searchInput.value='';
     dropdownCinemaText.textContent = 'All cinemas';
     dropdownGenreText.textContent = 'All genres';
     dropdownDateText.textContent = 'All dates';
