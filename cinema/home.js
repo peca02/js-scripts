@@ -36,13 +36,14 @@ let { data2: movies2, error2 } = await supabase
   `)
   .gte('screenings.start_time', today);
 
-const sizeInBytes2 = new Blob([JSON.stringify(movies2)]).size;
-console.log(`movies2 zauzima oko ${(sizeInBytes2 / 1024).toFixed(2)} KB`);
-
 const sizeInBytes = new Blob([JSON.stringify(movies)]).size;
 console.log(`movies zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
 
+const sizeInBytes2 = new Blob([JSON.stringify(movies2)]).size;
+console.log(`movies2 zauzima oko ${(sizeInBytes2 / 1024).toFixed(2)} KB`);
+
 console.log(movies);
+console.log(movies2);
 
 
 // Funkcija koja filtrira filmove, ima duplikata
