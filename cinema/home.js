@@ -10,6 +10,10 @@ const { data: movies, error } = await supabase.rpc('get_upcoming_movies');
 if (error) {
     console.error("Greška pri dohvatanju filmova:", error);
   }
+
+const sizeInBytes = new Blob([JSON.stringify(movies)]).size;
+console.log(`movies zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
+
 console.log(movies);
 
 
