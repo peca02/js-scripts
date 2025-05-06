@@ -44,7 +44,6 @@ console.log(`movies2 zauzima oko ${(sizeInBytes2 / 1024).toFixed(2)} KB`);
 
 console.log(movies);
 console.log(movies2);
-console.log(error2);
 
 
 // Funkcija koja filtrira filmove, ima duplikata
