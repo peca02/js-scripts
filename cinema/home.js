@@ -20,14 +20,12 @@ let { data2: movies2, error2 } = await supabase
     title,
     poster_url,
     movie_genres (
-      genre_id,
       genres (
         name
       )
     ),
     screenings (
       start_time,
-      hall_id,
       halls (
         cinema_id,
         cinemas (
@@ -39,7 +37,7 @@ let { data2: movies2, error2 } = await supabase
   .gte('screenings.start_time', today);
 
 const sizeInBytes2 = new Blob([JSON.stringify(movies2)]).size;
-console.log(`movies2 zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
+console.log(`movies2 zauzima oko ${(sizeInBytes2 / 1024).toFixed(2)} KB`);
 
 const sizeInBytes = new Blob([JSON.stringify(movies)]).size;
 console.log(`movies zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
