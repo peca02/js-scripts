@@ -11,6 +11,32 @@ if (error) {
     console.error("Greška pri dohvatanju filmova:", error);
   }
 
+let { data2: movies2, error2 } = await supabase
+    .from('movies')
+    .select(`
+      id,
+      title,
+      poster_url,
+      movie_genres (
+        genres (
+          name
+        )
+      ),
+      screenings (
+        start_time,
+        halls (
+          cinemas (
+            name
+          )
+        )
+      )
+    `)
+    .gte('screenings.start_time', today);
+
+
+const sizeInBytes2 = new Blob([JSON.stringify(movies2)]).size;
+console.log(`movies2 zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
+
 const sizeInBytes = new Blob([JSON.stringify(movies)]).size;
 console.log(`movies zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
 
