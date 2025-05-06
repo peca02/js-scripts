@@ -13,7 +13,7 @@ if (error) {
 
 const today = new Date().toISOString();
 
-let { data: movies2, error } = await supabase
+let { data: movies2, error2 } = await supabase
   .from('movies')
   .select(`
     id,
