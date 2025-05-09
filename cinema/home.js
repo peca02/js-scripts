@@ -267,6 +267,9 @@ if (cinemaParam) {
 let filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
 updateMovies(filteredMovies);
 
+if (cinemaParam)
+  document.getElementById('filters').scrollIntoView({ behavior: 'smooth' });
+
 
 // Funkcija za prikazivanje i skrivanje dropdowna kad se klikne na toggle div
 function toggleDropdown(dropdownList) {
