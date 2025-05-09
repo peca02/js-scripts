@@ -174,22 +174,25 @@ function extractCinemas(movies) {
   return Array.from(cinemasSet).sort();
 }
 
-let cinemas = extractCinemas(movies);
+let cinemas = extractCinemas(movies2);
 console.log(cinemas);
 
 
-// Funkcija za izvlacenje zanrova, bez duplikata
+// Funkcija za izvlacenje zanrova
 function extractGenres(movies) {
   const genresSet = new Set();
 
   movies.forEach(movie => {
-    genresSet.add(movie.genre);
+    movie.movie_genres.forEach(genreObj => {
+      genresSet.add(genreObj.genres.name);
+    });
   });
 
   return Array.from(genresSet).sort();
 }
 
-let genres = extractGenres(movies);
+
+let genres = extractGenres(movies2);
 console.log(genres);
 
 
