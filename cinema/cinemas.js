@@ -16,7 +16,7 @@ const container = document.querySelector('.c-cinemas-container');
 cinemas.forEach(cinema => {
   // Kreiraj link
   const link = document.createElement('a');
-  link.href = `https://predrags-awesome-site-dda-9e5aad497047e.webflow.io/cinema/home?cinema=${encodeURIComponent(cinema.name)}#filters`;
+  link.href = `https://predrags-awesome-site-dda-9e5aad497047e.webflow.io/cinema/home?cinema=${encodeURIComponent(cinema.name)}`;
   link.classList.add('cinema-card'); // Dodaj klasu ako treba za stil
 
   // H2 – Naziv bioskopa
