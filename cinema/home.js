@@ -145,8 +145,24 @@ async function updateMovies(moviesToShow) {
   }
 }
 
+// Globalne promenljive za selektovane vrednosti
+let selectedCinema = '';
+let selectedGenres = [];
+let selectedDate = '';
+let searchQuery = '';
+
+
+// ako je izabran bioskop na cinemas stranici odradi filtere po njemu
+const urlParams = new URLSearchParams(window.location.search);
+const cinemaParam = urlParams.get('cinema');
+
+if (cinemaParam) {
+  selectedCinema = decodeURIComponent(cinemaParam);
+}
+
+let filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
 // Renderovanje filmova
-updateMovies(movies);
+updateMovies(filteredMovies);
 
 
 // Funkcija za izvlacenje bioskopa
@@ -287,19 +303,13 @@ document.addEventListener('click', (e) => {
 });
 
 
-// Globalne promenljive za selektovane vrednosti
-let selectedCinema = '';
-let selectedGenres = [];
-let selectedDate = '';
-let searchQuery = '';
-
 const searchInput = document.querySelector(".c-search-bar-for-movies");
 const resetFilters = document.querySelector(".c-reset-filters");
 
 // Search listener
 searchInput.addEventListener("input", (event) => {
   searchQuery = event.target.value.trim(); // može i .toLowerCase() ovde ako želiš odmah da normalizuješ
-  const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
+  filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
   updateMovies(filteredMovies);
 });
 
@@ -316,7 +326,7 @@ resetFilters.addEventListener('click', () => {
     selectedGenres = [];
     selectedDate = '';
     searchQuery = '';
-    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
+    filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
     updateMovies(filteredMovies);
     searchInput.value='';
     
@@ -362,7 +372,7 @@ dropdownListCinemas.addEventListener('click', (e) => {
     dropdownCinemaText.textContent = 'All cinemas';
   }
 
-    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
+    filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
     updateMovies(filteredMovies);
 });
 
@@ -392,7 +402,7 @@ dropdownListDates.addEventListener('click', (e) => {
     dropdownDateText.textContent = 'All dates';
   }
 
-    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
+    filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
     updateMovies(filteredMovies);
 });
 
@@ -472,7 +482,7 @@ dropdownListGenres.addEventListener('click', (e) => {
   }
 
   // Filtriraj i renderuj filmove
-  const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
+  filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
   updateMovies(filteredMovies);
 });
 
