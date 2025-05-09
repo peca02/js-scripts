@@ -268,7 +268,7 @@ let filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, select
 updateMovies(filteredMovies);
 
 if (cinemaParam) {
-  await sleep(100);
+  await sleep(3000);
   document.getElementById('filters').scrollIntoView({ behavior: 'smooth' });
 }
 
