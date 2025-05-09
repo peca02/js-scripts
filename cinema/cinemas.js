@@ -10,3 +10,38 @@ const { data: cinemas, error } = await supabase
   .select('*')
 
 console.log(cinemas);
+
+const container = document.querySelector('.c--cinemas-container');
+
+cinemas.forEach(cinema => {
+  // Kreiraj link
+  const link = document.createElement('a');
+  link.href = `https://predrags-awesome-site-dda-9e5aad497047e.webflow.io/cinema/home?cinema=${encodeURIComponent(cinema.name)}`;
+  link.classList.add('cinema-card'); // Dodaj klasu ako treba za stil
+
+  // H2 – Naziv bioskopa
+  const name = document.createElement('h2');
+  name.textContent = cinema.name;
+  link.appendChild(name);
+
+  // Grad
+  const city = document.createElement('div');
+  city.textContent = cinema.city;
+  link.appendChild(city);
+
+  // Adresa
+  const address = document.createElement('div');
+  address.textContent = cinema.address;
+  link.appendChild(address);
+
+  // Slika
+  if (cinema.image_url) {
+    const image = document.createElement('img');
+    image.src = cinema.image_url;
+    image.alt = cinema.name;
+    link.appendChild(image);
+  }
+
+  // Ubaci sve u kontejner
+  container.appendChild(link);
+});
