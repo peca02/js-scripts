@@ -10,7 +10,7 @@ if (error) {
     console.error("Greška pri dohvatanju filmova:", error);
   }
 
-const { data: movies2, error2 } = await supabase
+let { data: movies2, error2 } = await supabase
   .from('movies')
   .select(`
     id,
