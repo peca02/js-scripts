@@ -4,13 +4,8 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 // Sve gore je povezivanje sa Supabase
 
-// Prikupljanje filmova i ostalih podataka, ima duplikata, rezultat kao u sql
-const { data: movies, error } = await supabase.rpc('get_upcoming_movies');
-if (error) {
-    console.error("Greška pri dohvatanju filmova:", error);
-  }
-
-let { data: movies2, error2 } = await supabase
+// prikupljanje filmova
+let { data: movies, error } = await supabase
   .from('movies')
   .select(`
     id,
@@ -35,18 +30,14 @@ let { data: movies2, error2 } = await supabase
   .order('release_date', { ascending: false });
 
 // mora ovako jer ako bi radili sa filterom direktno u pozivu iz supabase posto vraca ugnjezdeno samo ce isfiltrirati to staviti null i svakako vratiti ugnjezdeni null u movies
-movies2 = movies2.filter(movie =>
+movies = movies.filter(movie =>
   movie.screenings.some(screening => new Date(screening.start_time) >= new Date())
 );
 
 const sizeInBytes = new Blob([JSON.stringify(movies)]).size;
 console.log(`movies zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
 
-const sizeInBytes2 = new Blob([JSON.stringify(movies2)]).size;
-console.log(`movies2 zauzima oko ${(sizeInBytes2 / 1024).toFixed(2)} KB`);
-
 console.log(movies);
-console.log(movies2);
 
 
 // Funkcija koja filtrira filmove
@@ -155,7 +146,7 @@ async function updateMovies(moviesToShow) {
 }
 
 // Renderovanje filmova
-updateMovies(movies2);
+updateMovies(movies);
 
 
 // Funkcija za izvlacenje bioskopa
@@ -174,7 +165,7 @@ function extractCinemas(movies) {
   return Array.from(cinemasSet).sort();
 }
 
-let cinemas = extractCinemas(movies2);
+let cinemas = extractCinemas(movies);
 console.log(cinemas);
 
 
@@ -192,7 +183,7 @@ function extractGenres(movies) {
 }
 
 
-let genres = extractGenres(movies2);
+let genres = extractGenres(movies);
 console.log(genres);
 
 
@@ -210,7 +201,7 @@ function extractDates(movies) {
   return Array.from(datesSet).sort((a, b) => new Date(a) - new Date(b));
 }
 
-let dates = extractDates(movies2);
+let dates = extractDates(movies);
 console.log(dates);
 
 
@@ -298,7 +289,7 @@ const resetFilters = document.querySelector(".c-reset-filters");
 // Search listener
 searchInput.addEventListener("input", (event) => {
   searchQuery = event.target.value.trim(); // može i .toLowerCase() ovde ako želiš odmah da normalizuješ
-  const filteredMovies = filterMovies(movies2, selectedCinema, selectedGenres, selectedDate, searchQuery);
+  const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
   updateMovies(filteredMovies);
 });
 
@@ -315,7 +306,7 @@ resetFilters.addEventListener('click', () => {
     selectedGenres = [];
     selectedDate = '';
     searchQuery = '';
-    const filteredMovies = filterMovies(movies2, selectedCinema, selectedGenres, selectedDate, searchQuery);
+    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
     updateMovies(filteredMovies);
     searchInput.value='';
     
@@ -361,7 +352,7 @@ dropdownListCinemas.addEventListener('click', (e) => {
     dropdownCinemaText.textContent = 'All cinemas';
   }
 
-    const filteredMovies = filterMovies(movies2, selectedCinema, selectedGenres, selectedDate, searchQuery);
+    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
     updateMovies(filteredMovies);
 });
 
@@ -391,7 +382,7 @@ dropdownListDates.addEventListener('click', (e) => {
     dropdownDateText.textContent = 'All dates';
   }
 
-    const filteredMovies = filterMovies(movies2, selectedCinema, selectedGenres, selectedDate, searchQuery);
+    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
     updateMovies(filteredMovies);
 });
 
@@ -471,7 +462,7 @@ dropdownListGenres.addEventListener('click', (e) => {
   }
 
   // Filtriraj i renderuj filmove
-  const filteredMovies = filterMovies(movies2, selectedCinema, selectedGenres, selectedDate, searchQuery);
+  const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
   updateMovies(filteredMovies);
 });
 
