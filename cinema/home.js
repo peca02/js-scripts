@@ -34,6 +34,7 @@ let { data: movies2, error2 } = await supabase
   `)
   .order('release_date', { ascending: false });
 
+// mora ovako jer ako bi radili sa filterom direktno u pozivu iz supabase posto vraca ugnjezdeno samo ce isfiltrirati to staviti null i svakako vratiti ugnjezdeni null u movies
 movies2 = movies2.filter(movie =>
   movie.screenings.some(screening => new Date(screening.start_time) >= new Date())
 );
