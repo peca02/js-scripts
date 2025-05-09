@@ -11,7 +11,7 @@ const { data: cinemas, error } = await supabase
 
 console.log(cinemas);
 
-const container = document.querySelector('.c--cinemas-container');
+const container = document.querySelector('.c-cinemas-container');
 
 cinemas.forEach(cinema => {
   // Kreiraj link
