@@ -80,7 +80,7 @@ function sleep(ms) {
 
 
 // funkcija za renderovanje filmova
-async function updateMovies(moviesToShow) {
+async function updateMovies(moviesToShow, callback) {
 
     // helper funkcija da ne ponavljamo kod u funkciji
     function renderMovies(moviesToRender){
@@ -142,6 +142,9 @@ async function updateMovies(moviesToShow) {
             noMoviesMessage.style.opacity = "1";
           });
      await sleep(300);
+  }
+  if (typeof callback === 'function') {
+    callback();
   }
 }
 
@@ -265,15 +268,15 @@ if (cinemaParam) {
 
 // Renderovanje filmova pri ucitavanju stranica
 let filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-updateMovies(filteredMovies);
 
 if (cinemaParam) {
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      document.getElementById('filters').scrollIntoView({ behavior: 'smooth' });
-    });
-  });
+  updateMovies(filteredMovies, () => {
+  // Skroluj kad se DOM napuni
+  document.getElementById('filters').scrollIntoView({ behavior: 'smooth' });
+  }; 
 }
+else
+  updateMovies(filteredMovies);
 
 // Funkcija za prikazivanje i skrivanje dropdowna kad se klikne na toggle div
 function toggleDropdown(dropdownList) {
