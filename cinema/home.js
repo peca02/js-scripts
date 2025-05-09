@@ -100,12 +100,12 @@ async function updateMovies(moviesToShow) {
 
         const image = document.createElement("img");
         image.src = movie.poster_url;
-        image.alt = movie.movie_title;
+        image.alt = movie.title;
         image.className = "c-movie-listing-image";
 
         const title = document.createElement("h2");
         title.className = "c-title-for-listed-movies";
-        title.textContent = movie.movie_title;
+        title.textContent = movie.title;
 
         movieDiv.appendChild(image);
         movieDiv.appendChild(title);
