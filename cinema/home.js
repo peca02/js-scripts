@@ -158,12 +158,17 @@ async function updateMovies(moviesToShow) {
 updateMovies(movies2);
 
 
-// Funkcija za izvlacenje bioskopa, bez duplikata
+// Funkcija za izvlacenje bioskopa
 function extractCinemas(movies) {
   const cinemasSet = new Set();
 
   movies.forEach(movie => {
-    cinemasSet.add(movie.cinema);
+    movie.screenings.forEach(screening => {
+      const cinemaName = screening.halls.cinemas.name;
+      if (cinemaName) {
+        cinemasSet.add(cinemaName);
+      }
+    });
   });
 
   return Array.from(cinemasSet).sort();
