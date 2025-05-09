@@ -271,9 +271,9 @@ let filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, select
 
 if (cinemaParam) {
   updateMovies(filteredMovies, () => {
-  // Skroluj kad se DOM napuni
-  document.getElementById('filters').scrollIntoView({ behavior: 'smooth' });
-  }; 
+    // Skroluj kad se DOM napuni
+    document.getElementById('filters').scrollIntoView({ behavior: 'smooth' });
+  }); 
 }
 else
   updateMovies(filteredMovies);
