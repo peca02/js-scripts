@@ -5,20 +5,30 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 // Sve gore je povezivanje sa Supabase
 
 
+const { data, error3 } = await supabase.rpc('create_future_screenings');
+    
+if (error3) 
+{
+    console.error('Error calling create_future_screenings:', error3);
+} 
+else
+ {    
+    console.log('Function called successfully:', data);
+}
+
 // Prikupljanje filmova i ostalih podataka, ima duplikata, rezultat kao u sql
 const { data: movies, error } = await supabase.rpc('get_upcoming_movies');
 if (error) {
     console.error("Greška pri dohvatanju filmova:", error);
   }
 
-const today = new Date().toISOString();
-
-const { data: movies2, error2 } = await supabase
+let movies2 = await supabase
   .from('movies')
   .select(`
     id,
     title,
     poster_url,
+    release_date,
     movie_genres (
       genres (
         name
@@ -34,7 +44,11 @@ const { data: movies2, error2 } = await supabase
       )
     )
   `)
-  .gte('screenings.start_time', today);
+  .order('release_date', { ascending: false });
+
+movies2 = movies2.filter(movie =>
+  movie.screenings.some(screening => new Date(screening.start_time) >= new Date())
+);
 
 const sizeInBytes = new Blob([JSON.stringify(movies)]).size;
 console.log(`movies zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
