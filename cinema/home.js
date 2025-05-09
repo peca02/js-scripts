@@ -259,7 +259,7 @@ if (cinemaParam) {
   selectedCinema = decodeURIComponent(cinemaParam);
   dropdownCinemaText.textContent = cinemaParam;
   dropdownListCinemas.querySelector('.c-dropdown-list-element:not([data-cinema])').classList.remove('c-dropdown-list-element-selected');
-  dropdownListCinemas.querySelector('.c-dropdown-list-element([data-cinema=${cinemaParam}])').classList.add('c-dropdown-list-element-selected');
+  dropdownListCinemas.querySelector(`.c-dropdown-list-element[data-cinema="${cinemaParam}"]`).classList.add('c-dropdown-list-element-selected');
 }
 
 
