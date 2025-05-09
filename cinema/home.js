@@ -222,14 +222,24 @@ const dropdownDateText = document.querySelector('#dropdown-date-text');
 
   // funkcija za punjenje jednog dropdowna
   function populateList(listElement, items, attributeName) {
-    items.forEach(item => {
-      const div = document.createElement('div');
-      div.classList.add('c-dropdown-list-element');
-      div.setAttribute(attributeName, item);
+  items.forEach(item => {
+    const div = document.createElement('div');
+    div.classList.add('c-dropdown-list-element');
+    div.setAttribute(attributeName, item);
+
+    // Ako je atribut datum, formatiraj prikaz
+    if (attributeName === 'data-date') {
+      const parts = item.split(' '); // ["Mon", "May", "12", "2025"]
+      const firstLine = parts.slice(0, 3).join(' '); // "Mon May 12"
+      const secondLine = parts[3]; // "2025"
+      div.innerHTML = `${firstLine}<br>${secondLine}`;
+    } else {
       div.textContent = item;
-      listElement.appendChild(div);
-    });
-  }
+    }
+
+    listElement.appendChild(div);
+  });
+}
 
   // Puni sva 3 dropdowna
   populateList(dropdownListCinemas, cinemas, 'data-cinema');
