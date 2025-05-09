@@ -145,25 +145,6 @@ async function updateMovies(moviesToShow) {
   }
 }
 
-// Globalne promenljive za selektovane vrednosti
-let selectedCinema = '';
-let selectedGenres = [];
-let selectedDate = '';
-let searchQuery = '';
-
-
-// ako je izabran bioskop na cinemas stranici odradi filtere po njemu
-const urlParams = new URLSearchParams(window.location.search);
-const cinemaParam = urlParams.get('cinema');
-
-if (cinemaParam) {
-  selectedCinema = decodeURIComponent(cinemaParam);
-}
-
-let filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-// Renderovanje filmova
-updateMovies(filteredMovies);
-
 
 // Funkcija za izvlacenje bioskopa
 function extractCinemas(movies) {
@@ -261,6 +242,30 @@ const dropdownDateText = document.querySelector('#dropdown-date-text');
   populateList(dropdownListCinemas, cinemas, 'data-cinema');
   populateList(dropdownListGenres, genres, 'data-genre');
   populateList(dropdownListDates, dates, 'data-date');
+
+
+// Globalne promenljive za selektovane vrednosti
+let selectedCinema = '';
+let selectedGenres = [];
+let selectedDate = '';
+let searchQuery = '';
+
+
+// ako je izabran bioskop na cinemas stranici odradi filtere po njemu
+const urlParams = new URLSearchParams(window.location.search);
+const cinemaParam = urlParams.get('cinema');
+
+if (cinemaParam) {
+  selectedCinema = decodeURIComponent(cinemaParam);
+  dropdownCinemaText.textContent = cinemaParam;
+  dropdownListCinemas.querySelector('.c-dropdown-list-element:not([data-cinema])').classList.remove('c-dropdown-list-element-selected');
+  dropdownListCinemas.querySelector('.c-dropdown-list-element([data-cinema=${cinemaParam}])').classList.add('c-dropdown-list-element-selected');
+}
+
+
+// Renderovanje filmova pri ucitavanju stranica
+let filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
+updateMovies(filteredMovies);
 
 
 // Funkcija za prikazivanje i skrivanje dropdowna kad se klikne na toggle div
