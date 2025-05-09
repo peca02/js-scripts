@@ -268,8 +268,11 @@ let filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, select
 updateMovies(filteredMovies);
 
 if (cinemaParam) {
-  await sleep(3000);
-  document.getElementById('filters').scrollIntoView({ behavior: 'smooth' });
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.getElementById('filters').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
 }
 
 // Funkcija za prikazivanje i skrivanje dropdowna kad se klikne na toggle div
