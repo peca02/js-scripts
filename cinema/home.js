@@ -94,7 +94,7 @@ async function updateMovies(moviesToShow) {
         image.alt = movie.title;
         image.className = "c-movie-listing-image";
 
-        const title = document.createElement("h2");
+        const title = document.createElement("h3");
         title.className = "c-title-for-listed-movies";
         title.textContent = movie.title;
 
