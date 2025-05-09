@@ -78,23 +78,6 @@ function filterMovies(movies, selectedCinema, selectedGenres, selectedDate, sear
   });
 }
 
-// funkcija za uklanjanje duplikata
-function removeDuplicateMovies(movies) {
-  const seen = new Set();
-  return movies.filter(movie => {
-    if (seen.has(movie.movie_id)) {
-      return false;
-    }
-    seen.add(movie.movie_id);
-    return true;
-  });
-}
-
-let uniqueMovies = removeDuplicateMovies(movies);
-
-console.log(uniqueMovies);
-
-
 const moviesContainer = document.querySelector(".c-movies-grid");
 const noMoviesMessage = document.querySelector(".c-no-movies-message");
 moviesContainer.classList.add("transition");
@@ -172,7 +155,7 @@ async function updateMovies(moviesToShow) {
 }
 
 // Renderovanje filmova
-updateMovies(uniqueMovies);
+updateMovies(movies2);
 
 
 // Funkcija za izvlacenje bioskopa, bez duplikata
@@ -305,9 +288,8 @@ const resetFilters = document.querySelector(".c-reset-filters");
 // Search listener
 searchInput.addEventListener("input", (event) => {
   searchQuery = event.target.value.trim(); // može i .toLowerCase() ovde ako želiš odmah da normalizuješ
-  const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-  uniqueMovies = removeDuplicateMovies(filteredMovies);
-  updateMovies(uniqueMovies);
+  const filteredMovies = filterMovies(movies2, selectedCinema, selectedGenres, selectedDate, searchQuery);
+  updateMovies(filteredMovies);
 });
 
 searchInput.addEventListener("keydown", (event) => {
@@ -323,9 +305,8 @@ resetFilters.addEventListener('click', () => {
     selectedGenres = [];
     selectedDate = '';
     searchQuery = '';
-    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-    uniqueMovies = removeDuplicateMovies(filteredMovies);
-    updateMovies(uniqueMovies);
+    const filteredMovies = filterMovies(movies2, selectedCinema, selectedGenres, selectedDate, searchQuery);
+    updateMovies(filteredMovies);
     searchInput.value='';
     
     dropdownCinemaText.textContent = 'All cinemas';
@@ -370,9 +351,8 @@ dropdownListCinemas.addEventListener('click', (e) => {
     dropdownCinemaText.textContent = 'All cinemas';
   }
 
-    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-    uniqueMovies = removeDuplicateMovies(filteredMovies);
-    updateMovies(uniqueMovies);
+    const filteredMovies = filterMovies(movies2, selectedCinema, selectedGenres, selectedDate, searchQuery);
+    updateMovies(filteredMovies);
 });
 
 // Listener za date dropdown elemente
@@ -401,9 +381,8 @@ dropdownListDates.addEventListener('click', (e) => {
     dropdownDateText.textContent = 'All dates';
   }
 
-    const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-    uniqueMovies = removeDuplicateMovies(filteredMovies);
-    updateMovies(uniqueMovies);
+    const filteredMovies = filterMovies(movies2, selectedCinema, selectedGenres, selectedDate, searchQuery);
+    updateMovies(filteredMovies);
 });
 
 
@@ -482,9 +461,8 @@ dropdownListGenres.addEventListener('click', (e) => {
   }
 
   // Filtriraj i renderuj filmove
-  const filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-  uniqueMovies = removeDuplicateMovies(filteredMovies);
-  updateMovies(uniqueMovies);
+  const filteredMovies = filterMovies(movies2, selectedCinema, selectedGenres, selectedDate, searchQuery);
+  updateMovies(filteredMovies);
 });
 
 
