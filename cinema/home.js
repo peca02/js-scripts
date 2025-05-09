@@ -49,23 +49,29 @@ console.log(movies);
 console.log(movies2);
 
 
-// Funkcija koja filtrira filmove, ima duplikata
+// Funkcija koja filtrira filmove
 function filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery) {
   return movies.filter(movie => {
+    // Provera da li film ima bar jednu projekciju u izabranom bioskopu
     const matchCinema = selectedCinema
-      ? movie.cinema === selectedCinema
+      ? movie.screenings.some(screening => screening.halls.cinema_id === selectedCinema)
       : true;
 
+    // Provera da li film ima bar jedan žanr koji je izabran
     const matchGenre = selectedGenres.length > 0
-      ? selectedGenres.includes(movie.genre)
+      ? movie.movie_genres.some(g => selectedGenres.includes(g.genres.name))
       : true;
 
+    // Provera da li film ima bar jednu projekciju na izabrani datum
     const matchDate = selectedDate
-      ? new Date(movie.screening_start_time).toDateString() === new Date(selectedDate).toDateString()
+      ? movie.screenings.some(screening =>
+          new Date(screening.start_time).toDateString() === new Date(selectedDate).toDateString()
+        )
       : true;
 
+    // Pretraga po naslovu
     const matchSearch = searchQuery
-      ? movie.movie_title.toLowerCase().includes(searchQuery.toLowerCase())
+      ? movie.title.toLowerCase().includes(searchQuery.toLowerCase())
       : true;
 
     return matchCinema && matchGenre && matchDate && matchSearch;
