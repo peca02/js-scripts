@@ -54,7 +54,7 @@ function filterMovies(movies, selectedCinema, selectedGenres, selectedDate, sear
   return movies.filter(movie => {
     // Provera da li film ima bar jednu projekciju u izabranom bioskopu
     const matchCinema = selectedCinema
-      ? movie.screenings.some(screening => screening.halls.cinema_id === selectedCinema)
+      ? movie.screenings.some(screening => screening.halls.cinemas.name === selectedCinema)
       : true;
 
     // Provera da li film ima bar jedan žanr koji je izabran
