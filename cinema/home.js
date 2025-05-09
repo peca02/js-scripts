@@ -196,19 +196,21 @@ let genres = extractGenres(movies2);
 console.log(genres);
 
 
-// Funkcija za izvlacenje datuma, bez duplikata
+// Funkcija za izvlacenje datuma
 function extractDates(movies) {
   const datesSet = new Set();
 
   movies.forEach(movie => {
-    const dateStr = new Date(movie.screening_start_time).toDateString();
-    datesSet.add(dateStr);
+    movie.screenings.forEach(screening => {
+      const dateStr = new Date(screening.start_time).toDateString();
+      datesSet.add(dateStr);
+    });
   });
 
   return Array.from(datesSet).sort((a, b) => new Date(a) - new Date(b));
 }
 
-let dates = extractDates(movies);
+let dates = extractDates(movies2);
 console.log(dates);
 
 
