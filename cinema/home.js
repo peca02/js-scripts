@@ -5,17 +5,6 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 // Sve gore je povezivanje sa Supabase
 
 
-const { data, error3 } = await supabase.rpc('create_future_screenings');
-    
-if (error3) 
-{
-    console.error('Error calling create_future_screenings:', error3);
-} 
-else
- {    
-    console.log('Function called successfully:', data);
-}
-
 // Prikupljanje filmova i ostalih podataka, ima duplikata, rezultat kao u sql
 const { data: movies, error } = await supabase.rpc('get_upcoming_movies');
 if (error) {
