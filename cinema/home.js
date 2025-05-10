@@ -80,27 +80,45 @@ function sleep(ms) {
 
 
 // funkcija za renderovanje filmova
-async function updateMovies(moviesToShow, callback) {
+async function updateMovies(moviesToShow, selectedCinema, callback) {
 
     // helper funkcija da ne ponavljamo kod u funkciji
     function renderMovies(moviesToRender){
         // Prikaži filmove
-      moviesContainer.innerHTML = "";
-      moviesToRender.forEach((movie) => {
-        const movieDiv = document.createElement("div");
-
-        const image = document.createElement("img");
-        image.src = movie.poster_url;
-        image.alt = movie.title;
-        image.className = "c-movie-listing-image";
-
-        const title = document.createElement("h3");
-        title.className = "c-title-for-listed-movies";
-        title.textContent = movie.title;
-
-        movieDiv.appendChild(image);
-        movieDiv.appendChild(title);
-        moviesContainer.appendChild(movieDiv);
+        moviesContainer.innerHTML = "";
+        moviesToRender.forEach((movie) => {
+          const movieLink = document.createElement("a");
+          movieLink.classList.add("c-movie-link");
+        
+          // Osnova linka — uzima se iz trenutnog domena
+          const baseUrl = window.location.origin;
+        
+          // Pravimo URL objekat i dodajemo query parametre
+          let href;
+          if (selectedCinema === '') {
+            href = new URL("/cinema/cinemas", baseUrl);
+            href.searchParams.set("movie_id", movie.id);
+          } else {
+            href = new URL("/cinema/screenings", baseUrl);
+            href.searchParams.set("movie_id", movie.id);
+            href.searchParams.set("cinema", selectedCinema);
+          }
+        
+          // Postavljanje href-a
+          movieLink.href = href.toString();
+  
+          const image = document.createElement("img");
+          image.src = movie.poster_url;
+          image.alt = movie.title;
+          image.className = "c-movie-listing-image";
+  
+          const title = document.createElement("h3");
+          title.className = "c-title-for-listed-movies";
+          title.textContent = movie.title;
+  
+          movieLink.appendChild(image);
+          movieLink.appendChild(title);
+          moviesContainer.appendChild(movieLink);
       });
     }
 
@@ -270,13 +288,13 @@ if (cinemaParam) {
 let filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
 
 if (cinemaParam) {
-  updateMovies(filteredMovies, () => {
+  updateMovies(filteredMovies, selectedCinema, () => {
     // Skroluj kad se DOM napuni
     document.getElementById('filters').scrollIntoView({ behavior: 'smooth' });
   }); 
 }
 else
-  updateMovies(filteredMovies);
+  updateMovies(filteredMovies, selectedCinema);
 
 // Funkcija za prikazivanje i skrivanje dropdowna kad se klikne na toggle div
 function toggleDropdown(dropdownList) {
@@ -325,7 +343,7 @@ const resetFilters = document.querySelector(".c-reset-filters");
 searchInput.addEventListener("input", (event) => {
   searchQuery = event.target.value.trim(); // može i .toLowerCase() ovde ako želiš odmah da normalizuješ
   filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-  updateMovies(filteredMovies);
+  updateMovies(filteredMovies, selectedCinema);
 });
 
 searchInput.addEventListener("keydown", (event) => {
@@ -342,7 +360,7 @@ resetFilters.addEventListener('click', () => {
     selectedDate = '';
     searchQuery = '';
     filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-    updateMovies(filteredMovies);
+    updateMovies(filteredMovies, selectedCinema);
     searchInput.value='';
     
     dropdownCinemaText.textContent = 'All cinemas';
@@ -388,7 +406,7 @@ dropdownListCinemas.addEventListener('click', (e) => {
   }
 
     filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-    updateMovies(filteredMovies);
+    updateMovies(filteredMovies, selectedCinema);
 });
 
 // Listener za date dropdown elemente
@@ -418,7 +436,7 @@ dropdownListDates.addEventListener('click', (e) => {
   }
 
     filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-    updateMovies(filteredMovies);
+    updateMovies(filteredMovies, selectedCinema);
 });
 
 
@@ -498,7 +516,7 @@ dropdownListGenres.addEventListener('click', (e) => {
 
   // Filtriraj i renderuj filmove
   filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-  updateMovies(filteredMovies);
+  updateMovies(filteredMovies, selectedCinema);
 });
 
 
