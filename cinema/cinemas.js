@@ -16,9 +16,17 @@ const container = document.querySelector('.c-cinemas-container');
 cinemas.forEach(cinema => {
   // Kreiraj link
   const link = document.createElement('a');
-  link.href = `https://predrags-awesome-site-dda-9e5aad497047e.webflow.io/cinema/home?cinema=${encodeURIComponent(cinema.name)}`;
-  link.classList.add('cinema-card'); // Dodaj klasu ako treba za stil
-
+  
+  // Uzmi trenutni domen (npr. https://predrags-awesome-site-dda-9e5aad497047e.webflow.io)
+  const baseUrl = window.location.origin;
+  
+  // Napravi query string koristeći URLSearchParams (automatski stavlja + za razmak)
+  const params = new URLSearchParams();
+  params.set("cinema", cinema.name);
+  
+  // Sastavi pun href
+  link.href = `${baseUrl}/cinema/home?${params.toString()}`;
+  
   // H2 – Naziv bioskopa
   const name = document.createElement('h2');
   name.textContent = cinema.name;
