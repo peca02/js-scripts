@@ -308,6 +308,9 @@ if (cinemaParam) {
 else
   updateMovies(filteredMovies, selectedCinema, selectedDate);
 
+await sleep(3000);
+document.querySelector('.c-slider-button').click();
+
 // Funkcija za prikazivanje i skrivanje dropdowna kad se klikne na toggle div
 function toggleDropdown(dropdownList) {
   const isVisible = dropdownList.style.display === 'block';
