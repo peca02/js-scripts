@@ -22,16 +22,20 @@ cinemas.forEach(cinema => {
   
   // Uzmi sve query parametre iz trenutnog URL-a
   const currentParams = window.location.search;
+  let params;
   
   // Provera da li ima nekih parametara
   if (currentParams === '') {
     // Nema parametara – ide na /cinema/home?cinema=...
-    const params = new URLSearchParams();
+    params = new URLSearchParams();
     params.set("cinema", cinema.name);
     link.href = `${baseUrl}/cinema/home?${params.toString()}`;
   } else {
-    // Ima parametara – ide na /cinema/screenings sa svim tim parametrima
-    link.href = `${baseUrl}/cinema/screenings${currentParams}`;
+    // Ima parametara – ide na /cinema/screenings sa svim tim parametrima + cinema
+    params = new URLSearchParams(currentParams);
+    // Dodaj/azuriraj parametar za bioskop
+    params.set("cinema", cinema.name);
+    link.href = `${baseUrl}/cinema/screenings?${params.toString()}`;
   }
   
   // H2 – Naziv bioskopa
