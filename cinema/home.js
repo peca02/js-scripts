@@ -302,7 +302,8 @@ let filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, select
 if (cinemaParam) {
   updateMovies(filteredMovies, selectedCinema, selectedDate, () => {
     // Skroluj kad se filmovi renderuju
-    document.querySelector('.c-slider-button').click();
+    document.querySelector('.c-slider-button').click(); // simuliraj kliktanje na dugme view all movies, postepeniji odlazak na section nego ovo dole
+    // document.getElementById('filters').scrollIntoView({ behavior: 'smooth' });
   }); 
 }
 else
