@@ -301,15 +301,13 @@ let filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, select
 
 if (cinemaParam) {
   updateMovies(filteredMovies, selectedCinema, selectedDate, () => {
-    // Skroluj kad se DOM napuni
-    document.getElementById('filters').scrollIntoView({ behavior: 'smooth' });
+    // Skroluj kad se filmovi renderuju
+    document.querySelector('.c-slider-button').click();
   }); 
 }
 else
   updateMovies(filteredMovies, selectedCinema, selectedDate);
 
-await sleep(3000);
-document.querySelector('.c-slider-button').click();
 
 // Funkcija za prikazivanje i skrivanje dropdowna kad se klikne na toggle div
 function toggleDropdown(dropdownList) {
@@ -533,5 +531,3 @@ dropdownListGenres.addEventListener('click', (e) => {
   filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
   updateMovies(filteredMovies, selectedCinema, selectedDate);
 });
-
-
