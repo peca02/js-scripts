@@ -10,49 +10,41 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 const urlParams = new URLSearchParams(window.location.search);
 const movieId = urlParams.get('movie_id');
 
-if (!movieId) {
-  console.error("Nema prosleđenog movie_id u URL-u.");
-} else {
-  // 2. Uzimanje filma sa povezanim glumcima, režiserima i žanrovima
-  const { data: movie, error } = await supabase
-    .from('movies')
-    .select(`
-      id,
-      title,
-      description,
-      duration,
-      poster_url,
-      trailer_url,
-      language,
-      age_rating,
-      release_date,
-      movie_actors (
-        actors (
-          id,
-          first_name,
-          last_name
-        )
-      ),
-      movie_directors (
-        directors (
-          id,
-          first_name,
-          last_name
-        )
-      ),
-      movie_genres (
-        genres (
-          id,
-          name
-        )
+// 2. Uzimanje filma sa povezanim glumcima, režiserima i žanrovima
+const { data: movie, error } = await supabase
+  .from('movies')
+  .select(`
+    title,
+    description,
+    duration,
+    poster_url,
+    trailer_url,
+    language,
+    age_rating,
+    release_date,
+    movie_actors (
+      actors (
+        first_name,
+        last_name
       )
-    `)
-    .eq('id', movieId)
-    .single(); // jer očekujemo jedan film
+    ),
+    movie_directors (
+      directors (
+        first_name,
+        last_name
+      )
+    ),
+    movie_genres (
+      genres (
+        name
+      )
+    )
+  `)
+  .eq('id', movieId)
+  .single(); // jer očekujemo jedan film
 
-  if (error) {
-    console.error("Greška pri dohvaćanju filma:", error.message);
-  } else {
-    console.log("Film:", movie);
-  }
-}
+if (error)
+  console.error("Greška pri dohvaćanju filma:", error.message);
+
+console.log("Film:", movie);
+
