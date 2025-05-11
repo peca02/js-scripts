@@ -72,4 +72,4 @@ const { data: screenings, error2 } = await supabase
 if (error2)
   console.error("Greška pri dohvaćanju projekcija:", error2.message);
 
-console.log(screenings);
+console.log("Projekcije:", screenings);
