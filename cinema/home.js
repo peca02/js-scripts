@@ -80,7 +80,7 @@ function sleep(ms) {
 
 
 // funkcija za renderovanje filmova
-async function updateMovies(moviesToShow, selectedCinema, callback) {
+async function updateMovies(moviesToShow, selectedCinema, selectedDate, callback) {
 
     // helper funkcija da ne ponavljamo kod u funkciji
     function renderMovies(moviesToRender){
@@ -89,21 +89,33 @@ async function updateMovies(moviesToShow, selectedCinema, callback) {
         moviesToRender.forEach((movie) => {
           const movieLink = document.createElement("a");
           movieLink.classList.add("c-movie-link");
-        
+          
           // Osnova linka — uzima se iz trenutnog domena
           const baseUrl = window.location.origin;
-        
-          // Pravimo URL objekat i dodajemo query parametre
+          
+          // Pravimo URL objekat
           let href;
-          if (selectedCinema === '') {
+          
+          // Sve 4 kombinacije
+          if (selectedCinema === '' && selectedDate === '') {
             href = new URL("/cinema/cinemas", baseUrl);
             href.searchParams.set("movie_id", movie.id);
-          } else {
+          } else if (selectedCinema !== '' && selectedDate === '') {
             href = new URL("/cinema/screenings", baseUrl);
             href.searchParams.set("movie_id", movie.id);
             href.searchParams.set("cinema", selectedCinema);
+          } else if (selectedCinema === '' && selectedDate !== '') {
+            href = new URL("/cinema/cinemas", baseUrl);
+            href.searchParams.set("movie_id", movie.id);
+            href.searchParams.set("date", selectedDate);
+          } else {
+            // oba selektovana
+            href = new URL("/cinema/screenings", baseUrl);
+            href.searchParams.set("movie_id", movie.id);
+            href.searchParams.set("cinema", selectedCinema);
+            href.searchParams.set("date", selectedDate);
           }
-        
+          
           // Postavljanje href-a
           movieLink.href = href.toString();
   
@@ -288,13 +300,13 @@ if (cinemaParam) {
 let filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
 
 if (cinemaParam) {
-  updateMovies(filteredMovies, selectedCinema, () => {
+  updateMovies(filteredMovies, selectedCinema, selectedDate, () => {
     // Skroluj kad se DOM napuni
     document.getElementById('filters').scrollIntoView({ behavior: 'smooth' });
   }); 
 }
 else
-  updateMovies(filteredMovies, selectedCinema);
+  updateMovies(filteredMovies, selectedCinema, selectedDate);
 
 // Funkcija za prikazivanje i skrivanje dropdowna kad se klikne na toggle div
 function toggleDropdown(dropdownList) {
@@ -343,7 +355,7 @@ const resetFilters = document.querySelector(".c-reset-filters");
 searchInput.addEventListener("input", (event) => {
   searchQuery = event.target.value.trim(); // može i .toLowerCase() ovde ako želiš odmah da normalizuješ
   filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-  updateMovies(filteredMovies, selectedCinema);
+  updateMovies(filteredMovies, selectedCinema, selectedDate);
 });
 
 searchInput.addEventListener("keydown", (event) => {
@@ -360,7 +372,7 @@ resetFilters.addEventListener('click', () => {
     selectedDate = '';
     searchQuery = '';
     filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-    updateMovies(filteredMovies, selectedCinema);
+    updateMovies(filteredMovies, selectedCinema, selectedDate);
     searchInput.value='';
     
     dropdownCinemaText.textContent = 'All cinemas';
@@ -406,7 +418,7 @@ dropdownListCinemas.addEventListener('click', (e) => {
   }
 
     filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-    updateMovies(filteredMovies, selectedCinema);
+    updateMovies(filteredMovies, selectedCinema, selectedDate);
 });
 
 // Listener za date dropdown elemente
@@ -436,7 +448,7 @@ dropdownListDates.addEventListener('click', (e) => {
   }
 
     filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-    updateMovies(filteredMovies, selectedCinema);
+    updateMovies(filteredMovies, selectedCinema, selectedDate);
 });
 
 
@@ -516,7 +528,7 @@ dropdownListGenres.addEventListener('click', (e) => {
 
   // Filtriraj i renderuj filmove
   filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-  updateMovies(filteredMovies, selectedCinema);
+  updateMovies(filteredMovies, selectedCinema, selectedDate);
 });
 
 
