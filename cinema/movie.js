@@ -22,6 +22,7 @@ const { data: movie, error } = await supabase
     language,
     age_rating,
     release_date,
+    video,
     movie_actors (
       actors (
         first_name,
