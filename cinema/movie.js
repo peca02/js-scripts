@@ -67,6 +67,7 @@ const { data: screenings, error2 } = await supabase
     )
   `)
   .eq('movie_id', movieId)
+  .gte('start_time', new Date().toISOString())
   .order('start_time', { ascending: true });
 
 if (error2)
