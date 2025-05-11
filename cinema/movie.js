@@ -27,21 +27,21 @@ if (!movieId) {
       age_rating,
       release_date,
       movie_actors (
-        actor:actor_id (
+        actors (
           id,
           first_name,
           last_name
         )
       ),
       movie_directors (
-        director:director_id (
+        directors (
           id,
           first_name,
           last_name
         )
       ),
       movie_genres (
-        genre:genre_id (
+        genres (
           id,
           name
         )
