@@ -14,18 +14,25 @@ console.log(cinemas);
 const container = document.querySelector('.c-cinemas-container');
 
 cinemas.forEach(cinema => {
-  // Kreiraj link
+   // Kreiraj link
   const link = document.createElement('a');
   
   // Uzmi trenutni domen (npr. https://predrags-awesome-site-dda-9e5aad497047e.webflow.io)
   const baseUrl = window.location.origin;
   
-  // Napravi query string koristeći URLSearchParams (automatski stavlja + za razmak)
-  const params = new URLSearchParams();
-  params.set("cinema", cinema.name);
+  // Uzmi sve query parametre iz trenutnog URL-a
+  const currentParams = window.location.search;
   
-  // Sastavi pun href
-  link.href = `${baseUrl}/cinema/home?${params.toString()}`;
+  // Provera da li ima nekih parametara
+  if (currentParams === '') {
+    // Nema parametara – ide na /cinema/home?cinema=...
+    const params = new URLSearchParams();
+    params.set("cinema", cinema.name);
+    link.href = `${baseUrl}/cinema/home?${params.toString()}`;
+  } else {
+    // Ima parametara – ide na /cinema/screenings sa svim tim parametrima
+    link.href = `${baseUrl}/cinema/screenings${currentParams}`;
+  }
   
   // H2 – Naziv bioskopa
   const name = document.createElement('h2');
