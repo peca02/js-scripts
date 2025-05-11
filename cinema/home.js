@@ -101,7 +101,7 @@ async function updateMovies(moviesToShow, selectedCinema, selectedDate, callback
             href = new URL("/cinema/cinemas", baseUrl);
             href.searchParams.set("movie_id", movie.id);
           } else if (selectedCinema !== '' && selectedDate === '') {
-            href = new URL("/cinema/screenings", baseUrl);
+            href = new URL("/cinema/movie", baseUrl);
             href.searchParams.set("movie_id", movie.id);
             href.searchParams.set("cinema", selectedCinema);
           } else if (selectedCinema === '' && selectedDate !== '') {
@@ -110,7 +110,7 @@ async function updateMovies(moviesToShow, selectedCinema, selectedDate, callback
             href.searchParams.set("date", selectedDate);
           } else {
             // oba selektovana
-            href = new URL("/cinema/screenings", baseUrl);
+            href = new URL("/cinema/movie", baseUrl);
             href.searchParams.set("movie_id", movie.id);
             href.searchParams.set("cinema", selectedCinema);
             href.searchParams.set("date", selectedDate);
