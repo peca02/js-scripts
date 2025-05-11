@@ -31,11 +31,11 @@ cinemas.forEach(cinema => {
     params.set("cinema", cinema.name);
     link.href = `${baseUrl}/cinema/home?${params.toString()}`;
   } else {
-    // Ima parametara – ide na /cinema/screenings sa svim tim parametrima + cinema
+    // Ima parametara – ide na /cinema/movie sa svim tim parametrima + cinema
     params = new URLSearchParams(currentParams);
     // Dodaj/azuriraj parametar za bioskop
     params.set("cinema", cinema.name);
-    link.href = `${baseUrl}/cinema/screenings?${params.toString()}`;
+    link.href = `${baseUrl}/cinema/movie?${params.toString()}`;
   }
   
   // H2 – Naziv bioskopa
