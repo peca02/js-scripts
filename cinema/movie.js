@@ -48,7 +48,7 @@ if (error)
 
 console.log("Film:", movie);
 
-const { data: screenings, error } = await supabase
+const { data: screenings, error2 } = await supabase
   .from('screenings')
   .select(`
     id,
@@ -79,5 +79,8 @@ const { data: screenings, error } = await supabase
   `)
   .eq('movie_id', movieId)
   .order('start_time', { ascending: true });
+
+if (error2)
+  console.error("Greška pri dohvaćanju projekcija:", error2.message);
 
 console.log(screenings);
