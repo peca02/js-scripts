@@ -52,7 +52,6 @@ const { data: screenings, error2 } = await supabase
   .from('screenings')
   .select(`
     id,
-    movie_id,
     hall_id,
     start_time,
     format,
@@ -61,19 +60,9 @@ const { data: screenings, error2 } = await supabase
     subtitle,
     halls (
       id,
-      cinema_id,
       name,
-      seat_map,
-      total_seats,
-      description,
-      base_price,
       cinemas (
-        id,
-        name,
-        city,
-        address,
-        description,
-        image_url
+        name
       )
     )
   `)
