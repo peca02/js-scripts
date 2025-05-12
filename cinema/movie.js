@@ -136,3 +136,18 @@ movieDescription.innerText = movie.description;
 const movieActors = document.getElementById("actors");
 movieActors.innerText = movie.movie_actors.map(item => item.actors.first_name + ' ' + item.actors.last_name).join(', ');
 
+
+const openBtn = document.getElementById("open-video");
+const modal = document.getElementById("video-modal");
+const closeBtn = document.getElementById("close-video");
+const iframe = document.getElementById("youtube-frame");
+
+openBtn.addEventListener("click", () => {
+  iframe.src = "https://www.youtube.com/embed/YOUTUBE_VIDEO_ID"; // zameni s tvojim ID-om
+  modal.style.display = "flex";
+});
+
+closeBtn.addEventListener("click", () => {
+  iframe.src = ""; // resetuje video
+  modal.style.display = "none";
+});
