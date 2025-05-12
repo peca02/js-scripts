@@ -134,5 +134,5 @@ const movieDescription = document.getElementById("movie-description");
 movieDescription.innerText = movie.description;
 
 const movieActors = document.getElementById("actors");
-movieActors.innerText = movie.movie_actors.map(item => item.actors.name + ' ' + item.actors.surname).join(', ');
+movieActors.innerText = movie.movie_actors.map(item => item.actors.first_name + ' ' + item.actors.last_name).join(', ');
 
