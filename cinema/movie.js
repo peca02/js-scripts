@@ -122,4 +122,4 @@ const movieAgeRating = document.querySelector(".c-age-rating");
 movieAgeRating.innerText = movie.age_rating;
 
 const movieDate = document.querySelector(".c-movie-date");
-movieDate.innerText = movie.relase_date;
+movieDate.innerText = movie.release_date;
