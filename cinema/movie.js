@@ -75,3 +75,39 @@ if (error2)
   console.error("Greška pri dohvaćanju projekcija:", error2.message);
 
 console.log("Projekcije:", screenings);
+
+
+const videoSection = document.getElementByClass("c-background-video");
+
+const trailerWebm = movie.video;
+const movieTitle = movie.title;
+
+
+// Video element
+const video = document.createElement("video");
+video.autoplay = true;
+video.muted = true;
+video.loop = true;
+video.playsInline = true;
+video.style.objectFit = 'cover';
+video.style.width = '100%';
+video.style.height = '100%';
+video.style.top = 0;
+video.style.left = 0;
+video.style.z-index = -1;
+
+//const sourceMp4 = document.createElement("source");
+//sourceMp4.src = trailerMp4;
+//sourceMp4.type = "video/mp4";
+
+const sourceWebm = document.createElement("source");
+sourceWebm.src = trailerWebm;
+sourceWebm.type = "video/webm";
+
+//video.appendChild(sourceMp4);
+video.appendChild(sourceWebm);
+
+
+// Ubaci u DOM
+videoSection.prepend(video);
+
