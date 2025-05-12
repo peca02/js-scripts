@@ -77,7 +77,7 @@ if (error2)
 console.log("Projekcije:", screenings);
 
 
-const videoSection = document.getElementsByClassName("c-background-video");
+const videoSection = document.querySelector(".c-background-video");
 
 const trailerWebm = movie.video;
 const movieTitle = movie.title;
