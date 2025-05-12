@@ -136,7 +136,8 @@ movieDescription.innerText = movie.description;
 const movieActors = document.getElementById("actors");
 movieActors.innerText = movie.movie_actors.map(item => item.actors.first_name + ' ' + item.actors.last_name).join(', ');
 
-//////////
+
+// Play trailer
 const openBtn = document.querySelector(".c-play-trailer");
 
 openBtn.addEventListener("click", () => {
@@ -158,22 +159,27 @@ openBtn.addEventListener("click", () => {
   `;
 
   modal.innerHTML = `
-    <div style="position: relative; width: 80%; max-width: 800px;">
+    <div id="modal-content" style="position: relative; width: 80%; max-width: 800px;">
       <span id="close-video" style="position: absolute; top: -30px; right: 0; color: white; cursor: pointer; font-size: 24px;">✖</span>
       <iframe id="youtube-frame" width="100%" height="450" frameborder="0" allowfullscreen></iframe>
     </div>
   `;
 
-  // Ubaci modal u DOM
   document.body.appendChild(modal);
 
-  // Podesi video
   const iframe = modal.querySelector("#youtube-frame");
   iframe.src = `https://www.youtube.com/embed/${videoId}`;
 
-  // Zatvaranje
   const closeBtn = modal.querySelector("#close-video");
   closeBtn.addEventListener("click", () => {
     modal.remove();
+  });
+
+  // Zatvori klikom van modala
+  modal.addEventListener("click", (event) => {
+    const isClickInside = event.target.closest("#modal-content");
+    if (!isClickInside) {
+      modal.remove();
+    }
   });
 });
