@@ -132,3 +132,7 @@ movieDuration.innerText = `${Math.floor(movie.duration / 60)}h${movie.duration %
 
 const movieDescription = document.getElementById("movie-description");
 movieDescription.innerText = movie.description;
+
+const movieActors = document.getElementById("actors");
+movieActors.innerText = movie.movie_actors.map(item => item.actors.name + ' ' + item.actors.surname).join(', ');
+
