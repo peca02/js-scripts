@@ -118,3 +118,6 @@ movieTitle.innerText = movie.title + ' ';
 const movieYear = document.querySelector(".c-movie-year");
 movieYear.innerText = '(' + movie.release_date.getFullYear() + ')';
 
+const movieAgeRating = document.querySelector(".c-age-rating");
+movieAgeRating.innerText = movie.age_rating;
+
