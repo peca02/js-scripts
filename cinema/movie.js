@@ -123,3 +123,6 @@ movieAgeRating.innerText = movie.age_rating;
 
 const movieDate = document.querySelector(".c-movie-date");
 movieDate.innerText = movie.release_date;
+
+const movieGenres = document.querySelector(".c-genres");
+movieGenres.innerText = movie.movie_genres
