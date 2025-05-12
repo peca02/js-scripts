@@ -113,5 +113,8 @@ videoSection.prepend(video);
 
 
 const movieTitle = document.querySelector(".c-movie-title");
-movieTitle.innerText = movie.title;
+movieTitle.innerText = movie.title + ' ';
+
+const movieYear = document.querySelector(".c-movie-year");
+movieYear.innerText = '(' + movie.year+  ')';
 
