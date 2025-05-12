@@ -136,7 +136,7 @@ movieDescription.innerText = movie.description;
 const movieActors = document.getElementById("actors");
 movieActors.innerText = movie.movie_actors.map(item => item.actors.first_name + ' ' + item.actors.last_name).join(', ');
 
-
+//////////
 const openBtn = document.getElementById("open-video");
 const modal = document.getElementById("video-modal");
 const closeBtn = document.getElementById("close-video");
@@ -150,4 +150,26 @@ openBtn.addEventListener("click", () => {
 closeBtn.addEventListener("click", () => {
   iframe.src = ""; // resetuje video
   modal.style.display = "none";
+});
+
+document.getElementById('trailer-button').addEventListener('click', () => {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'w-embed-youtubevideo';
+  wrapper.style.paddingTop = '56.25%';
+
+  const iframe = document.createElement('iframe');
+  iframe.src = 'https://www.youtube.com/embed/K5ZTF9wB0H4?autoplay=1&rel=0&controls=1';
+  iframe.frameBorder = '0';
+  iframe.style.position = 'absolute';
+  iframe.style.left = '0';
+  iframe.style.top = '0';
+  iframe.style.width = '100%';
+  iframe.style.height = '100%';
+  iframe.style.pointerEvents = 'auto';
+  iframe.allow = 'autoplay; encrypted-media';
+  iframe.allowFullscreen = true;
+  iframe.title = 'YouTube Video';
+
+  wrapper.appendChild(iframe);
+  document.getElementById('video-container').appendChild(wrapper);
 });
