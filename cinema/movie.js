@@ -129,3 +129,6 @@ movieGenres.innerText = movie.movie_genres.map(item => item.genres.name).join(',
 
 const movieDuration = document.getElementsByClassName("c-movie-details")[2];
 movieDuration.innerText = `${Math.floor(movie.duration / 60)}h${movie.duration % 60 ? ' ' + (movie.duration % 60) + 'm' : ''}`;
+
+const movieDescription = document.getElementById("movie-description");
+movieDescription.innerText = movie.description;
