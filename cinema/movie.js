@@ -95,7 +95,7 @@ video.style.height = '100%';
 video.style.position = 'absolute';
 video.style.top = 0;
 video.style.left = 0;
-video.style.z-index = -1;
+video.style.zIndex = -1;
 
 //const sourceMp4 = document.createElement("source");
 //sourceMp4.src = trailerMp4;
