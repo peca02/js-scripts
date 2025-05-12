@@ -143,7 +143,9 @@ const closeBtn = document.getElementById("close-video");
 const iframe = document.getElementById("youtube-frame");
 
 openBtn.addEventListener("click", () => {
-  iframe.src = "https://www.youtube.com/embed/K5ZTF9wB0H4";
+  const trailerUrl = movie.trailer_url;
+  const videoId = new URL(trailerUrl).searchParams.get("v");
+  iframe.src = `https://www.youtube.com/embed/${videoId}`;
   modal.style.display = "flex";
 });
 
