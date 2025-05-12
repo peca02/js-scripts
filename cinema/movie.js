@@ -121,8 +121,8 @@ movieYear.innerText = '(' + new Date(movie.release_date).getFullYear() + ')';
 const movieAgeRating = document.querySelector(".c-age-rating");
 movieAgeRating.innerText = movie.age_rating;
 
-const movieDate = document.getElementsByClassName(".c-movie-date")[0];
+const movieDate = document.getElementsByClassName("c-movie-date")[0];
 movieDate.innerText = movie.release_date;
 
-const movieGenres = document.getElementsByClassName(".c-movie-date")[1];
+const movieGenres = document.getElementsByClassName("c-movie-date")[1];
 movieGenres.innerText = movie.movie_genres.map(item => item.genres.name).join(', ');
