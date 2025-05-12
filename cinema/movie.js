@@ -138,18 +138,42 @@ movieActors.innerText = movie.movie_actors.map(item => item.actors.first_name + 
 
 //////////
 const openBtn = document.getElementById("open-video");
-const modal = document.getElementById("video-modal");
-const closeBtn = document.getElementById("close-video");
-const iframe = document.getElementById("youtube-frame");
 
 openBtn.addEventListener("click", () => {
   const trailerUrl = movie.trailer_url;
   const videoId = new URL(trailerUrl).searchParams.get("v");
-  iframe.src = `https://www.youtube.com/embed/${videoId}`;
-  modal.style.display = "flex";
-});
 
-closeBtn.addEventListener("click", () => {
-  iframe.src = ""; // resetuje video
-  modal.style.display = "none";
+  // Napravi modal HTML
+  const modal = document.createElement("div");
+  modal.id = "video-modal";
+  modal.style.cssText = `
+    display: flex;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  `;
+
+  modal.innerHTML = `
+    <div style="position: relative; width: 80%; max-width: 800px;">
+      <span id="close-video" style="position: absolute; top: -30px; right: 0; color: white; cursor: pointer; font-size: 24px;">✖</span>
+      <iframe id="youtube-frame" width="100%" height="450" frameborder="0" allowfullscreen></iframe>
+    </div>
+  `;
+
+  // Ubaci modal u DOM
+  document.body.appendChild(modal);
+
+  // Podesi video
+  const iframe = modal.querySelector("#youtube-frame");
+  iframe.src = `https://www.youtube.com/embed/${videoId}`;
+
+  // Zatvaranje
+  const closeBtn = modal.querySelector("#close-video");
+  closeBtn.addEventListener("click", () => {
+    modal.remove();
+  });
 });
