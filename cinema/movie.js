@@ -80,7 +80,6 @@ console.log("Projekcije:", screenings);
 const videoSection = document.querySelector(".c-background-video");
 
 const trailerWebm = movie.video;
-const movieTitle = movie.title;
 
 
 // Video element
@@ -111,4 +110,7 @@ video.appendChild(sourceWebm);
 
 // Ubaci u DOM
 videoSection.prepend(video);
+
+const movieTitle = document.querySelector(".c-movie-title");
+movieTitle.innerText = movie.title;
 
