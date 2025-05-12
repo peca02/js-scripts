@@ -136,6 +136,8 @@ movieDescription.innerText = movie.description;
 const movieActors = document.getElementById("actors");
 movieActors.innerText = movie.movie_actors.map(item => item.actors.first_name + ' ' + item.actors.last_name).join(', ');
 
+const movieLanguages = document.querySelector(".c-languages");
+movieLanguages.innerText = movie.language;
 
 // Play trailer
 const openBtn = document.querySelector(".c-play-trailer");
