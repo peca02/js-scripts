@@ -143,7 +143,7 @@ const closeBtn = document.getElementById("close-video");
 const iframe = document.getElementById("youtube-frame");
 
 openBtn.addEventListener("click", () => {
-  iframe.src = "https://www.youtube.com/watch?v=K5ZTF9wB0H4"; // zameni s tvojim ID-om
+  iframe.src = "https://www.youtube.com/embed/K5ZTF9wB0H4";
   modal.style.display = "flex";
 });
 
