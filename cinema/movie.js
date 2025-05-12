@@ -109,8 +109,8 @@ video.appendChild(sourceWebm);
 
 
 // Ubaci u DOM
-// videoSection.prepend(video);
-videoSection.appendChild(video);
+videoSection.prepend(video);
+
 
 const movieTitle = document.querySelector(".c-movie-title");
 movieTitle.innerText = movie.title;
