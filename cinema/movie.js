@@ -137,7 +137,7 @@ const movieActors = document.getElementById("actors");
 movieActors.innerText = movie.movie_actors.map(item => item.actors.first_name + ' ' + item.actors.last_name).join(', ');
 
 //////////
-const openBtn = document.getElementById("open-video");
+const openBtn = document.querySelector(".c-play-trailer");
 
 openBtn.addEventListener("click", () => {
   const trailerUrl = movie.trailer_url;
