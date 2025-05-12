@@ -139,6 +139,13 @@ movieActors.innerText = movie.movie_actors.map(item => item.actors.first_name + 
 const movieLanguages = document.querySelector(".c-languages");
 movieLanguages.innerText = movie.language;
 
+
+if (movieLanguages.textContent.includes(",")) {
+  const languageLabel = document.querySelector(".c-language-label");
+  languageLabel.textContent = "Languages: "; // dodaje "s" ako ima više jezika
+}
+
+
 // Play trailer
 const openBtn = document.querySelector(".c-play-trailer");
 
