@@ -32,7 +32,7 @@ let { data: movies, error } = await supabase
   .gte('screenings.start_time', now) // filtrira samo buduće projekcije
   .order('release_date', { ascending: false });
 
-// dodatno ukloni filmove koji su ostali bez projekcija
+// mora ovo jer ce ovo spajanje tabela svakako da vrati filmove koji imaju zastarele projekcije, tu ce da bude null u to ugnjezdeno al film ce biti vracen
 movies = movies.filter(movie => movie.screenings.length > 0);
 
 const sizeInBytes = new Blob([JSON.stringify(movies)]).size;
