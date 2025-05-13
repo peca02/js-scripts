@@ -294,7 +294,7 @@ async function updateScreenings(screeningsToShow) {
         screeningLink.href = href.toString();
    
         const time = document.createElement("div");
-        time.textContent = screening.start_time;
+        time.textContent = new Date(screening.start_time).toDateString();
 
         const format = document.createElement("div");
         format.textContent = screening.format;
