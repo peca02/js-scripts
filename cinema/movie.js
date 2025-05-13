@@ -225,6 +225,41 @@ openBtn.addEventListener("click", () => {
 });
 
 
+// funkcija za ekstraktovanje bioskopa iz projekcija
+function extractCinemas(screenings) {
+  const cinemasSet = new Set();
+
+  screenings.forEach(screening => {
+    const cinemaName = screening.halls.cinemas.name;
+    if (cinemaName) {
+      cinemasSet.add(cinemaName);
+    }
+  });
+
+  return Array.from(cinemasSet).sort();
+}
+
+const cinemas = extractCinemas(screenings);
+console.log(cinemas);
+
+
+// funkcija za ekstraktovanje datuma iz projekcija
+function extractDates(screenings) {
+  const datesSet = new Set();
+
+  screenings.forEach(screening => {
+    const dateStr = new Date(screening.start_time).toDateString();
+    datesSet.add(dateStr);
+  });
+
+  return Array.from(datesSet).sort((a, b) => new Date(a) - new Date(b));
+}
+
+const dates = extractDates(screenings);
+console.log(dates);
+
+
+// kontejner za projekcije
 const screeningsContainer = document.querySelector(".c-screenings-container");
 screeningsContainer.classList.add("transition");
 
