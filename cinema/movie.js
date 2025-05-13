@@ -255,8 +255,16 @@ async function updateScreenings(screeningsToShow) {
    
         const time = document.createElement("div");
         time.textContent = screening.start_time;
+
+        const format = document.createElement("div");
+        format.textContent = screening.format;
+
+        const hall = document.createElement("div");
+        hall.textContent = screening.halls.name;
   
         screeningLink.appendChild(time);
+        screeningLink.appendChild(format);
+        screeningLink.appendChild(hall);
 
         screeningsContainer.appendChild(screeningLink);
   });
