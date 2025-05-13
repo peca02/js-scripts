@@ -5,6 +5,8 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 // Sve gore je povezivanje sa Supabase
 
 // prikupljanje filmova
+const now = new Date().toISOString(); // ISO format za Supabase
+
 let { data: movies, error } = await supabase
   .from('movies')
   .select(`
@@ -27,12 +29,11 @@ let { data: movies, error } = await supabase
       )
     )
   `)
+  .gte('screenings.start_time', now) // filtrira samo buduće projekcije
   .order('release_date', { ascending: false });
 
-// mora ovako jer ako bi radili sa filterom direktno u pozivu iz supabase posto vraca ugnjezdeno samo ce isfiltrirati to staviti null i svakako vratiti ugnjezdeni null u movies
-movies = movies.filter(movie =>
-  movie.screenings.some(screening => new Date(screening.start_time) >= new Date())
-);
+// dodatno ukloni filmove koji su ostali bez projekcija
+movies = movies.filter(movie => movie.screenings.length > 0);
 
 const sizeInBytes = new Blob([JSON.stringify(movies)]).size;
 console.log(`movies zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
