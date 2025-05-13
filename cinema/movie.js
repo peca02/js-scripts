@@ -248,13 +248,13 @@ async function updateScreenings(screeningsToShow) {
         let href;
           
         href = new URL("/cinema/reservation", baseUrl);
-        href.searchParams.set("screening_id", screenings.id);
+        href.searchParams.set("screening_id", screening.id);
           
         // Postavljanje href-a
         screeningLink.href = href.toString();
    
         const time = document.createElement("div");
-        time.textContent = screenings.start_time;
+        time.textContent = screening.start_time;
   
         screeningLink.appendChild(time);
 
