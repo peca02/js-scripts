@@ -140,9 +140,35 @@ const movieLanguages = document.querySelector(".c-languages");
 movieLanguages.innerText = movie.language;
 
 
+// dodavanje s na language ako ima jezika
 if (movieLanguages.textContent.includes(",")) {
   const languageLabel = document.querySelector(".c-language-label");
-  languageLabel.textContent = "Languages: "; // dodaje "s" ako ima više jezika
+  languageLabel.textContent = "Languages: ";
+}
+
+
+const wrapper = document.querySelector(".c-trailer-and-language");
+
+// Provera da li postoji sinhronizovani jezik
+const syncLang = screenings[0]?.language;
+const subtitleLang = screenings[0]?.subtitle;
+
+// Ako postoji jedan od njih (ali ne oba)
+if (syncLang || subtitleLang) {
+  const container = document.createElement("div");
+
+  const label = document.createElement("div");
+  label.className = "c-language-label";
+  label.textContent = syncLang ? "Language: " : "Subtitle: ";
+
+  const languageText = document.createElement("div");
+  languageText.className = "c-languages";
+  languageText.textContent = syncLang || subtitleLang;
+
+  container.appendChild(label);
+  container.appendChild(languageText);
+
+  wrapper.appendChild(container);
 }
 
 
