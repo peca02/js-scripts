@@ -49,6 +49,9 @@ if (error)
 
 console.log("Film:", movie);
 
+let sizeInBytes = new Blob([JSON.stringify(movie)]).size;
+console.log(`movie zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
+
 const { data: screenings, error2 } = await supabase
   .from('screenings')
   .select(`
@@ -76,6 +79,8 @@ if (error2)
 
 console.log("Projekcije:", screenings);
 
+sizeInBytes = new Blob([JSON.stringify(screenings)]).size;
+console.log(`screenings zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
 
 const videoSection = document.querySelector(".c-background-video");
 
