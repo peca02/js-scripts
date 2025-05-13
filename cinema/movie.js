@@ -233,36 +233,34 @@ function sleep(ms) {
 // funkcija za renderovanje projekcija
 async function updateScreenings(screeningsToShow) {
 
-        
-
     screeningsContainer.style.opacity = "0";
     await sleep(300);
     // Prikaži filmove
     screeningsContainer.innerHTML = "";
     screeningsToShow.forEach((screening) => {
-      const screeningLink = document.createElement("a");
+    const screeningLink = document.createElement("a");
           
-      // Osnova linka — uzima se iz trenutnog domena
-      const baseUrl = window.location.origin;
+    // Osnova linka — uzima se iz trenutnog domena
+    const baseUrl = window.location.origin;
           
-      // Pravimo URL objekat
-      let href;
+    // Pravimo URL objekat
+    let href;
           
-      href = new URL("/cinema/reservation", baseUrl);
-      href.searchParams.set("screening_id", screenings.id);
+    href = new URL("/cinema/reservation", baseUrl);
+    href.searchParams.set("screening_id", screenings.id);
           
-      // Postavljanje href-a
-      screeningLink.href = href.toString();
+    // Postavljanje href-a
+    screeningLink.href = href.toString();
    
-      const time = document.createElement("div");
-      time.textContent = screenings.start_time;
+    const time = document.createElement("div");
+    time.textContent = screenings.start_time;
   
-      screeningLink.appendChild(time);
+    screeningLink.appendChild(time);
 
-    });
+  });
   
-    screeningsContainer.style.opacity = "1";
-    await sleep(300);
+  screeningsContainer.style.opacity = "1";
+  await sleep(300);
   
 } 
 
