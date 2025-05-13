@@ -259,6 +259,43 @@ const dates = extractDates(screenings);
 console.log(dates);
 
 
+// Hvatanje dropdown elemenata
+const dropdownCinema = document.querySelector('#dropdown-cinema');
+const dropdownDate = document.querySelector('#dropdown-date');
+const toggleCinemaDropdown = dropdownCinema.querySelector('.c-dropdown-toggle');
+const toggleDateDropdown = dropdownDate.querySelector('.c-dropdown-toggle');
+const dropdownListCinemas = dropdownCinema.querySelector('.c-dropdown-list');
+const dropdownListDates = dropdownDate.querySelector('.c-dropdown-list');
+const dropdownCinemaText = document.querySelector('#dropdown-cinema-text');
+const dropdownDateText = document.querySelector('#dropdown-date-text');
+
+
+  // funkcija za punjenje jednog dropdowna
+  function populateList(listElement, items, attributeName) {
+  items.forEach(item => {
+    const div = document.createElement('div');
+    div.classList.add('c-dropdown-list-element');
+    div.setAttribute(attributeName, item);
+
+    // Ako je atribut datum, formatiraj prikaz
+    if (attributeName === 'data-date') {
+      const parts = item.split(' '); // ["Mon", "May", "12", "2025"]
+      const firstLine = parts.slice(0, 3).join(' '); // "Mon May 12"
+      const secondLine = parts[3]; // "2025"
+      div.innerHTML = `${firstLine}<br>${secondLine}`;
+    } else {
+      div.textContent = item;
+    }
+
+    listElement.appendChild(div);
+  });
+}
+
+  // Puni oba dropdowna
+  populateList(dropdownListCinemas, cinemas, 'data-cinema');
+  populateList(dropdownListDates, dates, 'data-date');
+
+
 // kontejner za projekcije
 const screeningsContainer = document.querySelector(".c-screenings-container");
 screeningsContainer.classList.add("transition");
