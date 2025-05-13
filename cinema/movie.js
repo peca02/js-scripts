@@ -159,7 +159,7 @@ if (syncLang || subtitleLang) {
 
   const label = document.createElement("div");
   label.className = "c-language-label";
-  label.textContent = syncLang ? "Language: " : "Subtitle: ";
+  label.textContent = syncLang ? "Synchronized in: " : "Subtitle: ";
 
   const languageText = document.createElement("div");
   languageText.className = "c-languages";
