@@ -107,11 +107,11 @@ sourceWebm.type = "video/webm";
 //video.appendChild(sourceMp4);
 video.appendChild(sourceWebm);
 
-
 // Ubaci u DOM
 videoSection.prepend(video);
 
 
+// podaci za film
 const movieTitle = document.querySelector(".c-movie-title");
 movieTitle.innerText = movie.title + ' ';
 
@@ -218,3 +218,52 @@ openBtn.addEventListener("click", () => {
     }
   });
 });
+
+
+const screeningsContainer = document.querySelector(".c-screenings-container");
+screeningsContainer.classList.add("transition");
+
+
+// funkcija za pauziranje vremena
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+// funkcija za renderovanje projekcija
+async function updateScreenings(screeningsToShow) {
+
+        
+
+    screeningsContainer.style.opacity = "0";
+    await sleep(300);
+    // Prikaži filmove
+    screeningsContainer.innerHTML = "";
+    screeningsToShow.forEach((screening) => {
+      const screeningLink = document.createElement("a");
+          
+      // Osnova linka — uzima se iz trenutnog domena
+      const baseUrl = window.location.origin;
+          
+      // Pravimo URL objekat
+      let href;
+          
+      href = new URL("/cinema/reservation", baseUrl);
+      href.searchParams.set("screening_id", screenings.id);
+          
+      // Postavljanje href-a
+      screeningLink.href = href.toString();
+   
+      const time = document.createElement("div");
+      time.textContent = screenings.start_time;
+  
+      screeningLink.appendChild(time);
+
+    });
+  
+    screeningsContainer.style.opacity = "1";
+    await sleep(300);
+  
+} 
+
+updateScreenings(screenings)
