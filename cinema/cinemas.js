@@ -11,14 +11,14 @@ const urlParams = new URLSearchParams(window.location.search);
 
 let cinemas;
 
-//if (urlParams === ''){
+if (urlParams === ''){
   const { data, error } = await supabase
     .from('cinemas')
     .select('*')
 
 cinemas=data;
   //cinemas=cinemasData;
-//}
+}
 //else{
   //const { data, error } = await supabase
   //.from('screenings')
