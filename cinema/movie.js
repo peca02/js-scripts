@@ -303,9 +303,9 @@ const dropdownDateText = document.querySelector('#dropdown-date-text');
   });
 }
 
-  // Puni oba dropdowna
-  populateList(dropdownListCinemas, cinemas, 'data-cinema');
-  populateList(dropdownListDates, dates, 'data-date');
+// Puni oba dropdowna
+populateList(dropdownListCinemas, cinemas, 'data-cinema');
+populateList(dropdownListDates, dates, 'data-date');
 
 
 // kontejner za projekcije
@@ -362,6 +362,13 @@ async function updateScreenings(screeningsToShow) {
   await sleep(300);
   
 } 
+
+let selectedCinema = urlParams.get('cinema');
+let selectedDate = urlParams.get('date');
+
+if (!selectedDate) {
+  selectedDate = dates[0];
+}
 
 // ucitaj projekcije pri ucitavanju stranice
 updateScreenings(screenings)
