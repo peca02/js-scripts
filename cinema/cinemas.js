@@ -7,6 +7,8 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 // Uzmi sve query parametre iz trenutnog URL-a
 const currentParams = window.location.search;
+const urlParams = new URLSearchParams(window.location.search);
+const movieId = urlParams.get('movie_id');
 
 if (currentParams === ''){
   const { data: cinemas, error } = await supabase
@@ -24,7 +26,7 @@ else{
   console.log(cinemas);
 }
 
-
+ console.log(cinemas);
 const container = document.querySelector('.c-cinemas-container');
 
 cinemas.forEach(cinema => {
