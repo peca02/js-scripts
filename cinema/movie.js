@@ -289,6 +289,9 @@ if (!selectedDate) {
   selectedDate = dates[0];
 }
 
+dropdownCinemaText.textContent = selectedCinema;
+dropdownDateText.textContent = selectedDate;
+
   // funkcija za punjenje jednog dropdowna
   function populateList(listElement, items, attributeName) {
   if (attributeName === 'data-date'){
