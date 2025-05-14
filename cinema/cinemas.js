@@ -28,7 +28,7 @@ else{
   const uniqueCinemasMap = new Map();
 
   data.forEach(screening => {
-    const cinema = screening.halls.cinema;
+    const cinema = screening.halls.cinemas;
     if (cinema && !uniqueCinemasMap.has(cinema.id)) {
       uniqueCinemasMap.set(cinema.id, cinema);
     }
