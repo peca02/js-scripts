@@ -18,12 +18,12 @@ if (urlParams === ''){
 
   cinemas = data;
 }
-else{
-  const { data, error } = await supabase
-  .from('screenings')
-  .select('halls(cinema_id, cinema:cinemas(*))')
-  .eq('movie_id', movieId);
-}
+//else{
+  //const { data, error } = await supabase
+  //.from('screenings')
+  //.select('halls(cinema_id, cinema:cinemas(*))')
+  //.eq('movie_id', movieId);
+//}
 
 console.log(cinemas);
 const container = document.querySelector('.c-cinemas-container');
