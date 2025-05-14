@@ -22,8 +22,10 @@ else{
   console.log(movieId);
   const { data, error } = await supabase
   .from('screenings')
-  .select('halls(cinema_id, cinemas:cinemas(*))')
+  .select('halls(cinema_id, cinemas(*))')
   .eq('movie_id', movieId);
+
+  cinemas=data;
 }
 
 console.log(cinemas);
