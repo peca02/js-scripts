@@ -308,6 +308,32 @@ const dropdownDateText = document.querySelector('#dropdown-date-text');
   populateList(dropdownListDates, dates, 'data-date');
 
 
+// Listener za cinema dropdown elemente
+dropdownListCinemas.addEventListener('click', (e) => {
+  const target = e.target.closest('.c-dropdown-list-element');
+  if (!target) return;
+
+  // Zatvori dropdown
+  dropdownListCinemas.style.display = 'none';
+
+  // Ukloni selekciju sa svih
+  const allElements = dropdownListCinemas.querySelectorAll('.c-dropdown-list-element');
+  allElements.forEach(el => el.classList.remove('c-dropdown-list-element-selected'));
+
+  // Dodaj selekciju na kliknutog
+  target.classList.add('c-dropdown-list-element-selected');
+
+  // Preuzmi vrednost
+  const value = target.getAttribute('data-cinema');
+
+ 
+  selectedCinema = value;
+  dropdownCinemaText.textContent = value;
+
+  //filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
+  updateScreenings(screenings)
+});
+
 // kontejner za projekcije
 const screeningsContainer = document.querySelector(".c-screenings-container");
 screeningsContainer.classList.add("transition");
