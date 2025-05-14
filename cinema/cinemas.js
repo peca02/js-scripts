@@ -6,27 +6,26 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 
 // Uzmi sve query parametre iz trenutnog URL-a
-const currentParams = window.location.search;
 const urlParams = new URLSearchParams(window.location.search);
 const movieId = urlParams.get('movie_id');
 
-if (currentParams === ''){
-  const { data: cinemas, error } = await supabase
+let cinemas;
+
+if (urlParams === ''){
+  const { data, error } = await supabase
     .from('cinemas')
     .select('*')
 
-  console.log(cinemas);
+  cinemas = data;
 }
 else{
-  const { data: cinemas, error } = await supabase
+  const { data, error } = await supabase
   .from('screenings')
   .select('halls(cinema_id, cinema:cinemas(*))')
   .eq('movie_id', movieId);
-
-  console.log(cinemas);
 }
 
- console.log(cinemas);
+console.log(cinemas);
 const container = document.querySelector('.c-cinemas-container');
 
 cinemas.forEach(cinema => {
@@ -40,14 +39,14 @@ cinemas.forEach(cinema => {
   let params;
   
   // Provera da li ima nekih parametara
-  if (currentParams === '') {
+  if (urlParams === '') {
     // Nema parametara – ide na /cinema/home?cinema=...
     params = new URLSearchParams();
     params.set("cinema", cinema.name);
     link.href = `${baseUrl}/cinema/home?${params.toString()}`;
   } else {
     // Ima parametara – ide na /cinema/movie sa svim tim parametrima + cinema
-    params = new URLSearchParams(currentParams);
+    params = new URLSearchParams(urlParams);
     // Dodaj/azuriraj parametar za bioskop
     params.set("cinema", cinema.name);
     link.href = `${baseUrl}/cinema/movie?${params.toString()}`;
