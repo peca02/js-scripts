@@ -344,7 +344,7 @@ function sleep(ms) {
 // funkcija za filtriranje projekcija
 function filterScreenings(screenings, selectedCinema, selectedDate) {
   return screenings.filter(screening => {
-    const screeningCinema = screening.halls?.cinemas?.name;
+    const screeningCinema = screening.halls.cinemas.name;
     const screeningDate = new Date(screening.start_time).toDateString();
     const selectedDateFormatted = new Date(selectedDate).toDateString();
 
@@ -440,7 +440,7 @@ dropdownListCinemas.addEventListener('click', (e) => {
   dropdownCinemaText.textContent = value;
 
   filteredScreenings = filterScreenings(screenings, selectedCinema, selectedDate);
-  updateScreenings(screenings)
+  updateScreenings(filteredScreenings)
 });
 
 
@@ -471,7 +471,7 @@ dropdownListDates.addEventListener('click', (e) => {
   dropdownDateText.textContent = value;
 
   filteredScreenings = filterScreenings(screenings, selectedCinema, selectedDate);
-  updateScreenings(screenings)
+  updateScreenings(filteredScreenings)
 });
 
 
