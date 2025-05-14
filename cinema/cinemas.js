@@ -7,7 +7,7 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 // Uzmi sve query parametre iz trenutnog URL-a
 const urlParams = new URLSearchParams(window.location.search);
-const movieId = urlParams.get('movie_id');
+//const movieId = urlParams.get('movie_id');
 
 let cinemas;
 
