@@ -341,6 +341,21 @@ function sleep(ms) {
 }
 
 
+// funkcija za filtriranje projekcija
+function filterScreenings(screenings, selectedCinema, selectedDate) {
+  return screenings.filter(screening => {
+    const screeningCinema = screening.halls?.cinemas?.name;
+    const screeningDate = new Date(screening.start_time).toDateString();
+    const selectedDateFormatted = new Date(selectedDate).toDateString();
+
+    return (
+      screeningCinema === selectedCinema &&
+      screeningDate === selectedDateFormatted
+    );
+  });
+}
+
+
 // funkcija za renderovanje projekcija
 async function updateScreenings(screeningsToShow) {
 
@@ -387,7 +402,8 @@ async function updateScreenings(screeningsToShow) {
 
 
 // ucitaj projekcije pri ucitavanju stranice
-updateScreenings(screenings)
+let filteredScreenings = filterScreenings(screenings, selectedCinema, selectedDate);
+updateScreenings(filteredScreenings)
 
 
 // Funkcija za prikazivanje i skrivanje dropdowna kad se klikne na toggle div
@@ -423,7 +439,7 @@ dropdownListCinemas.addEventListener('click', (e) => {
   selectedCinema = value;
   dropdownCinemaText.textContent = value;
 
-  //filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
+  filteredScreenings = filterScreenings(screenings, selectedCinema, selectedDate);
   updateScreenings(screenings)
 });
 
@@ -454,7 +470,7 @@ dropdownListDates.addEventListener('click', (e) => {
   selectedDate = value;
   dropdownDateText.textContent = value;
 
-  //filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
+  filteredScreenings = filterScreenings(screenings, selectedCinema, selectedDate);
   updateScreenings(screenings)
 });
 
