@@ -12,11 +12,9 @@ const urlParams = new URLSearchParams(window.location.search);
 let cinemas;
 
 if (urlParams === ''){
-  const { data, error } = await supabase
+  const { data: cinemas, error } = await supabase
     .from('cinemas')
     .select('*')
-
-  cinemas = data;
 }
 //else{
   //const { data, error } = await supabase
