@@ -52,6 +52,18 @@ console.log("Film:", movie);
 let sizeInBytes = new Blob([JSON.stringify(movie)]).size;
 console.log(`movie zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
 
+
+// funkcija za dobijanje lokalnog vremena
+function getLocalTimestamp() {
+  const date = new Date();
+  return date.getFullYear() + "-" +
+    String(date.getMonth() + 1).padStart(2, '0') + "-" +
+    String(date.getDate()).padStart(2, '0') + "T" +
+    String(date.getHours()).padStart(2, '0') + ":" +
+    String(date.getMinutes()).padStart(2, '0') + ":" +
+    String(date.getSeconds()).padStart(2, '0');
+}
+
 const { data: screenings, error2 } = await supabase
   .from('screenings')
   .select(`
@@ -81,7 +93,7 @@ console.log("Projekcije:", screenings);
 
 sizeInBytes = new Blob([JSON.stringify(screenings)]).size;
 console.log(`screenings zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
-console.log(new Date())
+console.log(getLocalTimestamp())
 
 const videoSection = document.querySelector(".c-background-video");
 
