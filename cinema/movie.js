@@ -83,7 +83,7 @@ const { data: screenings, error2 } = await supabase
     )
   `)
   .eq('movie_id', movieId)
-  .gte('start_time', new Date().toISOString())
+  .gte('start_time', getLocalTimestamp())
   .order('start_time', { ascending: true });
 
 if (error2)
@@ -93,7 +93,6 @@ console.log("Projekcije:", screenings);
 
 sizeInBytes = new Blob([JSON.stringify(screenings)]).size;
 console.log(`screenings zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
-console.log(getLocalTimestamp())
 
 const videoSection = document.querySelector(".c-background-video");
 
