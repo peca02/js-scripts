@@ -282,25 +282,44 @@ const dropdownCinemaText = document.querySelector('#dropdown-cinema-text');
 const dropdownDateText = document.querySelector('#dropdown-date-text');
 
 
+let selectedCinema = urlParams.get('cinema');
+let selectedDate = urlParams.get('date');
+
+if (!selectedDate) {
+  selectedDate = dates[0];
+}
+
   // funkcija za punjenje jednog dropdowna
   function populateList(listElement, items, attributeName) {
-  items.forEach(item => {
-    const div = document.createElement('div');
-    div.classList.add('c-dropdown-list-element');
-    div.setAttribute(attributeName, item);
-
-    // Ako je atribut datum, formatiraj prikaz
-    if (attributeName === 'data-date') {
+  if (attributeName === 'data-date'){
+    items.forEach(item => {
+      const div = document.createElement('div');
+      div.classList.add('c-dropdown-list-element');
+      if (item == selectedDate)
+        div.classList.add('c-dropdown-list-element-selected');
+      div.setAttribute(attributeName, item);
+    
       const parts = item.split(' '); // ["Mon", "May", "12", "2025"]
       const firstLine = parts.slice(0, 3).join(' '); // "Mon May 12"
       const secondLine = parts[3]; // "2025"
       div.innerHTML = `${firstLine}<br>${secondLine}`;
-    } else {
-      div.textContent = item;
-    }
-
-    listElement.appendChild(div);
-  });
+    
+      listElement.appendChild(div);
+      });
+  }
+  else{
+     items.forEach(item => {
+        const div = document.createElement('div');
+        div.classList.add('c-dropdown-list-element');
+        if (item == selectedCinema)
+          div.classList.add('c-dropdown-list-element-selected');
+        div.setAttribute(attributeName, item);
+      
+        div.textContent = item;
+    
+        listElement.appendChild(div);
+      });
+  }
 }
 
 // Puni oba dropdowna
@@ -363,12 +382,6 @@ async function updateScreenings(screeningsToShow) {
   
 } 
 
-let selectedCinema = urlParams.get('cinema');
-let selectedDate = urlParams.get('date');
-
-if (!selectedDate) {
-  selectedDate = dates[0];
-}
 
 // ucitaj projekcije pri ucitavanju stranice
 updateScreenings(screenings)
