@@ -7,7 +7,7 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 // Uzmi sve query parametre iz trenutnog URL-a
 const urlParams = new URLSearchParams(window.location.search);
-//const movieId = urlParams.get('movie_id');
+const movieId = urlParams.get('movie_id');
 
 let cinemas;
 
@@ -17,14 +17,13 @@ if (!urlParams.toString()){
     .select('*')
 
 cinemas=data;
-  //cinemas=cinemasData;
 }
-//else{
-  //const { data, error } = await supabase
-  //.from('screenings')
-  //.select('halls(cinema_id, cinema:cinemas(*))')
-  //.eq('movie_id', movieId);
-//}
+else{
+  const { data, error } = await supabase
+  .from('screenings')
+  .select('halls(cinema_id, cinema:cinemas(*))')
+  .eq('movie_id', movieId);
+}
 
 console.log(cinemas);
 const container = document.querySelector('.c-cinemas-container');
