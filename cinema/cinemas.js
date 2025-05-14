@@ -19,7 +19,6 @@ if (!urlParams.toString()){
 cinemas=data;
 }
 else{
-  console.log(movieId);
   const { data, error } = await supabase
   .from('screenings')
   .select('halls(cinema_id, cinemas(*))')
@@ -52,7 +51,7 @@ cinemas.forEach(cinema => {
   let params;
   
   // Provera da li ima nekih parametara
-  if (urlParams === '') {
+  if (urlParams.toString() === '') {
     // Nema parametara – ide na /cinema/home?cinema=...
     params = new URLSearchParams();
     params.set("cinema", cinema.name);
