@@ -81,7 +81,7 @@ console.log("Projekcije:", screenings);
 
 sizeInBytes = new Blob([JSON.stringify(screenings)]).size;
 console.log(`screenings zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
-console.log(new Date().toISOString())
+console.log(new Date())
 
 const videoSection = document.querySelector(".c-background-video");
 
