@@ -5,11 +5,25 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 // Sve gore je povezivanje sa Supabase
 
 
-const { data: cinemas, error } = await supabase
-  .from('cinemas')
-  .select('*')
+// Uzmi sve query parametre iz trenutnog URL-a
+const currentParams = window.location.search;
 
-console.log(cinemas);
+if (currentParams === ''){
+  const { data: cinemas, error } = await supabase
+    .from('cinemas')
+    .select('*')
+
+  console.log(cinemas);
+}
+else{
+  const { data: cinemas, error } = await supabase
+  .from('screenings')
+  .select('halls(cinema_id, cinema:cinemas(*))')
+  .eq('movie_id', movieId);
+
+  console.log(cinemas);
+}
+
 
 const container = document.querySelector('.c-cinemas-container');
 
@@ -20,8 +34,7 @@ cinemas.forEach(cinema => {
   // Uzmi trenutni domen (npr. https://predrags-awesome-site-dda-9e5aad497047e.webflow.io)
   const baseUrl = window.location.origin;
   
-  // Uzmi sve query parametre iz trenutnog URL-a
-  const currentParams = window.location.search;
+
   let params;
   
   // Provera da li ima nekih parametara
