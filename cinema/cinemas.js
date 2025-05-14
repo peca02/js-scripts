@@ -11,7 +11,7 @@ const urlParams = new URLSearchParams(window.location.search);
 
 let cinemas;
 
-if (urlParams === ''){
+if (!urlParams.toString()){
   const { data, error } = await supabase
     .from('cinemas')
     .select('*')
