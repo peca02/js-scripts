@@ -25,13 +25,16 @@ else{
   .select('halls(cinema_id, cinemas(*))')
   .eq('movie_id', movieId);
 
-  cinemas = data.map(
-screening
- =>
- screening.halls.map(
-hall
- =>
- hall.cinemas));
+  const uniqueCinemasMap = new Map();
+
+  data.forEach(screening => {
+    const cinema = screening.halls.cinema;
+    if (cinema && !uniqueCinemasMap.has(cinema.id)) {
+      uniqueCinemasMap.set(cinema.id, cinema);
+    }
+  });
+  
+  cinemas = Array.from(uniqueCinemasMap.values());
   
 }
 
