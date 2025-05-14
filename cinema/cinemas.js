@@ -19,6 +19,7 @@ if (!urlParams.toString()){
 cinemas=data;
 }
 else{
+  console.log(movieId);
   const { data, error } = await supabase
   .from('screenings')
   .select('halls(cinema_id, cinema:cinemas(*))')
