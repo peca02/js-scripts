@@ -25,7 +25,13 @@ else{
   .select('halls(cinema_id, cinemas(*))')
   .eq('movie_id', movieId);
 
-  cinemas = data.map(screening=>screening.halls.map(hall=>hall.cinema));
+  cinemas = data.map(
+screening
+ =>
+ screening.halls.map(
+hall
+ =>
+ hall.cinemas));
   
 }
 
