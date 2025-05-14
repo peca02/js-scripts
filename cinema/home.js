@@ -4,8 +4,17 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 // Sve gore je povezivanje sa Supabase
 
-// prikupljanje filmova
-const now = new Date().toISOString(); // ISO format za Supabase
+// funkcija za dobijanje logaklnog vremena
+function getLocalTimestamp() {
+  const date = new Date();
+  return date.getFullYear() + "-" +
+    String(date.getMonth() + 1).padStart(2, '0') + "-" +
+    String(date.getDate()).padStart(2, '0') + "T" +
+    String(date.getHours()).padStart(2, '0') + ":" +
+    String(date.getMinutes()).padStart(2, '0') + ":" +
+    String(date.getSeconds()).padStart(2, '0');
+}
+
 
 let { data: movies, error } = await supabase
   .from('movies')
@@ -29,7 +38,7 @@ let { data: movies, error } = await supabase
       )
     )
   `)
-  .gte('screenings.start_time', now) // filtrira samo buduće projekcije
+  .gte('screenings.start_time', getLocalTimestamp()) // filtrira samo buduće projekcije
   .order('release_date', { ascending: false });
 
 // mora ovo jer ce ovo spajanje tabela svakako da vrati filmove koji imaju zastarele projekcije, tu ce da bude null u to ugnjezdeno al film ce biti vracen
