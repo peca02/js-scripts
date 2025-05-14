@@ -308,32 +308,6 @@ const dropdownDateText = document.querySelector('#dropdown-date-text');
   populateList(dropdownListDates, dates, 'data-date');
 
 
-// Listener za cinema dropdown elemente
-dropdownListCinemas.addEventListener('click', (e) => {
-  const target = e.target.closest('.c-dropdown-list-element');
-  if (!target) return;
-
-  // Zatvori dropdown
-  dropdownListCinemas.style.display = 'none';
-
-  // Ukloni selekciju sa svih
-  const allElements = dropdownListCinemas.querySelectorAll('.c-dropdown-list-element');
-  allElements.forEach(el => el.classList.remove('c-dropdown-list-element-selected'));
-
-  // Dodaj selekciju na kliknutog
-  target.classList.add('c-dropdown-list-element-selected');
-
-  // Preuzmi vrednost
-  const value = target.getAttribute('data-cinema');
-
- 
-  selectedCinema = value;
-  dropdownCinemaText.textContent = value;
-
-  //filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
-  updateScreenings(screenings)
-});
-
 // kontejner za projekcije
 const screeningsContainer = document.querySelector(".c-screenings-container");
 screeningsContainer.classList.add("transition");
@@ -389,4 +363,83 @@ async function updateScreenings(screeningsToShow) {
   
 } 
 
+// ucitaj projekcije pri ucitavanju stranice
 updateScreenings(screenings)
+
+
+// Listeneri za cinema dropdown 
+toggleCinemaDropdown.addEventListener('click', () => {
+  toggleDropdown(dropdownListCinemas);
+});
+
+dropdownListCinemas.addEventListener('click', (e) => {
+  const target = e.target.closest('.c-dropdown-list-element');
+  if (!target) return;
+
+  // Zatvori dropdown
+  dropdownListCinemas.style.display = 'none';
+
+  // Ukloni selekciju sa svih
+  const allElements = dropdownListCinemas.querySelectorAll('.c-dropdown-list-element');
+  allElements.forEach(el => el.classList.remove('c-dropdown-list-element-selected'));
+
+  // Dodaj selekciju na kliknutog
+  target.classList.add('c-dropdown-list-element-selected');
+
+  // Preuzmi vrednost
+  const value = target.getAttribute('data-cinema');
+
+ 
+  selectedCinema = value;
+  dropdownCinemaText.textContent = value;
+
+  //filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
+  updateScreenings(screenings)
+});
+
+
+// Listeneri za date dropdown elemente
+toggleDateDropdown.addEventListener('click', () => {
+  toggleDropdown(dropdownListDates);
+});
+
+dropdownListDates.addEventListener('click', (e) => {
+  const target = e.target.closest('.c-dropdown-list-element');
+  if (!target) return;
+
+  // Zatvori dropdown
+  dropdownListDates.style.display = 'none';
+
+  // Ukloni selekciju sa svih
+  const allElements = dropdownListDates.querySelectorAll('.c-dropdown-list-element');
+  allElements.forEach(el => el.classList.remove('c-dropdown-list-element-selected'));
+
+  // Dodaj selekciju na kliknutog
+  target.classList.add('c-dropdown-list-element-selected');
+
+  // Preuzmi vrednost
+  const value = target.getAttribute('data-date');
+
+  
+  selectedDate = value;
+  dropdownDateText.textContent = value;
+
+  //filteredMovies = filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery);
+  updateScreenings(screenings)
+});
+
+
+// Listener za zatvaranje dropdownova kad se klikne van njih
+document.addEventListener('click', (e) => {
+  // Zatvori cinema dropdown ako klik nije unutar njega
+  if (!dropdownCinema.contains(e.target)) {
+    dropdownListCinemas.style.display = 'none';
+  }
+
+
+  // Zatvori date dropdown ako klik nije unutar njega
+  if (!dropdownDate.contains(e.target)) {
+    dropdownListDates.style.display = 'none';
+  }
+});
+
