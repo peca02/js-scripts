@@ -367,6 +367,13 @@ async function updateScreenings(screeningsToShow) {
 updateScreenings(screenings)
 
 
+// Funkcija za prikazivanje i skrivanje dropdowna kad se klikne na toggle div
+function toggleDropdown(dropdownList) {
+  const isVisible = dropdownList.style.display === 'block';
+  dropdownList.style.display = isVisible ? 'none' : 'block';
+}
+
+
 // Listeneri za cinema dropdown 
 toggleCinemaDropdown.addEventListener('click', () => {
   toggleDropdown(dropdownListCinemas);
