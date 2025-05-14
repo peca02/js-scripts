@@ -22,7 +22,7 @@ else{
   console.log(movieId);
   const { data, error } = await supabase
   .from('screenings')
-  .select('halls(cinema_id, cinema:cinemas(*))')
+  .select('halls(cinema_id, cinemas:cinemas(*))')
   .eq('movie_id', movieId);
 }
 
