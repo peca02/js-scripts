@@ -168,6 +168,8 @@ const subtitleLang = screenings[0]?.subtitle;
 // Ako postoji jedan od njih (ali ne oba)
 if (syncLang || subtitleLang) {
   const container = document.createElement("div");
+  container.className = "c-label-and-languages-wrapper";
+  
 
   const label = document.createElement("div");
   label.className = "c-language-label";
