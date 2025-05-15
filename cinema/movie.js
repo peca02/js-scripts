@@ -22,7 +22,6 @@ const { data: movie, error } = await supabase
     language,
     age_rating,
     release_date,
-    videowebm,
     videomp4,
     movie_actors (
       actors (
@@ -97,9 +96,7 @@ console.log(`screenings zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
 
 const videoSection = document.querySelector(".c-background-video");
 
-const trailerWebm = movie.videowebm;
 const trailerMp4 = movie.videomp4;
-
 
 // Video element
 const video = document.createElement("video");
@@ -115,15 +112,11 @@ video.style.top = 0;
 video.style.left = 0;
 video.style.zIndex = -1;
 
-const sourceWebm = document.createElement("source");
-sourceWebm.src = trailerWebm;
-sourceWebm.type = "video/webm";
 
 const sourceMp4 = document.createElement("source");
 sourceMp4.src = trailerMp4;
 sourceMp4.type = "video/mp4";
 
-video.appendChild(sourceWebm);
 video.appendChild(sourceMp4);
 
 // Ubaci u DOM
