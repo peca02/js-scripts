@@ -22,7 +22,8 @@ const { data: movie, error } = await supabase
     language,
     age_rating,
     release_date,
-    video,
+    videowebm,
+    videomp4,
     movie_actors (
       actors (
         first_name,
@@ -96,7 +97,8 @@ console.log(`screenings zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
 
 const videoSection = document.querySelector(".c-background-video");
 
-const trailerWebm = movie.video;
+const trailerWebm = movie.videowebm;
+const trailerMp4 = movie.videomp4;
 
 
 // Video element
@@ -113,16 +115,16 @@ video.style.top = 0;
 video.style.left = 0;
 video.style.zIndex = -1;
 
-//const sourceMp4 = document.createElement("source");
-//sourceMp4.src = trailerMp4;
-//sourceMp4.type = "video/mp4";
-
 const sourceWebm = document.createElement("source");
 sourceWebm.src = trailerWebm;
 sourceWebm.type = "video/webm";
 
-//video.appendChild(sourceMp4);
+const sourceMp4 = document.createElement("source");
+sourceMp4.src = trailerMp4;
+sourceMp4.type = "video/mp4";
+
 video.appendChild(sourceWebm);
+video.appendChild(sourceMp4);
 
 // Ubaci u DOM
 videoSection.prepend(video);
