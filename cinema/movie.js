@@ -363,6 +363,7 @@ async function updateScreenings(screeningsToShow) {
     screeningsToShow.forEach((screening) => {
       
       const screeningLink = document.createElement("a");
+      screeningLink.className = "c-screening-link";
           
       // Osnova linka — uzima se iz trenutnog domena
       const baseUrl = window.location.origin;
@@ -377,6 +378,7 @@ async function updateScreenings(screeningsToShow) {
       screeningLink.href = href.toString();
    
       const time = document.createElement("div");
+      time.className = "c-time";
       
       const date = new Date(screening.start_time);
       const hours = date.getHours().toString().padStart(2, '0');   // npr. "17"
@@ -386,6 +388,7 @@ async function updateScreenings(screeningsToShow) {
       time.textContent = timeString;
 
       const format = document.createElement("div");
+      format.className = "c-screening-format";
       format.textContent = screening.format;
 
       const hall = document.createElement("div");
