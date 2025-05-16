@@ -377,7 +377,13 @@ async function updateScreenings(screeningsToShow) {
       screeningLink.href = href.toString();
    
       const time = document.createElement("div");
-      time.textContent = new Date(screening.start_time).getTime();
+      
+      const date = new Date(screening.start_time);
+      const hours = date.getHours().toString().padStart(2, '0');   // npr. "17"
+      const minutes = date.getMinutes().toString().padStart(2, '0'); // npr. "30"
+      const timeString = `${hours}:${minutes}`;
+      
+      time.textContent = timeString;
 
       const format = document.createElement("div");
       format.textContent = screening.format;
