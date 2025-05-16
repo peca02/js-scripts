@@ -379,8 +379,8 @@ async function updateScreenings(screeningsToShow) {
       const time = document.createElement("div");
       
       const date = new Date(screening.start_time);
-      const hours = date.getUTCHours().toString().padStart(2, '0');   // npr. "17"
-      const minutes = date.getUTCMinutes().toString().padStart(2, '0'); // npr. "30"
+      const hours = date.getHours().toString().padStart(2, '0');   // npr. "17"
+      const minutes = date.getMinutes().toString().padStart(2, '0'); // npr. "30"
       const timeString = `${hours}:${minutes}`;
       
       time.textContent = timeString;
