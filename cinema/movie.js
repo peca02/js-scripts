@@ -362,34 +362,34 @@ async function updateScreenings(screeningsToShow) {
     screeningsContainer.innerHTML = "";
     screeningsToShow.forEach((screening) => {
       
-        const screeningLink = document.createElement("a");
+      const screeningLink = document.createElement("a");
           
-        // Osnova linka — uzima se iz trenutnog domena
-        const baseUrl = window.location.origin;
+      // Osnova linka — uzima se iz trenutnog domena
+      const baseUrl = window.location.origin;
           
-        // Pravimo URL objekat
-        let href;
+      // Pravimo URL objekat
+      let href;
           
-        href = new URL("/cinema/reservation", baseUrl);
-        href.searchParams.set("screening_id", screening.id);
+      href = new URL("/cinema/reservation", baseUrl);
+      href.searchParams.set("screening_id", screening.id);
           
-        // Postavljanje href-a
-        screeningLink.href = href.toString();
+      // Postavljanje href-a
+      screeningLink.href = href.toString();
    
-        const time = document.createElement("div");
-        time.textContent = new Date(screening.start_time);
+      const time = document.createElement("div");
+      time.textContent = new Date(screening.start_time).getHours();
 
-        const format = document.createElement("div");
-        format.textContent = screening.format;
+      const format = document.createElement("div");
+      format.textContent = screening.format;
 
-        const hall = document.createElement("div");
-        hall.textContent = screening.halls.name;
+      const hall = document.createElement("div");
+      hall.textContent = screening.halls.name;
   
-        screeningLink.appendChild(time);
-        screeningLink.appendChild(format);
-        screeningLink.appendChild(hall);
+      screeningLink.appendChild(time);
+      screeningLink.appendChild(format);
+      screeningLink.appendChild(hall);
 
-        screeningsContainer.appendChild(screeningLink);
+      screeningsContainer.appendChild(screeningLink);
   });
   
   screeningsContainer.style.opacity = "1";
