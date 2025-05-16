@@ -387,16 +387,16 @@ async function updateScreenings(screeningsToShow) {
       
       time.textContent = timeString;
 
+      const hall = document.createElement("div");
+      hall.textContent = screening.halls.name;
+      
       const format = document.createElement("div");
       format.className = "c-screening-format";
       format.textContent = screening.format;
 
-      const hall = document.createElement("div");
-      hall.textContent = screening.halls.name;
-  
       screeningLink.appendChild(time);
-      screeningLink.appendChild(format);
       screeningLink.appendChild(hall);
+      screeningLink.appendChild(format);
 
       screeningsContainer.appendChild(screeningLink);
   });
