@@ -4,20 +4,25 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 // Sve gore je povezivanje sa Supabase
 
-Webflow.push(function () {
-  $('form').off('submit');
-});
 
 document.getElementById('signup-form').addEventListener('submit', async (e) => {
   e.preventDefault()
 
   const email = document.getElementById('email').value
   const password = document.getElementById('password').value
+  const firstName = document.getElementById('first-name').value
+  const lastName = document.getElementById('last-name').value
   const messageDiv = document.getElementById('signup-message')
 
   const { data, error } = await supabase.auth.signUp({
     email,
-    password
+    password,
+    options: {
+      data: {
+        first_name: firstName,
+        last_name: lastName
+      }
+    }
   })
 
   if (error) {
