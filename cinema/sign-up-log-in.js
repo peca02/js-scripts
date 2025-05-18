@@ -4,6 +4,10 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 // Sve gore je povezivanje sa Supabase
 
+Webflow.push(function () {
+  $('form').off('submit');
+});
+
 document.getElementById('signup-form').addEventListener('submit', async (e) => {
   e.preventDefault()
 
