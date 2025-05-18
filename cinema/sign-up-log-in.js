@@ -17,7 +17,6 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
   })
 
   if (error) {
-    console.error('Signup error:', error.message)
     messageDiv.textContent = `Error: ${error.message}`
     messageDiv.style.color = 'red'
   } else {
