@@ -4,8 +4,10 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 // Sve gore je povezivanje sa Supabase
 
+const form = document.getElementById('signup-form')
+const formDone = document.querySelector('.w-form-done');
 
-document.getElementById('signup-form').addEventListener('submit', async (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
   e.stopImmediatePropagation();
 
@@ -14,6 +16,7 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
   const firstName = document.getElementById('first-name').value;
   const lastName = document.getElementById('last-name').value;
   const messageDiv = document.getElementById('signup-message');
+  
 
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -34,5 +37,7 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
     console.log('Signup success:', data);
     messageDiv.textContent = 'Signup successful! Check your email to confirm.';
     messageDiv.style.color = 'green';
+    form.style.display = 'none';
+    formDone.style.display = 'block';
   }
 })
