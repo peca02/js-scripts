@@ -19,17 +19,15 @@ signUpForm.addEventListener('submit', async (e) => {
   
 
   const { data, error } = await supabase.auth.signUp({
-  email,
-  password,
-  options: {
-    data: {
-      first_name: firstName,
-      last_name: lastName
-    },
-    // ovo je ključno:
-    redirectTo: 'https://cinema-proxy.djordjevicpredrag2002-2d8.workers.dev/cinema/home'
-  }
-})
+    email,
+    password,
+    options: {
+      data: {
+        first_name: firstName,
+        last_name: lastName
+      }
+    }
+  })
 
   if (error) {
     console.error('Signup error:', error.message);
