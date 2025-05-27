@@ -6,13 +6,14 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 
 document.getElementById('signup-form').addEventListener('submit', async (e) => {
-  e.preventDefault()
+  e.preventDefault();
+  e.stopImmediatePropagation();
 
-  const email = document.getElementById('email').value
-  const password = document.getElementById('password').value
-  const firstName = document.getElementById('first-name').value
-  const lastName = document.getElementById('last-name').value
-  const messageDiv = document.getElementById('signup-message')
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const firstName = document.getElementById('first-name').value;
+  const lastName = document.getElementById('last-name').value;
+  const messageDiv = document.getElementById('signup-message');
 
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -26,12 +27,12 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
   })
 
   if (error) {
-    console.error('Signup error:', error.message)
-    messageDiv.textContent = `Error: ${error.message}`
-    messageDiv.style.color = 'red'
+    console.error('Signup error:', error.message);
+    messageDiv.textContent = `Error: ${error.message}`;
+    messageDiv.style.color = 'red';
   } else {
-    console.log('Signup success:', data)
-    messageDiv.textContent = 'Signup successful! Check your email to confirm.'
-    messageDiv.style.color = 'green'
+    console.log('Signup success:', data);
+    messageDiv.textContent = 'Signup successful! Check your email to confirm.';
+    messageDiv.style.color = 'green';
   }
 })
