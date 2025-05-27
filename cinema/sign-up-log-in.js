@@ -4,10 +4,10 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 // Sve gore je povezivanje sa Supabase
 
-const form = document.getElementById('signup-form')
+const signUpForm = document.getElementById('signup-form');
 const formDone = document.querySelector('.w-form-done');
 
-form.addEventListener('submit', async (e) => {
+signUpForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   e.stopImmediatePropagation();
 
@@ -35,7 +35,32 @@ form.addEventListener('submit', async (e) => {
     messageDiv.style.color = 'red';
   } else {
     console.log('Signup success:', data);
-    form.style.display = 'none';
+    signUpForm.style.display = 'none';
     formDone.style.display = 'block';
+  }
+})
+
+const logInForm = document.getElementById('login-form');
+
+logInForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  const email = document.getElementById('email-2').value;
+  const password = document.getElementById('password-2').value;
+  const messageDiv = document.getElementById('login-message');
+  
+
+  const { data2, error2 } = await supabase.auth.signInWithPassword({
+  email,
+  password
+})
+
+  if (error2) {
+    console.error('Signup error:', error2.message);
+    messageDiv.textContent = `Error: ${error2.message}`;
+    messageDiv.style.color = 'red';
+  } else {
+    console.log('Signup success:', data2);
   }
 })
