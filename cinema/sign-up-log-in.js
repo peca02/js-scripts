@@ -35,8 +35,6 @@ form.addEventListener('submit', async (e) => {
     messageDiv.style.color = 'red';
   } else {
     console.log('Signup success:', data);
-    messageDiv.textContent = 'Signup successful! Check your email to confirm.';
-    messageDiv.style.color = 'green';
     form.style.display = 'none';
     formDone.style.display = 'block';
   }
