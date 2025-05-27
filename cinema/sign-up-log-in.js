@@ -51,16 +51,16 @@ logInForm.addEventListener('submit', async (e) => {
   const messageDiv = document.getElementById('login-message');
   
 
-  const { data2, error2 } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
   email,
   password
 })
 
-  if (error2) {
-    console.error('Signup error:', error2.message);
-    messageDiv.textContent = `Error: ${error2.message}`;
+  if (error) {
+    console.error('Signup error:', error.message);
+    messageDiv.textContent = `Error: ${error.message}`;
     messageDiv.style.color = 'red';
   } else {
-    console.log('Signup success:', data2);
+    console.log('Signup success:', data);
   }
 })
