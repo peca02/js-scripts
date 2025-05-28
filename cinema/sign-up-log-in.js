@@ -19,16 +19,15 @@ signUpForm.addEventListener('submit', async (e) => {
   
 
   const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-        data: {
-            first_name: firstName,
-            last_name: lastName
-        },
-        redirectTo: 'https://predrags-awesome-site-dda-9e5aad497047e.webflow.io/cinema/sign-up-log-in' // Dodajte ovde vaš redirect URL
-
+  email,
+  password,
+  options: {
+    emailRedirectTo: 'https://predrags-awesome-site-dda-9e5aad497047e.webflow.io/cinema/sign-up-log-in',
+    data: {
+      first_name: firstName,
+      last_name: lastName
     }
+  }
 });
   
   if (error) {
