@@ -22,15 +22,13 @@ signUpForm.addEventListener('submit', async (e) => {
     email,
     password,
     options: {
-        data: {
-            first_name: firstName,
-            last_name: lastName
-        },
-        redirectTo: 'https://cinema-proxy.djordjevicpredrag2002-2d8.workers.dev/cinema/sign-up-log-in' // Dodajte ovde vaš redirect URL
-
+      data: {
+        first_name: firstName,
+        last_name: lastName
+      }
     }
-});
-  
+  })
+
   if (error) {
     console.error('Signup error:', error.message);
     messageDiv.textContent = `Error: ${error.message}`;
