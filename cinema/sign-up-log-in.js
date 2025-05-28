@@ -22,13 +22,15 @@ signUpForm.addEventListener('submit', async (e) => {
     email,
     password,
     options: {
-      data: {
-        first_name: firstName,
-        last_name: lastName
-      }
-    }
-  })
+        data: {
+            first_name: firstName,
+            last_name: lastName
+        },
+        redirectTo: 'https://predrags-awesome-site-dda-9e5aad497047e.webflow.io/cinema/sign-up-log-in' // Dodajte ovde vaš redirect URL
 
+    }
+});
+  
   if (error) {
     console.error('Signup error:', error.message);
     messageDiv.textContent = `Error: ${error.message}`;
