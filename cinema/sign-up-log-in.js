@@ -47,9 +47,8 @@ signUpForm.addEventListener('submit', async (e) => {
   }
 })
 
-const logInForm = document.getElementById('login-form');
 
-logInForm.addEventListener('submit', async (e) => {
+document.getElementById('login-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   e.stopImmediatePropagation();
 
@@ -70,4 +69,11 @@ logInForm.addEventListener('submit', async (e) => {
   } else {
     console.log('Login success:', data);
   }
+})
+
+
+document.getElementById('signout-button').addEventListener('click', async () => {
+  let { error } = await supabase.auth.signOut();
+  if (error)
+    console.log(error);
 })
