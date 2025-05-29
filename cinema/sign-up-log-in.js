@@ -80,3 +80,14 @@ document.getElementById('signout-button').addEventListener('click', async () => 
   if (error)
     console.log(error);
 })
+
+
+
+let { data: profiles, error } = await supabase
+  .from('profiles')
+  .select('*')
+
+if (error)
+  console.log(error);
+else
+  console.log(profiles);
