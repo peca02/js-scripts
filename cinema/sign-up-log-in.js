@@ -35,8 +35,10 @@ signUpForm.addEventListener('submit', async (e) => {
     messageDiv.textContent = `Error: ${error.message}`;
     messageDiv.style.color = 'red';
   } else {
-    if (data.user.identities?.length === 0)
-      messageDiv.textContent = `Email is taken`;
+    if (data.user.identities?.length === 0){
+      messageDiv.textContent = `Email is already in use, please try different email`;
+      messageDiv.style.color = 'red';
+    }
     else{
       console.log('Signup success:', data);
       signUpForm.style.display = 'none';
