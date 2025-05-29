@@ -35,9 +35,13 @@ signUpForm.addEventListener('submit', async (e) => {
     messageDiv.textContent = `Error: ${error.message}`;
     messageDiv.style.color = 'red';
   } else {
-    console.log('Signup success:', data);
-    signUpForm.style.display = 'none';
-    formDone.style.display = 'block';
+    if (data.user.identities?.length === 0)
+      messageDiv.textContent = `Email is taken`;
+    else{
+      console.log('Signup success:', data);
+      signUpForm.style.display = 'none';
+      formDone.style.display = 'block';
+    }
   }
 })
 
