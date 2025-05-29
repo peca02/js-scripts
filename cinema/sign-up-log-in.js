@@ -64,10 +64,10 @@ logInForm.addEventListener('submit', async (e) => {
 })
 
   if (error) {
-    console.error('Signup error:', error.message);
+    console.error('Login error:', error.message);
     messageDiv.textContent = `Error: ${error.message}`;
     messageDiv.style.color = 'red';
   } else {
-    console.log('Signup success:', data);
+    console.log('Login success:', data);
   }
 })
