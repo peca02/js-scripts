@@ -50,11 +50,6 @@ console.log(`movies zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
 console.log(movies);
 
 
-
-const { data: { user } } = await supabase.auth.getUser();
-console.log(user);
-
-
 // Funkcija koja filtrira filmove
 function filterMovies(movies, selectedCinema, selectedGenres, selectedDate, searchQuery) {
   return movies.filter(movie => {
