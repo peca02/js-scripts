@@ -25,7 +25,6 @@ signUpForm.addEventListener('submit', async (e) => {
   email,
   password,
   options: {
-    emailRedirectTo: 'https://cinema-proxy.djordjevicpredrag2002-2d8.workers.dev/cinema/sign-up-log-in',
     data: {
       first_name: firstName,
       last_name: lastName
