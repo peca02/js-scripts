@@ -4,6 +4,9 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 // Sve gore je povezivanje sa Supabase
 
+//const { data: { user } } = await supabase.auth.getUser();
+//console.log(user);
+
 const signUpForm = document.getElementById('signup-form');
 const formDone = document.querySelector('.w-form-done');
 
@@ -35,15 +38,20 @@ signUpForm.addEventListener('submit', async (e) => {
     messageDiv.textContent = `Error: ${error.message}`;
     messageDiv.style.color = 'red';
   } else {
-    console.log('Signup success:', data);
-    signUpForm.style.display = 'none';
-    formDone.style.display = 'block';
+    if (data.user.identities?.length === 0){
+      messageDiv.textContent = `Email is already in use, please try different email`;
+      messageDiv.style.color = 'red';
+    }
+    else{
+      console.log('Signup success:', data);
+      signUpForm.style.display = 'none';
+      formDone.style.display = 'block';
+    }
   }
 })
 
-const logInForm = document.getElementById('login-form');
 
-logInForm.addEventListener('submit', async (e) => {
+document.getElementById('login-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   e.stopImmediatePropagation();
 
@@ -58,10 +66,28 @@ logInForm.addEventListener('submit', async (e) => {
 })
 
   if (error) {
-    console.error('Signup error:', error.message);
+    console.error('Login error:', error.message);
     messageDiv.textContent = `Error: ${error.message}`;
     messageDiv.style.color = 'red';
   } else {
-    console.log('Signup success:', data);
+    console.log('Login success:', data);
   }
 })
+
+
+document.getElementById('signout-button').addEventListener('click', async () => {
+  let { error } = await supabase.auth.signOut();
+  if (error)
+    console.log(error);
+})
+
+
+
+let { data: profiles, error } = await supabase
+  .from('profiles')
+  .select('*')
+
+if (error)
+  console.log(error);
+else
+  console.log(profiles);
