@@ -11,19 +11,23 @@ const screeningId = urlParams.get('screening_id');
 const { data, error } = await supabase
   .from('screenings')
   .select(`
+    id,
     start_time,
     format,
     language,
     base_price,
     movie_id,
-    hall (
+    hall:hall_id (
+      id,
       name,
       total_seats,
-      seats (
+      seats:seats (
+        id,
         row,
         col,
         row_label,
-        seat_type:seat_type_id (
+        seat_type_id
+        seat_type::seat_type_id(
           name,
           icon_url,
           price_modifier
@@ -32,7 +36,7 @@ const { data, error } = await supabase
     )
   `)
   .eq('id', screeningId)
-  .single();
+  .single(); // zato što dobijaš samo jednu projekciju
 
 console.log(data);
 
