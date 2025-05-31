@@ -27,11 +27,6 @@ const { data, error } = await supabase
         col,
         row_label,
         seat_type_id
-        seat_type::seat_type_id(
-          name,
-          icon_url,
-          price_modifier
-        )
       )
     )
   `)
