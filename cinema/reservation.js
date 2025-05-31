@@ -67,6 +67,9 @@ const sortedRows = Object.entries(rowsMap).sort(([a], [b]) => Number(a) - Number
 const seatMap = document.querySelector('.c-seat-map');
 seatMap.style.gridTemplateColumns = `repeat(${maxCol + 3}, 1fr)`; // +3 zbog row label + 2 prazna
 
+console.log(rowsMap);
+console.log(sortedRows);
+
 // 7. Renderuj grid
 for (const [rowNumber, seatsInRow] of sortedRows) {
   const row = Number(rowNumber);
@@ -75,23 +78,33 @@ for (const [rowNumber, seatsInRow] of sortedRows) {
   // Sortiraj sedista po koloni
   seatsInRow.sort((a, b) => a.col - b.col);
 
+  // Inicijalna kolona za upoređivanje
+  let currentCol = 0;
 
   // ➤ 7.1 Dodaj row label
   const labelDiv = document.createElement('div');
   labelDiv.classList.add('c-row-label');
   labelDiv.textContent = rowLabel;
   seatMap.appendChild(labelDiv);
+  currentCol++;
 
   // ➤ 7.2 Dodaj 2 prazna mesta
   for (let i = 0; i < 2; i++) {
     const empty = document.createElement('div');
     empty.classList.add('c-empty-seat');
     seatMap.appendChild(empty);
+    currentCol++;
   }
 
- // Inicijalna kolona za upoređivanje
-  let currentCol = 0;
-  
+  // ➤ 7.3 Dodaj sedišta i praznine ako treba
+  for (const seat of seatsInRow) {
+    while (currentCol < seat.col + 3) {
+      // Prazno mesto
+      const empty = document.createElement('div');
+      empty.classList.add('c-empty-seat');
+      seatMap.appendChild(empty);
+      currentCol++;
+    }
 
     const seatDiv = document.createElement('div');
     seatDiv.classList.add('c-seat');
@@ -108,4 +121,4 @@ for (const [rowNumber, seatsInRow] of sortedRows) {
     seatMap.appendChild(empty);
     currentCol++;
   }
-
+}
