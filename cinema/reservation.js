@@ -26,7 +26,6 @@ const { data, error } = await supabase
         row,
         col,
         row_label,
-        seat_type_id,
         seat_type(
           name
         )
