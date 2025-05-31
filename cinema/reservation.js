@@ -4,6 +4,10 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 // Sve gore je povezivanje sa Supabase
 
+
+const urlParams = new URLSearchParams(window.location.search);
+const screeningId = urlParams.get('screening_id');
+
 const { data, error } = await supabase
   .from('screenings')
   .select(`
