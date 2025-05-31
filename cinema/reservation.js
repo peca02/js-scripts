@@ -17,7 +17,7 @@ const { data, error } = await supabase
     language,
     base_price,
     movie_id,
-    hall(
+    halls(
       id,
       name,
       total_seats,
