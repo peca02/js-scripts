@@ -17,11 +17,11 @@ const { data, error } = await supabase
     language,
     base_price,
     movie_id,
-    hall:hall_id (
+    hall(
       id,
       name,
       total_seats,
-      seats:seats (
+      seats(
         id,
         row,
         col,
