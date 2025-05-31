@@ -47,7 +47,7 @@ const sizeInBytes = new Blob([JSON.stringify(data)]).size;
 console.log(`data zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
 
 // 2. Izvuci sedista
-const seats = data.hall.seats;
+const seats = data.halls.seats;
 
 // 3. Izracunaj maksimalan broj kolona
 const maxCol = Math.max(...seats.map(s => s.col)) + 1;
