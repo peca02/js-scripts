@@ -23,7 +23,7 @@ const { data, error } = await supabase
         row,
         col,
         row_label,
-        seat_type (
+        seat_type:seat_type_id (
           name,
           icon_url,
           price_modifier
@@ -32,7 +32,7 @@ const { data, error } = await supabase
     )
   `)
   .eq('id', screeningId)
-  .single(); // zato što dobijaš samo jednu projekciju
+  .single();
 
 console.log(data);
 
