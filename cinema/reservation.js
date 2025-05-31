@@ -108,4 +108,4 @@ for (const [rowNumber, seatsInRow] of sortedRows) {
     seatMap.appendChild(empty);
     currentCol++;
   }
-}
+
