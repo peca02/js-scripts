@@ -11,22 +11,23 @@ const screeningId = urlParams.get('screening_id');
 const { data, error } = await supabase
   .from('screenings')
   .select(`
-    id,
     start_time,
     format,
     language,
     base_price,
     movie_id,
-    hall:hall_id (
-      id,
+    hall (
       name,
       total_seats,
-      seats:seats (
-        id,
+      seats (
         row,
         col,
         row_label,
-        seat_type_id
+        seat_type (
+          name,
+          icon_url,
+          price_modifier
+        )
       )
     )
   `)
@@ -34,3 +35,6 @@ const { data, error } = await supabase
   .single(); // zato što dobijaš samo jednu projekciju
 
 console.log(data);
+
+const sizeInBytes = new Blob([JSON.stringify(data)]).size;
+console.log(`data zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
