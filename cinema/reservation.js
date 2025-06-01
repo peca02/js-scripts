@@ -83,7 +83,6 @@ for (const [rowNumber, seatsInRow] of sortedRows) {
 
   // ➤ 7.1 Dodaj row label
   const labelDiv = document.createElement('div');
-  labelDiv.classList.add('c-row-label');
   labelDiv.textContent = rowLabel;
   seatMap.appendChild(labelDiv);
   currentCol++;
