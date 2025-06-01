@@ -65,14 +65,22 @@ for (const seat of seats) {
 const seatMap = document.querySelector('.c-seat-map');
 seatMap.style.gridTemplateColumns = `repeat(${maxCol + 3}, 1fr)`; // +3 zbog label + 2 prazna
 
+let visibleRowCounter = 1;
+
 // 6. Renderuj sve redove od 0 do maxRow
 for (let row = 0; row <= maxRow; row++) {
   const seatsInRow = rowsMap[row] || [];
-  const rowLabel = row;
+  const rowLabel = seatsInRow.length > 0 ? visibleRowCounter++ : '';
 
   // ➤ 6.1 Dodaj row label
   const labelDiv = document.createElement('div');
-  labelDiv.textContent = rowLabel;
+  if (rowLabel === '') {
+    labelDiv.textContent = '';
+  }
+  else {
+    labelDiv.textContent = rowLabel;
+  }
+
   seatMap.appendChild(labelDiv);
 
   // ➤ 6.2 Dodaj 2 prazna mesta
@@ -92,6 +100,7 @@ for (let row = 0; row <= maxRow; row++) {
       const seatDiv = document.createElement('div');
       seatDiv.classList.add('c-seat');
       seatDiv.setAttribute('data-row', seat.row);
+      seatDiv.setAttribute('data-visible-row', visibleRowCounter);
       seatDiv.setAttribute('data-col', seat.col);
       seatMap.appendChild(seatDiv);
       seatIndex++;
