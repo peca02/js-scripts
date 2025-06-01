@@ -73,7 +73,7 @@ const seatMap = document.querySelector('.c-seat-map');
 // Sačekaj da se stavi u DOM
 requestAnimationFrame(() => {
   const seatWidth = tempSeat.getBoundingClientRect().width;
-  seatMap.style.gridTemplateColumns = `repeat(${maxCol + 3}, ${seatWidth}px)`; //+3 zbog label + 2 prazna
+  seatMap.style.gridTemplateColumns = `repeat(${maxCol + 2}, ${seatWidth}px)`; //+2 zbog label + 1 prazna
 
   tempSeat.remove(); // Očisti dummy element
 });
@@ -96,12 +96,11 @@ for (let row = 0; row <= maxRow; row++) {
 
   seatMap.appendChild(labelDiv);
 
-  // ➤ 6.2 Dodaj 2 prazna mesta
-  for (let i = 0; i < 2; i++) {
-    const empty = document.createElement('div');
-    empty.classList.add('c-empty-seat');
-    seatMap.appendChild(empty);
-  }
+  // ➤ 6.2 Dodaj 1 prazna mesto
+
+  const empty = document.createElement('div');
+  empty.classList.add('c-empty-seat');
+  seatMap.appendChild(empty);
 
   // ➤ 6.3 Sortiraj sedišta po koloni ako ih ima
   seatsInRow.sort((a, b) => a.col - b.col);
