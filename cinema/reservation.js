@@ -63,7 +63,7 @@ for (const seat of seats) {
 
 // 5. Napravi seat map grid div
 const seatMap = document.querySelector('.c-seat-map');
-seatMap.style.gridTemplateColumns = `repeat(${maxCol + 3}, 1fr)`; // +3 zbog label + 2 prazna
+seatMap.style.gridTemplateColumns = `repeat(${maxCol + 3}, 25px)`; // +3 zbog label + 2 prazna
 
 let visibleRowCounter = 1;
 
