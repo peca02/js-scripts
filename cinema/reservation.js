@@ -49,75 +49,54 @@ console.log(`data zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
 // 2. Izvuci sedista
 const seats = data.halls.seats;
 
-// 3. Izracunaj maksimalan broj kolona
-const maxCol = Math.max(...seats.map(s => s.col)) + 1;
+// 1. Napravi mapu sedišta po [row][col]
+const seatMap = {};
+let maxRow = 0;
+let maxCol = 0;
 
-// 4. Grupisi sedista po redovima
-const rowsMap = {};
 for (const seat of seats) {
-  const row = seat.row;
-  if (!rowsMap[row]) rowsMap[row] = [];
-  rowsMap[row].push(seat);
+  const { row, col } = seat;
+  if (!seatMap[row]) seatMap[row] = {};
+  seatMap[row][col] = seat;
+
+  if (row > maxRow) maxRow = row;
+  if (col > maxCol) maxCol = col;
 }
 
-// 5. Sortiraj redove po rednom broju (ključ)
-const sortedRows = Object.entries(rowsMap).sort(([a], [b]) => Number(a) - Number(b));
+// 2. Renderuj sedišta
+const seatMapContainer = document.querySelector('.c-seat-map');
 
-// 6. Napravi seat map grid div
-const seatMap = document.querySelector('.c-seat-map');
-seatMap.style.gridTemplateColumns = `repeat(${maxCol + 3}, 1fr)`; // +3 zbog row label + 2 prazna
+seatMapContainer.style.gridTemplateColumns = `repeat(${maxCol + 3}, 1fr)`;
 
-console.log(rowsMap);
-console.log(sortedRows);
+for (let i = 0; i <= maxRow; i++) {
+  // A. Iscrtaj labelu reda
+  const rowLabelDiv = document.createElement('div');
+  rowLabelDiv.className = 'c-seat-map';
+  rowLabelDiv.classList.add('c-empty-seat'); // da se ne klikće
+  rowLabelDiv.textContent = i; // broj reda
+  seatMapContainer.appendChild(rowLabelDiv);
 
-// 7. Renderuj grid
-for (const [rowNumber, seatsInRow] of sortedRows) {
-  const row = Number(rowNumber);
-  const rowLabel = seatsInRow[0]?.row_label || row;
-
-  // Sortiraj sedista po koloni
-  seatsInRow.sort((a, b) => a.col - b.col);
-
-  // Inicijalna kolona za upoređivanje
-  let currentCol = 0;
-
-  // ➤ 7.1 Dodaj row label
-  const labelDiv = document.createElement('div');
-  labelDiv.textContent = rowLabel;
-  seatMap.appendChild(labelDiv);
-  currentCol++;
-
-  // ➤ 7.2 Dodaj 2 prazna mesta
-  for (let i = 0; i < 2; i++) {
-    const empty = document.createElement('div');
-    empty.classList.add('c-empty-seat');
-    seatMap.appendChild(empty);
-    currentCol++;
+  // B. Dva prazna mesta (zauzimaju kolone 0 i 1)
+  for (let k = 0; k < 2; k++) {
+    const emptyDiv = document.createElement('div');
+    emptyDiv.className = 'c-seat-map c-empty-seat';
+    seatMapContainer.appendChild(emptyDiv);
   }
 
-  // ➤ 7.3 Dodaj sedišta i praznine ako treba
-  for (const seat of seatsInRow) {
-    while (currentCol < seat.col + 3) {
-      // Prazno mesto
-      const empty = document.createElement('div');
-      empty.classList.add('c-empty-seat');
-      seatMap.appendChild(empty);
-      currentCol++;
+  // C. Iscrtavanje sedišta i praznina
+  for (let j = 0; j <= maxCol; j++) {
+    const div = document.createElement('div');
+    div.classList.add('c-seat-map');
+    div.setAttribute('data-row', i);
+    div.setAttribute('data-col', j);
+
+    if (seatMap[i] && seatMap[i][j]) {
+      // postoji sedište
+      // ako želiš stil, tip, itd. dodaj ovde
+    } else {
+      div.classList.add('c-empty-seat');
     }
 
-    const seatDiv = document.createElement('div');
-    seatDiv.classList.add('c-seat');
-    seatDiv.setAttribute('data-row', seat.row);
-    seatDiv.setAttribute('data-col', seat.col);
-    seatMap.appendChild(seatDiv);
-    currentCol++;
-  }
-
-  // ➤ 7.4 Ako ima još mesta do maxCol + 3, popuni prazninama
-  while (currentCol < maxCol + 3) {
-    const empty = document.createElement('div');
-    empty.classList.add('c-empty-seat');
-    seatMap.appendChild(empty);
-    currentCol++;
+    seatMapContainer.appendChild(div);
   }
 }
