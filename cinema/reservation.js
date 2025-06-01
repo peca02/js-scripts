@@ -68,7 +68,7 @@ seatMap.style.gridTemplateColumns = `repeat(${maxCol + 3}, 1fr)`; // +3 zbog lab
 // 6. Renderuj sve redove od 0 do maxRow
 for (let row = 0; row <= maxRow; row++) {
   const seatsInRow = rowsMap[row] || [];
-  const rowLabel = seatsInRow[0]?.row_label || row;
+  const rowLabel = row;
 
   // ➤ 6.1 Dodaj row label
   const labelDiv = document.createElement('div');
