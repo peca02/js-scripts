@@ -74,14 +74,12 @@ for (let row = 0; row <= maxRow; row++) {
   const labelDiv = document.createElement('div');
   labelDiv.textContent = rowLabel;
   seatMap.appendChild(labelDiv);
-  let currentCol = 1;
 
   // ➤ 6.2 Dodaj 2 prazna mesta
   for (let i = 0; i < 2; i++) {
     const empty = document.createElement('div');
     empty.classList.add('c-empty-seat');
     seatMap.appendChild(empty);
-    currentCol++;
   }
 
   // ➤ 6.3 Sortiraj sedišta po koloni ako ih ima
@@ -102,6 +100,5 @@ for (let row = 0; row <= maxRow; row++) {
       empty.classList.add('c-empty-seat');
       seatMap.appendChild(empty);
     }
-    currentCol++;
   }
 }
