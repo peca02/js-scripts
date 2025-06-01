@@ -61,9 +61,22 @@ for (const seat of seats) {
   rowsMap[row].push(seat);
 }
 
-// 5. Napravi seat map grid div
+// Renderuj jedno sedište privremeno da dobiješ dimenzije
+const tempSeat = document.createElement('div');
+tempSeat.classList.add('c-seat');
+tempSeat.style.position = 'absolute';
+tempSeat.style.visibility = 'hidden';
+document.body.appendChild(tempSeat);
+
 const seatMap = document.querySelector('.c-seat-map');
-seatMap.style.gridTemplateColumns = `repeat(${maxCol + 3}, 25px)`; // +3 zbog label + 2 prazna
+
+// Sačekaj da se stavi u DOM
+requestAnimationFrame(() => {
+  const seatWidth = tempSeat.getBoundingClientRect().width;
+  seatMap.style.gridTemplateColumns = `repeat(${maxCol + 3}, ${seatWidth}px)`; //+3 zbog label + 2 prazna
+
+  tempSeat.remove(); // Očisti dummy element
+});
 
 let visibleRowCounter = 1;
 
