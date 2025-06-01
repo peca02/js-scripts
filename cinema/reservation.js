@@ -65,7 +65,7 @@ const sortedRows = Object.entries(rowsMap).sort(([a], [b]) => Number(a) - Number
 
 // 6. Napravi seat map grid div
 const seatMap = document.querySelector('.c-seat-map');
-seatMap.style.gridTemplateColumns = `repeat(${maxCol + 3}, auto)`; // +3 zbog row label + 2 prazna
+seatMap.style.gridTemplateColumns = `repeat(${maxCol + 3}, 1fr)`; // +3 zbog row label + 2 prazna
 
 console.log(rowsMap);
 console.log(sortedRows);
