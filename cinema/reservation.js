@@ -117,41 +117,44 @@ for (let row = 0; row <= maxRow; row++) {
   // ➤ 6.3 Sortiraj sedišta po koloni ako ih ima
   seatsInRow.sort((a, b) => a.col - b.col);
 
-  let seatIndex = 0;
+ let seatIndex = 0;
+
   for (let col = 0; col < maxCol; col++) {
     if (seatIndex < seatsInRow.length && seatsInRow[seatIndex].col === col) {
       const seat = seatsInRow[seatIndex];
+      const seatType = seat.seat_type.name;
+      const isLoveSeat = seatType === 'Love';
   
-      // Provera da li je ljubavno sedište i da li je sledeće odmah desno (col + 1)
-      const isLoveSeat = seat.seat_type.name === 'Love';
       const nextSeat = seatsInRow[seatIndex + 1];
-      const isLovePair = isLoveSeat && nextSeat && nextSeat.seat_type.name === 'Love' && nextSeat.col === col + 1;
+      const isLovePair = isLoveSeat &&
+        nextSeat &&
+        nextSeat.seat_type.name === 'Love' &&
+        nextSeat.col === col + 1;
   
       const seatDiv = document.createElement('div');
       seatDiv.classList.add('c-seat');
   
-      if (seat.seat_type.name === 'VIP')
-        seatDiv.classList.add('c-vip-seat');
-      if (isLoveSeat)
-        seatDiv.classList.add('c-love-seat');
+      if (seatType === 'VIP') seatDiv.classList.add('c-vip-seat');
+      if (isLoveSeat) seatDiv.classList.add('c-love-seat');
+      if (reservedSeatIds.includes(seat.id)) seatDiv.classList.add('c-seat-taken');
   
       seatDiv.setAttribute('data-row', seat.row);
       seatDiv.setAttribute('data-visible-row', visibleRowCounter - 1);
       seatDiv.setAttribute('data-col', seat.col);
-      // Ako je ljubavni par, spoji dve kolone
+  
       if (isLovePair) {
-        seatDiv.style.gridColumn = `span 2`;
-        seatDiv.setAttribute('data-visible-col', seatIndex/2 + 1);
-      }
-      else
+        seatDiv.style.gridColumn = 'span 2';
+        seatDiv.setAttribute('data-visible-col', seatIndex / 2 + 1);
+      } else {
         seatDiv.setAttribute('data-visible-col', seatIndex + 1);
+      }
+  
       seatMap.appendChild(seatDiv);
   
       seatIndex++;
-      // Ako je ljubavni par, preskoči sledeći (jer smo već napravili jedan spojeni div)
       if (isLovePair) {
         seatIndex++;
-        col++; // preskoči sledeću kolonu jer je zauzeta spajanjem
+        col++; // preskoči sledeću kolonu jer je spojena
       }
     } else {
       const empty = document.createElement('div');
