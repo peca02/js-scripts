@@ -148,7 +148,7 @@ for (let row = 0; row <= maxRow; row++) {
           // Ako je već selektovan – ukloni ga
           if (alreadySelected) {
             selectedSeats.splice(selectedSeats.indexOf(alreadySelected), 1);
-            seatDiv.classList.remove('c-seat-selected');
+            seatDiv.classList.remove('c-selected-seat');
           } else {
             // Računaj ukupno sedišta (ljubavna se računaju kao 2)
             const totalSelectedCount = selectedSeats.reduce((acc, s) => acc + (s.seat_type === 'Love' ? 2 : 1), 0);
@@ -169,7 +169,7 @@ for (let row = 0; row <= maxRow; row++) {
               isLovePair
             });
   
-            seatDiv.classList.add('c-seat-selected');
+            seatDiv.classList.add('c-selected-seat');
           }
   
           updateReservationSummary();
