@@ -142,7 +142,7 @@ for (let row = 0; row <= maxRow; row++) {
         seatDiv.classList.add('c-reserved-seat');
       } else {
         // Listener za klik samo ako nije rezervisano
-        seatDiv.addEventListener('click', () => {
+        seatDiv.addEventListener('click', (e) => {
           const alreadySelected = selectedSeats.find(s => s.id === seat.id);
   
           // Ako je već selektovan – ukloni ga
@@ -179,16 +179,16 @@ for (let row = 0; row <= maxRow; row++) {
         });
       }
   
-      seatDiv.setAttribute('data-row', seat.row);
-      seatDiv.setAttribute('data-visible-row', visibleRowCounter - 1);
-      seatDiv.setAttribute('data-col', seat.col);
-      seatDiv.setAttribute('data-price-modifier', seat.seat_type.price_modifier);
+      //seatDiv.setAttribute('data-row', seat.row);
+      //seatDiv.setAttribute('data-visible-row', visibleRowCounter - 1);
+      //seatDiv.setAttribute('data-col', seat.col);
+      //seatDiv.setAttribute('data-price-modifier', seat.seat_type.price_modifier);
   
       if (isLovePair) {
         seatDiv.style.gridColumn = 'span 2';
-        seatDiv.setAttribute('data-visible-col', seatIndex / 2 + 1);
+        //seatDiv.setAttribute('data-visible-col', seatIndex / 2 + 1);
       } else {
-        seatDiv.setAttribute('data-visible-col', seatIndex + 1);
+        //seatDiv.setAttribute('data-visible-col', seatIndex + 1);
       }
   
       seatMap.appendChild(seatDiv);
