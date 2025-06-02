@@ -110,7 +110,7 @@ for (let row = 0; row <= maxRow; row++) {
       const seatDiv = document.createElement('div');
       seatDiv.classList.add('c-seat');
       seatDiv.setAttribute('data-row', seat.row);
-      seatDiv.setAttribute('data-visible-row', visibleRowCounter);
+      seatDiv.setAttribute('data-visible-row', visibleRowCounter-1);
       seatDiv.setAttribute('data-col', seat.col);
       seatMap.appendChild(seatDiv);
       seatIndex++;
