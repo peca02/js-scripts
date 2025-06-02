@@ -30,10 +30,15 @@ const { data, error } = await supabase
           price_modifier
         )
       )
+    ),
+    reservations(
+      reservation_seats(
+        seat_id
+      )
     )
   `)
   .eq('id', screeningId)
-  .single(); // zato što dobijaš samo jednu projekciju
+  .single();
 
 if (error) {
   console.error('Greška pri dohvatanju podataka:', error);
