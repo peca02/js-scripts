@@ -117,8 +117,11 @@ for (let row = 0; row <= maxRow; row++) {
   // ➤ 6.3 Sortiraj sedišta po koloni ako ih ima
   seatsInRow.sort((a, b) => a.col - b.col);
 
- let seatIndex = 0;
-
+  const selectedSeats = [];
+  const maxSelectableSeats = 10;
+  const reservationSummary = document.getElementById('reservation-summary');
+  
+  let seatIndex = 0;
   for (let col = 0; col < maxCol; col++) {
     if (seatIndex < seatsInRow.length && seatsInRow[seatIndex].col === col) {
       const seat = seatsInRow[seatIndex];
@@ -133,10 +136,45 @@ for (let row = 0; row <= maxRow; row++) {
   
       const seatDiv = document.createElement('div');
       seatDiv.classList.add('c-seat');
-  
       if (seatType === 'VIP') seatDiv.classList.add('c-vip-seat');
       if (isLoveSeat) seatDiv.classList.add('c-love-seat');
-      if (reservedSeatIds.includes(seat.id)) seatDiv.classList.add('c-reserved-seat');
+      if (reservedSeatIds.includes(seat.id)) {
+        seatDiv.classList.add('c-reserved-seat');
+      } else {
+        // Listener za klik samo ako nije rezervisano
+        seatDiv.addEventListener('click', () => {
+          const alreadySelected = selectedSeats.find(s => s.id === seat.id);
+  
+          // Ako je već selektovan – ukloni ga
+          if (alreadySelected) {
+            selectedSeats.splice(selectedSeats.indexOf(alreadySelected), 1);
+            seatDiv.classList.remove('c-seat-selected');
+          } else {
+            // Računaj ukupno sedišta (ljubavna se računaju kao 2)
+            const totalSelectedCount = selectedSeats.reduce((acc, s) => acc + (s.seat_type === 'Love' ? 2 : 1), 0);
+            const thisSeatCount = isLoveSeat ? 2 : 1;
+            if (totalSelectedCount + thisSeatCount > maxSelectableSeats) {
+              alert("Ne možete rezervisati više od 10 sedišta.");
+              return;
+            }
+  
+            selectedSeats.push({
+              id: seat.id,
+              row: seat.row,
+              col: seat.col,
+              visibleRow: visibleRowCounter - 1,
+              visibleCol: isLovePair ? seatIndex / 2 + 1 : seatIndex + 1,
+              seat_type: seatType,
+              price_modifier: seat.seat_type.price_modifier,
+              isLovePair
+            });
+  
+            seatDiv.classList.add('c-seat-selected');
+          }
+  
+          updateReservationSummary();
+        });
+      }
   
       seatDiv.setAttribute('data-row', seat.row);
       seatDiv.setAttribute('data-visible-row', visibleRowCounter - 1);
@@ -151,7 +189,6 @@ for (let row = 0; row <= maxRow; row++) {
       }
   
       seatMap.appendChild(seatDiv);
-  
       seatIndex++;
       if (isLovePair) {
         seatIndex++;
@@ -163,4 +200,38 @@ for (let row = 0; row <= maxRow; row++) {
       seatMap.appendChild(empty);
     }
   }
+  
+  // Funkcija za prikaz rezimea rezervacije
+  function updateReservationSummary() {
+    const grouped = {};
+  
+    for (const seat of selectedSeats) {
+      const type = seat.seat_type;
+      const price = data.base_price + data.halls.base_price + seat.price_modifier;
+      const finalPrice = seat.seat_type === 'Love' ? price * 2 : price;
+  
+      if (!grouped[type]) grouped[type] = { count: 0, pricePerSeat: price, total: 0 };
+      grouped[type].count += seat.seat_type === 'Love' ? 2 : 1;
+      grouped[type].total += finalPrice;
+    }
+  
+    // Prikaz
+    reservationSummary.innerHTML = '';
+    let grandTotal = 0;
+  
+    Object.entries(grouped).forEach(([type, { count, pricePerSeat, total }]) => {
+      const row = document.createElement('div');
+      row.textContent = `${count} ${type.toLowerCase()} x ${pricePerSeat.toFixed(2)} = ${total.toFixed(2)}`;
+      reservationSummary.appendChild(row);
+      grandTotal += total;
+    });
+  
+    if (grandTotal > 0) {
+      const totalRow = document.createElement('div');
+      totalRow.style.marginTop = '8px';
+      totalRow.innerHTML = `<strong>Ukupno: ${grandTotal.toFixed(2)}</strong>`;
+      reservationSummary.appendChild(totalRow);
+    }
+  }
+
 }
