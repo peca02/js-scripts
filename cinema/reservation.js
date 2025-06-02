@@ -111,6 +111,10 @@ for (let row = 0; row <= maxRow; row++) {
       const seat = seatsInRow[seatIndex];
       const seatDiv = document.createElement('div');
       seatDiv.classList.add('c-seat');
+      if (seat.seat_type.name == 'VIP')
+        seatDiv.classList.add('c-vip-seat');
+      if (seat.seat_type.name == 'Love')
+        seatDiv.classList.add('c-love-seat');
       seatDiv.setAttribute('data-row', seat.row);
       seatDiv.setAttribute('data-visible-row', visibleRowCounter-1);
       seatDiv.setAttribute('data-col', seat.col);
