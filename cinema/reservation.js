@@ -59,6 +59,8 @@ for (const seat of seats) {
   rowsMap[row].push(seat);
 }
 
+console.log(rowsMap);
+
 // Renderuj jedno sedište privremeno da dobiješ dimenzije
 const tempSeat = document.createElement('div');
 tempSeat.classList.add('c-seat');
