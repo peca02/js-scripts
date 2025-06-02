@@ -20,7 +20,7 @@ const { data, error } = await supabase
     halls(
       id,
       name,
-      total_seats,
+      base_price,
       seats(
         id,
         row,
