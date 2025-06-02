@@ -148,6 +148,7 @@ for (let row = 0; row <= maxRow; row++) {
           // Ako je već selektovan – ukloni ga
           if (alreadySelected) {
             selectedSeats.splice(selectedSeats.indexOf(alreadySelected), 1);
+            console.log(selectedSeats);
             seatDiv.classList.remove('c-selected-seat');
           } else {
             // Računaj ukupno sedišta (ljubavna se računaju kao 2)
@@ -168,7 +169,9 @@ for (let row = 0; row <= maxRow; row++) {
               price_modifier: seat.seat_type.price_modifier,
               isLovePair
             });
-  
+
+            console.log(selectedSeats);
+            
             seatDiv.classList.add('c-selected-seat');
           }
   
