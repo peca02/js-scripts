@@ -25,7 +25,6 @@ const { data, error } = await supabase
         id,
         row,
         col,
-        row_label,
         seat_type(
           name,
           price_modifier
