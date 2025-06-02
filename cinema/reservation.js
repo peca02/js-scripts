@@ -141,6 +141,7 @@ for (let row = 0; row <= maxRow; row++) {
       seatDiv.setAttribute('data-row', seat.row);
       seatDiv.setAttribute('data-visible-row', visibleRowCounter - 1);
       seatDiv.setAttribute('data-col', seat.col);
+      seatDiv.setAttribute('data-price-modifier', seat.seat_type.price_modifier);
   
       if (isLovePair) {
         seatDiv.style.gridColumn = 'span 2';
