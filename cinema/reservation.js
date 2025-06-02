@@ -52,6 +52,13 @@ console.log(`data zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
 // 2. Izvuci sedista
 const seats = data.halls.seats;
 
+// Skupi sve rezervisana seat_id
+const reservedSeatIds = data.reservations
+  .flatMap(r => r.reservation_seats)
+  .map(rs => rs.seat_id);
+
+console.log(reservedSeatIds);
+
 // 3. Izracunaj maksimalan broj kolona i redova
 const maxCol = Math.max(...seats.map(s => s.col)) + 1;
 const maxRow = Math.max(...seats.map(s => s.row));
