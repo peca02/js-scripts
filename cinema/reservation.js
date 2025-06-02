@@ -123,15 +123,16 @@ for (let row = 0; row <= maxRow; row++) {
       if (isLoveSeat)
         seatDiv.classList.add('c-love-seat');
   
-      // Ako je ljubavni par, spoji dve kolone
-      if (isLovePair) {
-        seatDiv.style.gridColumn = `span 2`;
-      }
-  
       seatDiv.setAttribute('data-row', seat.row);
       seatDiv.setAttribute('data-visible-row', visibleRowCounter - 1);
       seatDiv.setAttribute('data-col', seat.col);
-      seatDiv.setAttribute('data-visible-col', seatIndex + 1);
+      // Ako je ljubavni par, spoji dve kolone
+      if (isLovePair) {
+        seatDiv.style.gridColumn = `span 2`;
+        seatDiv.setAttribute('data-visible-col', seatIndex/2 + 1);
+      }
+      else
+        seatDiv.setAttribute('data-visible-col', seatIndex + 1);
       seatMap.appendChild(seatDiv);
   
       seatIndex++;
