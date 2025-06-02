@@ -136,7 +136,7 @@ for (let row = 0; row <= maxRow; row++) {
   
       if (seatType === 'VIP') seatDiv.classList.add('c-vip-seat');
       if (isLoveSeat) seatDiv.classList.add('c-love-seat');
-      if (reservedSeatIds.includes(seat.id)) seatDiv.classList.add('c-seat-taken');
+      if (reservedSeatIds.includes(seat.id)) seatDiv.classList.add('c-reserved-seat');
   
       seatDiv.setAttribute('data-row', seat.row);
       seatDiv.setAttribute('data-visible-row', visibleRowCounter - 1);
