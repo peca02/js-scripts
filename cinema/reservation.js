@@ -184,26 +184,20 @@ for (let row = 0; row <= maxRow; row++) {
             // Dodaj u niz sediste
             selectedSeats.push({
               id: seat.id,
-              row: seat.row,
-              col: seat.col,
               visibleRow: seatDiv.getAttribute('data-visible-row'),
               visibleCol: seatDiv.getAttribute('data-visible-col'),
               seat_type: seatType,
-              price_modifier: seat.seat_type.price_modifier,
-              isLovePair
+              price: data.base_price + data.halls.base_price + seat.price_modifier
             });
 
             // Ako je ljubavno dodaj i ovo do njega
             if (isLovePair) {
                 selectedSeats.push({
                   id: nextSeat.id,
-                  row: nextSeat.row,
-                  col: nextSeat.col,
                   visibleRow: seatDiv.getAttribute('data-visible-row'),
                   visibleCol: seatDiv.getAttribute('data-visible-col'),
                   seat_type: seatType,
-                  price_modifier: seat.seat_type.price_modifier,
-                  isLovePair
+                  price: data.base_price + data.halls.base_price + seat.price_modifier
               });
             }
 
@@ -250,7 +244,7 @@ for (let row = 0; row <= maxRow; row++) {
   
     for (const seat of selectedSeats) {
       const type = seat.seat_type;
-      const price = data.base_price + data.halls.base_price + seat.price_modifier;
+      const price = seat.price;
   
       if (!grouped[type]) grouped[type] = { count: 0, pricePerSeat: price, total: 0 };
       grouped[type].count++;
@@ -313,12 +307,11 @@ if (user) {
 
       // 2. Pripremi podatke za reservation_seats
       const seatInserts = selectedSeats.map(seat => {
-        const basePrice = 100; // Ako ih imaš
-        const finalPrice = basePrice + seat.price_modifier;
+        const price = seat.price;
         return {
           reservation_id: reservationId,
           seat_id: seat.id,
-          price: finalPrice
+          price: price
         };
       });
 
