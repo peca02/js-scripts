@@ -49,8 +49,9 @@ console.log(data);
 const sizeInBytes = new Blob([JSON.stringify(data)]).size;
 console.log(`data zauzima oko ${(sizeInBytes / 1024).toFixed(2)} KB`);
 
-// 2. Izvuci sedista
+// Izvuci sedista
 const seats = data.halls.seats;
+
 
 // Skupi sve rezervisana seat_id
 const reservedSeatIds = data.reservations
@@ -59,11 +60,11 @@ const reservedSeatIds = data.reservations
 
 console.log(reservedSeatIds);
 
-// 3. Izracunaj maksimalan broj kolona i redova
+// Izracunaj maksimalan broj kolona i redova
 const maxCol = Math.max(...seats.map(s => s.col)) + 1;
 const maxRow = Math.max(...seats.map(s => s.row));
 
-// 4. Grupisi sedista po redovima
+// Grupisi sedista po redovima
 const rowsMap = {};
 for (const seat of seats) {
   const row = seat.row;
@@ -73,7 +74,8 @@ for (const seat of seats) {
 
 console.log(rowsMap);
 
-// Renderuj jedno sedište privremeno da dobiješ dimenzije
+
+// Renderuj jedno sedište privremeno da dobiješ dimenzije jer ih ne mozes dobiti ako ne postoji nijedno trenutno
 const tempSeat = document.createElement('div');
 tempSeat.classList.add('c-seat');
 tempSeat.style.position = 'absolute';
@@ -85,6 +87,7 @@ const seatMap = document.querySelector('.c-seat-map');
 // Sačekaj da se stavi u DOM
 requestAnimationFrame(() => {
   const seatWidth = tempSeat.getBoundingClientRect().width;
+  // Podesi dimenzije grida
   seatMap.style.gridTemplateColumns = `repeat(${maxCol + 2}, ${seatWidth}px)`; //+2 zbog label + 1 prazna
 
   tempSeat.remove(); // Očisti dummy element
@@ -95,12 +98,12 @@ const selectedSeats = [];
 const maxSelectableSeats = 10;
 const reservationSummary = document.getElementById('reservation-summary');
 
-// 6. Renderuj sve redove od 0 do maxRow
+// Renderuj sve redove od 0 do maxRow
 for (let row = 0; row <= maxRow; row++) {
   const seatsInRow = rowsMap[row] || [];
   const rowLabel = seatsInRow.length > 0 ? visibleRowCounter++ : '';
 
-  // ➤ 6.1 Dodaj row label
+  // Dodaj row label
   const labelDiv = document.createElement('div');
   if (rowLabel === '') {
     labelDiv.textContent = '';
@@ -111,7 +114,7 @@ for (let row = 0; row <= maxRow; row++) {
 
   seatMap.appendChild(labelDiv);
 
-  // ➤ 6.2 Dodaj 1 prazna mesto
+  // Dodaj 1 prazna mesto
 
   const empty = document.createElement('div');
   empty.classList.add('c-empty-seat');
@@ -121,7 +124,9 @@ for (let row = 0; row <= maxRow; row++) {
   seatsInRow.sort((a, b) => a.col - b.col);
 
   
-  let seatIndex = 0;
+  let seatIndex = 0; // kao neki visible col counter-1 ali se ne koristi samo za to
+
+  // Prodji po kolonama u okviru reda
   for (let col = 0; col < maxCol; col++) {
     if (seatIndex < seatsInRow.length && seatsInRow[seatIndex].col === col) {
       const seat = seatsInRow[seatIndex];
@@ -138,6 +143,7 @@ for (let row = 0; row <= maxRow; row++) {
       seatDiv.classList.add('c-seat');
       if (seatType === 'VIP') seatDiv.classList.add('c-vip-seat');
       if (isLoveSeat) seatDiv.classList.add('c-love-seat');
+      // Ako je rezervisano
       if (reservedSeatIds.includes(seat.id)) {
         seatDiv.classList.add('c-reserved-seat');
       } else {
@@ -155,15 +161,15 @@ for (let row = 0; row <= maxRow; row++) {
             console.log(selectedSeats);
             seatDiv.classList.remove('c-selected-seat');
           } else {
-            // Računaj ukupno sedišta (ljubavna se računaju kao 2)
+            // Računaj ukupno sedišta (ljubavna se računaju kao 2 po kliku a u nizu se svakako oba dodaju)
             const totalSelectedCount = selectedSeats.reduce((acc, s) => acc + 1, 0);
             const thisSeatCount = isLoveSeat ? 2 : 1;
-            //const thisSeatCount = 1;
             if (totalSelectedCount + thisSeatCount > maxSelectableSeats) {
               alert("Ne možete rezervisati više od 10 sedišta.");
               return;
             }
-  
+
+            // Dodaj u niz sediste
             selectedSeats.push({
               id: seat.id,
               row: seat.row,
@@ -175,6 +181,7 @@ for (let row = 0; row <= maxRow; row++) {
               isLovePair
             });
 
+            // Ako je ljubavno dodaj i ovo do njega
             if (isLovePair) {
                 selectedSeats.push({
                   id: nextSeat.id,
