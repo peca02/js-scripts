@@ -221,11 +221,10 @@ for (let row = 0; row <= maxRow; row++) {
     for (const seat of selectedSeats) {
       const type = seat.seat_type;
       const price = data.base_price + data.halls.base_price + seat.price_modifier;
-      const finalPrice = seat.seat_type === 'Love' ? price * 2 : price;
   
       if (!grouped[type]) grouped[type] = { count: 0, pricePerSeat: price, total: 0 };
-      grouped[type].count += seat.seat_type === 'Love' ? 2 : 1;
-      grouped[type].total += finalPrice;
+      grouped[type].count++;
+      grouped[type].total += price;
     }
   
     // Prikaz
