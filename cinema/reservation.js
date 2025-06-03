@@ -287,14 +287,14 @@ console.log(user);
 if(user){
   
   reserveButton.addEventListener('click', () => {
-    const { data: reservation, error } = await supabase
+    const { data: reservation, error: reservationError } = await supabase
     .from('reservations')
     .insert([
       { profile_id: user.id, other_column: screeningId },
     ])
     .select()
-    if(error)
-      console.log(error);
+    if(reservationError)
+      console.log(reservationError);
     else
       console.log(reservation);
   });
