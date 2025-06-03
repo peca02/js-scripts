@@ -293,6 +293,7 @@ if(user){
       { profile_id: user.id, other_column: screeningId },
     ])
     .select()
+    
     if(reservationError)
       console.log(reservationError);
     else
