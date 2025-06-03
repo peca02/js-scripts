@@ -136,8 +136,6 @@ for (let row = 0; row <= maxRow; row++) {
   
       const seatDiv = document.createElement('div');
       seatDiv.classList.add('c-seat');
-      seatDiv.dataset.visibleRow = visibleRowCounter;
-      seatDiv.dataset.visibleCol = seatIndex+1;
       if (seatType === 'VIP') seatDiv.classList.add('c-vip-seat');
       if (isLoveSeat) seatDiv.classList.add('c-love-seat');
       if (reservedSeatIds.includes(seat.id)) {
@@ -165,8 +163,8 @@ for (let row = 0; row <= maxRow; row++) {
               id: seat.id,
               row: seat.row,
               col: seat.col,
-              visibleRow: visibleRowCounter - 1,
-              visibleCol: isLovePair ? seatIndex / 2 + 1 : seatIndex + 1,
+              visibleRow: seatDiv.getAttribute('data-visible-row');,
+              visibleCol: seatDiv.getAttribute('data-visible-col');,
               seat_type: seatType,
               price_modifier: seat.seat_type.price_modifier,
               isLovePair
