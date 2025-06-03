@@ -148,6 +148,10 @@ for (let row = 0; row <= maxRow; row++) {
           // Ako je već selektovan – ukloni ga
           if (alreadySelected) {
             selectedSeats.splice(selectedSeats.indexOf(alreadySelected), 1);
+            if(isLovePair){
+              const nextSelected = selectedSeats.find(s => s.id === nextSeat.id);
+              selectedSeats.splice(selectedSeats.indexOf(nextSelected), 1);
+            }
             console.log(selectedSeats);
             seatDiv.classList.remove('c-selected-seat');
           } else {
