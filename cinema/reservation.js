@@ -292,20 +292,46 @@ screeningDate.textContent = data.start_time;
 const { data: { user } } = await supabase.auth.getUser();
 console.log(user);
 
-if(user){
+if (user) {
   reserveButton.addEventListener('click', async () => {
-    if(selectedSeats.length > 0){ 
-      const { data, error } = await supabase
-      .from('reservations')
-      .insert([
-        { profile_id: user.id, screening_id: screeningId },
-      ])
-      .select()
-      
-      if(error)
-        console.log(error);
-      else
-        console.log(data);
+    if (selectedSeats.length > 0) {
+      // 1. Ubaci u reservations
+      const { data: reservationData, error: reservationError } = await supabase
+        .from('reservations')
+        .insert([
+          { profile_id: user.id, screening_id: screeningId },
+        ])
+        .select();
+
+      if (reservationError) {
+        console.log("Reservation insert error:", reservationError);
+        return;
+      }
+
+      const reservationId = reservationData[0].id;
+
+      // 2. Pripremi podatke za reservation_seats
+      const seatInserts = selectedSeats.map(seat => {
+        const basePrice = screeningBasePrice + hallBasePrice; // Ako ih imaš
+        const finalPrice = basePrice + seat.price_modifier;
+        return {
+          reservation_id: reservationId,
+          seat_id: seat.id,
+          price: finalPrice
+        };
+      });
+
+      // 3. Ubaci sedista
+      const { data: seatsData, error: seatsError } = await supabase
+        .from('reservation_seats')
+        .insert(seatInserts)
+        .select();
+
+      if (seatsError) {
+        console.log("Seat insert error:", seatsError);
+      } else {
+        console.log("Seats reserved:", seatsData);
+      }
     }
   });
 }
