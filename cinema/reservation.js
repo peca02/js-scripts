@@ -136,8 +136,8 @@ for (let row = 0; row <= maxRow; row++) {
   
       const seatDiv = document.createElement('div');
       seatDiv.classList.add('c-seat');
-      seatDiv.dataset.visibleRow = visibleRow;
-      seatDiv.dataset.visibleCol = visibleCol;
+      seatDiv.dataset.visibleRow = visibleRowCounter;
+      seatDiv.dataset.visibleCol = seatIndex+1;
       if (seatType === 'VIP') seatDiv.classList.add('c-vip-seat');
       if (isLoveSeat) seatDiv.classList.add('c-love-seat');
       if (reservedSeatIds.includes(seat.id)) {
