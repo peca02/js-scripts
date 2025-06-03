@@ -265,5 +265,20 @@ for (let row = 0; row <= maxRow; row++) {
   }
 }
 
+const movieTitle = document.getElementById('movie-title');
+const movieImage = document.getElementById('movie-image');
+const cinema = document.getElementById('cinema');
+const hall = document.getElementById('hall');
+const screeningFormat = document.getElementById('screening-format');
+const screeningDate = document.getElementById('screening-date');
+const message = document.getElementById('message');
+
+movieTitle.textContent = data.movies.title;
+movieImage.src = data.movies.poster_url;
+cinema.textContent = data.halls.cinemas.name;
+hall.textContent = data.halls.name;
+screeningFormat.textContent = data.format;
+screeningDate.textContent = data.start_time;
+
 const { data: { user } } = await supabase.auth.getUser();
 console.log(user);
