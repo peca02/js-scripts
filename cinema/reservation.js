@@ -290,7 +290,7 @@ if(user){
     const { data, error } = await supabase
     .from('reservations')
     .insert([
-      { profile_id: user.id, other_column: screeningId },
+      { profile_id: user.id, screening_id: screeningId },
     ])
     .select()
     
