@@ -152,8 +152,10 @@ for (let row = 0; row <= maxRow; row++) {
             seatDiv.classList.remove('c-selected-seat');
           } else {
             // Računaj ukupno sedišta (ljubavna se računaju kao 2)
-            const totalSelectedCount = selectedSeats.reduce((acc, s) => acc + (s.seat_type === 'Love' ? 2 : 1), 0);
-            const thisSeatCount = isLoveSeat ? 2 : 1;
+            const totalSelectedCount = selectedSeats.reduce((acc, s) => acc + 1, 0);
+            //const totalSelectedCount = selectedSeats.reduce((acc, s) => acc + (s.seat_type === 'Love' ? 2 : 1), 0);
+            //const thisSeatCount = isLoveSeat ? 2 : 1;
+            const thisSeatCount = 1;
             if (totalSelectedCount + thisSeatCount > maxSelectableSeats) {
               alert("Ne možete rezervisati više od 10 sedišta.");
               return;
