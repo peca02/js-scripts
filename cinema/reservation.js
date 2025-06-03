@@ -125,6 +125,7 @@ for (let row = 0; row <= maxRow; row++) {
   for (let col = 0; col < maxCol; col++) {
     if (seatIndex < seatsInRow.length && seatsInRow[seatIndex].col === col) {
       const seat = seatsInRow[seatIndex];
+      const nextSeat = seatsInRow[seatIndex+1];
       const seatType = seat.seat_type.name;
       const isLoveSeat = seatType === 'Love';
   
@@ -172,14 +173,14 @@ for (let row = 0; row <= maxRow; row++) {
 
             if (isLovePair) {
                 selectedSeats.push({
-                id: seatsInRow[seatIndex+1].id,
-                row: seat.row,
-                col: seat.col,
-                visibleRow: seatDiv.getAttribute('data-visible-row'),
-                visibleCol: seatDiv.getAttribute('data-visible-col'),
-                seat_type: seatType,
-                price_modifier: seat.seat_type.price_modifier,
-                isLovePair
+                  id: nextSeat.id,
+                  row: nextSeat.row,
+                  col: nextSeat.col,
+                  visibleRow: seatDiv.getAttribute('data-visible-row'),
+                  visibleCol: seatDiv.getAttribute('data-visible-col'),
+                  seat_type: seatType,
+                  price_modifier: seat.seat_type.price_modifier,
+                  isLovePair
               });
             }
 
