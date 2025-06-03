@@ -289,5 +289,10 @@ if(user){
 }
 else{
   reserveButton.textContent = 'Sign up/Log in';
+  message.textContent = 'To reserve seats you must be logged in. Click the button above to create an account or log in.';
+  
+  const baseUrl = window.location.origin;
+  let href = new URL("/cinema/sign-up-log-in", baseUrl);   
+  reserveButton.href = href.toString();
 }
   
