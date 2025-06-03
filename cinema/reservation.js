@@ -106,6 +106,9 @@ const reservationSummary = document.getElementById('reservation-summary');
 
 const reserveButton = document.getElementById('reserve-button');
 
+const { data: { user } } = await supabase.auth.getUser();
+console.log(user);
+
 // Renderuj sve redove od 0 do maxRow
 for (let row = 0; row <= maxRow; row++) {
   const seatsInRow = rowsMap[row] || [];
@@ -210,12 +213,12 @@ for (let row = 0; row <= maxRow; row++) {
           }
   
           updateReservationSummary();
-          
-          if(selectedSeats.length > 0)
-            reserveButton.classList.remove('c-button-not-clickable');
-          else
-            reserveButton.classList.add('c-button-not-clickable');
-            
+          if(user){
+            if(selectedSeats.length > 0)
+              reserveButton.classList.remove('c-button-not-clickable');
+            else
+              reserveButton.classList.add('c-button-not-clickable');
+          }
         });
       }
   
@@ -289,8 +292,6 @@ hall.textContent = data.halls.name;
 screeningFormat.textContent = data.format;
 screeningDate.textContent = data.start_time;
 
-const { data: { user } } = await supabase.auth.getUser();
-console.log(user);
 
 if (user) {
   reserveButton.addEventListener('click', async () => {
@@ -338,6 +339,7 @@ if (user) {
 else{
   reserveButton.textContent = 'Sign up/Log in';
   message.textContent = 'To reserve seats you must be logged in. Click the button above to create an account or log in.';
+  reserveButton.classList.remove('c-button-not-clickable');
   
   const baseUrl = window.location.origin;
   let href = new URL("/cinema/sign-up-log-in", baseUrl);   
