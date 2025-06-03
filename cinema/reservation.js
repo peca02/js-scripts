@@ -312,7 +312,7 @@ if (user) {
 
       // 2. Pripremi podatke za reservation_seats
       const seatInserts = selectedSeats.map(seat => {
-        const basePrice = screeningBasePrice + hallBasePrice; // Ako ih imaš
+        const basePrice = 100; // Ako ih imaš
         const finalPrice = basePrice + seat.price_modifier;
         return {
           reservation_id: reservationId,
