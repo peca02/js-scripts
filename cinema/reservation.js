@@ -286,6 +286,19 @@ console.log(user);
 
 if(user){
   
+  reserveButton.addEventListener('click', () => {
+    const { data, error } = await supabase
+    .from('reservations')
+    .insert([
+      { profile_id: user.id, other_column: screeningId },
+    ])
+    .select()
+    if(error)
+      console.log(error);
+    else
+      console.log(data);
+  });
+  
 }
 else{
   reserveButton.textContent = 'Sign up/Log in';
