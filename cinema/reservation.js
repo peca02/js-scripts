@@ -163,8 +163,8 @@ for (let row = 0; row <= maxRow; row++) {
               id: seat.id,
               row: seat.row,
               col: seat.col,
-              visibleRow: seatDiv.getAttribute('data-visible-row');,
-              visibleCol: seatDiv.getAttribute('data-visible-col');,
+              visibleRow: seatDiv.getAttribute('data-visible-row'),
+              visibleCol: seatDiv.getAttribute('data-visible-col'),
               seat_type: seatType,
               price_modifier: seat.seat_type.price_modifier,
               isLovePair
