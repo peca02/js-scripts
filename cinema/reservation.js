@@ -170,6 +170,19 @@ for (let row = 0; row <= maxRow; row++) {
               isLovePair
             });
 
+            if (isLovePair) {
+                selectedSeats.push({
+                  id: nextSeat.id,
+                  row: nextSeat.row,
+                  col: nextSeat.col,
+                  visibleRow: seatDiv.getAttribute('data-visible-row'),
+                  visibleCol: seatDiv.getAttribute('data-visible-col'),
+                  seat_type: seatType,
+                  price_modifier: seat.seat_type.price_modifier,
+                  isLovePair
+              });
+            }
+
             console.log(selectedSeats);
             
             seatDiv.classList.add('c-selected-seat');
@@ -179,10 +192,7 @@ for (let row = 0; row <= maxRow; row++) {
         });
       }
   
-      seatDiv.setAttribute('data-row', seat.row);
       seatDiv.setAttribute('data-visible-row', visibleRowCounter - 1);
-      seatDiv.setAttribute('data-col', seat.col);
-      seatDiv.setAttribute('data-price-modifier', seat.seat_type.price_modifier);
   
       if (isLovePair) {
         seatDiv.style.gridColumn = 'span 2';
@@ -211,11 +221,10 @@ for (let row = 0; row <= maxRow; row++) {
     for (const seat of selectedSeats) {
       const type = seat.seat_type;
       const price = data.base_price + data.halls.base_price + seat.price_modifier;
-      const finalPrice = seat.seat_type === 'Love' ? price * 2 : price;
   
       if (!grouped[type]) grouped[type] = { count: 0, pricePerSeat: price, total: 0 };
-      grouped[type].count += seat.seat_type === 'Love' ? 2 : 1;
-      grouped[type].total += finalPrice;
+      grouped[type].count++;
+      grouped[type].total += price;
     }
   
     // Prikaz
