@@ -16,7 +16,10 @@ const { data, error } = await supabase
     format,
     language,
     base_price,
-    movie_id,
+    movies(
+      title,
+      poster_url
+    ),
     halls(
       id,
       name,
@@ -29,7 +32,10 @@ const { data, error } = await supabase
           name,
           price_modifier
         )
-      )
+      ),
+      cinemas (
+          name
+        )
     ),
     reservations(
       reservation_seats(
@@ -257,5 +263,7 @@ for (let row = 0; row <= maxRow; row++) {
       reservationSummary.appendChild(totalRow);
     }
   }
-
 }
+
+const { data: { user } } = await supabase.auth.getUser();
+console.log(user);
