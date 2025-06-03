@@ -91,6 +91,9 @@ requestAnimationFrame(() => {
 });
 
 let visibleRowCounter = 1;
+const selectedSeats = [];
+const maxSelectableSeats = 10;
+const reservationSummary = document.getElementById('reservation-summary');
 
 // 6. Renderuj sve redove od 0 do maxRow
 for (let row = 0; row <= maxRow; row++) {
@@ -117,9 +120,6 @@ for (let row = 0; row <= maxRow; row++) {
   // ➤ 6.3 Sortiraj sedišta po koloni ako ih ima
   seatsInRow.sort((a, b) => a.col - b.col);
 
-  const selectedSeats = [];
-  const maxSelectableSeats = 10;
-  const reservationSummary = document.getElementById('reservation-summary');
   
   let seatIndex = 0;
   for (let col = 0; col < maxCol; col++) {
