@@ -180,20 +180,14 @@ for (let row = 0; row <= maxRow; row++) {
               alert("Ne možete rezervisati više od 10 sedišta.");
               return;
             }
-
-            console.log('Base:', data.base_price);
-            console.log('Hall base:', data.halls.base_price);
-            console.log('Modifier:', seat.seat_type.price_modifier);
-            
+ 
             // Dodaj u niz sediste
             selectedSeats.push({
               id: seat.id,
               visibleRow: seatDiv.getAttribute('data-visible-row'),
               visibleCol: seatDiv.getAttribute('data-visible-col'),
               seat_type: seatType,
-              price: +data.base_price +  // + ispred znaci da ga pretvori u number
-                    +data.halls.base_price +
-                    +seat.seat_type.price_modifier
+              price: data.base_price + data.halls.base_price + seat.seat_type.price_modifier
             });
 
             // Ako je ljubavno dodaj i ovo do njega
@@ -203,9 +197,7 @@ for (let row = 0; row <= maxRow; row++) {
                   visibleRow: seatDiv.getAttribute('data-visible-row'),
                   visibleCol: seatDiv.getAttribute('data-visible-col'),
                   seat_type: seatType,
-                  price: +data.base_price +
-                        +data.halls.base_price +
-                        +seat.seat_type.price_modifier
+                  price: data.base_price + data.halls.base_price + seat.seat_type.price_modifier
               });
             }
 
