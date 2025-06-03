@@ -187,7 +187,9 @@ for (let row = 0; row <= maxRow; row++) {
               visibleRow: seatDiv.getAttribute('data-visible-row'),
               visibleCol: seatDiv.getAttribute('data-visible-col'),
               seat_type: seatType,
-              price: data.base_price + data.halls.base_price + seat.price_modifier
+              price: +data.base_price +  // + ispred znaci da ga pretvori u number
+                    +data.halls.base_price +
+                    +seat.price_modifier
             });
 
             // Ako je ljubavno dodaj i ovo do njega
@@ -197,7 +199,9 @@ for (let row = 0; row <= maxRow; row++) {
                   visibleRow: seatDiv.getAttribute('data-visible-row'),
                   visibleCol: seatDiv.getAttribute('data-visible-col'),
                   seat_type: seatType,
-                  price: data.base_price + data.halls.base_price + seat.price_modifier
+                  price: +data.base_price +
+                        +data.halls.base_price +
+                        +seat.price_modifier
               });
             }
 
