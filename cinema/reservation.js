@@ -181,6 +181,10 @@ for (let row = 0; row <= maxRow; row++) {
               return;
             }
 
+            console.log('Base:', data.base_price);
+            console.log('Hall base:', data.halls.base_price);
+            console.log('Modifier:', seat.price_modifier);
+            
             // Dodaj u niz sediste
             selectedSeats.push({
               id: seat.id,
