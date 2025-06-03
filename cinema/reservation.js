@@ -142,7 +142,7 @@ for (let row = 0; row <= maxRow; row++) {
         seatDiv.classList.add('c-reserved-seat');
       } else {
         // Listener za klik samo ako nije rezervisano
-        seatDiv.addEventListener('click', (e) => {
+        seatDiv.addEventListener('click', () => {
           const alreadySelected = selectedSeats.find(s => s.id === seat.id);
   
           // Ako je već selektovan – ukloni ga
