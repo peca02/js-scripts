@@ -272,6 +272,7 @@ const hall = document.getElementById('hall');
 const screeningFormat = document.getElementById('screening-format');
 const screeningDate = document.getElementById('screening-date');
 const message = document.getElementById('message');
+const reserveButton = document.getElementById('reserve-button');
 
 movieTitle.textContent = data.movies.title;
 movieImage.src = data.movies.poster_url;
@@ -282,3 +283,11 @@ screeningDate.textContent = data.start_time;
 
 const { data: { user } } = await supabase.auth.getUser();
 console.log(user);
+
+if(user){
+  
+}
+else{
+  reserveButton.textContent = 'Sign up/Log in';
+}
+  
