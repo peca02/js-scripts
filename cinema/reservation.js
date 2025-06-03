@@ -212,9 +212,9 @@ for (let row = 0; row <= maxRow; row++) {
           updateReservationSummary();
           
           if(selectedSeats.length > 0)
-            reserveButton.classAdd('c-button-not-clickable');
+            reserveButton.classListAdd('c-button-not-clickable');
           else
-            reserveButton.classRemove('c-button-not-clickable');
+            reserveButton.classListRemove('c-button-not-clickable');
             
         });
       }
