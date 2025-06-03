@@ -212,9 +212,9 @@ for (let row = 0; row <= maxRow; row++) {
           updateReservationSummary();
           
           if(selectedSeats.length > 0)
-            reserveButton.classList.add('c-button-not-clickable');
-          else
             reserveButton.classList.remove('c-button-not-clickable');
+          else
+            reserveButton.classList.add('c-button-not-clickable');
             
         });
       }
@@ -293,21 +293,21 @@ const { data: { user } } = await supabase.auth.getUser();
 console.log(user);
 
 if(user){
-  
   reserveButton.addEventListener('click', async () => {
-    const { data, error } = await supabase
-    .from('reservations')
-    .insert([
-      { profile_id: user.id, screening_id: screeningId },
-    ])
-    .select()
-    
-    if(error)
-      console.log(error);
-    else
-      console.log(data);
+    if(selectedSeats.length > 0){ 
+      const { data, error } = await supabase
+      .from('reservations')
+      .insert([
+        { profile_id: user.id, screening_id: screeningId },
+      ])
+      .select()
+      
+      if(error)
+        console.log(error);
+      else
+        console.log(data);
+    }
   });
-  
 }
 else{
   reserveButton.textContent = 'Sign up/Log in';
