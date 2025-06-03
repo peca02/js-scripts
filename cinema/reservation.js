@@ -125,7 +125,6 @@ for (let row = 0; row <= maxRow; row++) {
   for (let col = 0; col < maxCol; col++) {
     if (seatIndex < seatsInRow.length && seatsInRow[seatIndex].col === col) {
       const seat = seatsInRow[seatIndex];
-      const nextSeat = seatsInRow[seatIndex+1];
       const seatType = seat.seat_type.name;
       const isLoveSeat = seatType === 'Love';
   
