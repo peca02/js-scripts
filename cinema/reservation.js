@@ -172,7 +172,7 @@ for (let row = 0; row <= maxRow; row++) {
 
             if (isLovePair) {
                 selectedSeats.push({
-                id: seatsInRow[seatIndex+1].id;,
+                id: seatsInRow[seatIndex+1].id,
                 row: seat.row,
                 col: seat.col,
                 visibleRow: seatDiv.getAttribute('data-visible-row'),
