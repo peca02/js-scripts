@@ -183,7 +183,7 @@ for (let row = 0; row <= maxRow; row++) {
 
             console.log('Base:', data.base_price);
             console.log('Hall base:', data.halls.base_price);
-            console.log('Modifier:', seat.price_modifier);
+            console.log('Modifier:', seat.seat_type.price_modifier);
             
             // Dodaj u niz sediste
             selectedSeats.push({
@@ -193,7 +193,7 @@ for (let row = 0; row <= maxRow; row++) {
               seat_type: seatType,
               price: +data.base_price +  // + ispred znaci da ga pretvori u number
                     +data.halls.base_price +
-                    +seat.price_modifier
+                    +seat.seat_type.price_modifier
             });
 
             // Ako je ljubavno dodaj i ovo do njega
@@ -205,7 +205,7 @@ for (let row = 0; row <= maxRow; row++) {
                   seat_type: seatType,
                   price: +data.base_price +
                         +data.halls.base_price +
-                        +seat.price_modifier
+                        +seat.seat_type.price_modifier
               });
             }
 
