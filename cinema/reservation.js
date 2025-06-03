@@ -170,6 +170,19 @@ for (let row = 0; row <= maxRow; row++) {
               isLovePair
             });
 
+            if (isLovePair) {
+                selectedSeats.push({
+                id: seatsInRow[seatIndex+1].id;,
+                row: seat.row,
+                col: seat.col,
+                visibleRow: seatDiv.getAttribute('data-visible-row'),
+                visibleCol: seatDiv.getAttribute('data-visible-col'),
+                seat_type: seatType,
+                price_modifier: seat.seat_type.price_modifier,
+                isLovePair
+              });
+            }
+
             console.log(selectedSeats);
             
             seatDiv.classList.add('c-selected-seat');
