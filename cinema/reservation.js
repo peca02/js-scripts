@@ -104,6 +104,8 @@ const selectedSeats = [];
 const maxSelectableSeats = 10;
 const reservationSummary = document.getElementById('reservation-summary');
 
+const reserveButton = document.getElementById('reserve-button');
+
 // Renderuj sve redove od 0 do maxRow
 for (let row = 0; row <= maxRow; row++) {
   const seatsInRow = rowsMap[row] || [];
@@ -168,7 +170,8 @@ for (let row = 0; row <= maxRow; row++) {
             seatDiv.classList.remove('c-selected-seat');
           } else {
             // Računaj ukupno sedišta (ljubavna se računaju kao 2 po kliku a u nizu se svakako oba dodaju)
-            const totalSelectedCount = selectedSeats.reduce((acc, s) => acc + 1, 0);
+            //const totalSelectedCount = selectedSeats.reduce((acc, s) => acc + 1, 0);
+            const totalSelectedCount = selectedSeats.length;
             const thisSeatCount = isLoveSeat ? 2 : 1;
             if (totalSelectedCount + thisSeatCount > maxSelectableSeats) {
               alert("Ne možete rezervisati više od 10 sedišta.");
@@ -207,6 +210,12 @@ for (let row = 0; row <= maxRow; row++) {
           }
   
           updateReservationSummary();
+          
+          if(selectedSeats.length > 0)
+            reserveButton.classAdd('c-button-not-clickable');
+          else
+            reserveButton.classRemove('c-button-not-clickable');
+            
         });
       }
   
@@ -272,7 +281,6 @@ const hall = document.getElementById('hall');
 const screeningFormat = document.getElementById('screening-format');
 const screeningDate = document.getElementById('screening-date');
 const message = document.getElementById('message');
-const reserveButton = document.getElementById('reserve-button');
 
 movieTitle.textContent = data.movies.title;
 movieImage.src = data.movies.poster_url;
