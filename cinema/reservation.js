@@ -361,7 +361,6 @@ const { data: reservationData, error: reservationError } = await supabase
         .from('reservation_seats')
         .insert([
         { reservation_id: reservationId, seat_id: 244, price: 100 },
-          { reservation_id: reservationId, seat_id: 243, price: 100 },
           ])
         .select();
 
