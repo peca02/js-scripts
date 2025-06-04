@@ -342,25 +342,15 @@ else{
 
 
 
-const { data: reservationData, error: reservationError } = await supabase
-        .from('reservations')
-        .insert([
-          { profile_id: user.id, screening_id: screeningId },
-        ])
-        .select();
 
-      if (reservationError) {
-        console.log("Reservation insert error:", reservationError);
-      }
-
-      const reservationId = reservationData[0].id;
+      const reservationId = '4665942f-a1c8-4435-a8d2-066aa5b03d4e';
 
 
       // 3. Ubaci sedista
       const { data: seatsData, error: seatsError } = await supabase
         .from('reservation_seats')
         .insert([
-        { reservation_id: reservationId, seat_id: 244, price: 100 },
+        { reservation_id: reservationId, seat_id: 245, price: 100 },
           ])
         .select();
 
