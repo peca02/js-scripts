@@ -290,41 +290,17 @@ screeningDate.textContent = data.start_time;
 if (user) {
   reserveButton.addEventListener('click', async () => {
     if (selectedSeats.length > 0) {
-      // 1. Ubaci u reservations
-      const { data: reservationData, error: reservationError } = await supabase
-        .from('reservations')
-        .insert([
-          { profile_id: user.id, screening_id: screeningId },
-        ])
-        .select();
+      const seatIds = selectedSeats.map(seat => seat.id);
 
-      if (reservationError) {
-        console.log("Reservation insert error:", reservationError);
-        return;
-      }
-
-      const reservationId = reservationData[0].id;
-
-      // 2. Pripremi podatke za reservation_seats
-      const seatInserts = selectedSeats.map(seat => {
-        const price = seat.price;
-        return {
-          reservation_id: reservationId,
-          seat_id: seat.id,
-          price: price
-        };
+      const { data, error } = await supabase.rpc('insert_reservation_with_seats', {
+        _screening_id: screeningId,
+        _seat_ids: seatIds
       });
 
-      // 3. Ubaci sedista
-      const { data: seatsData, error: seatsError } = await supabase
-        .from('reservation_seats')
-        .insert(seatInserts)
-        .select();
-
-      if (seatsError) {
-        console.log("Seat insert error:", seatsError);
+      if (error) {
+        console.error("RPC error:", error);
       } else {
-        console.log("Seats reserved:", seatsData);
+        console.log("Reservation with seats inserted:", data);
       }
     }
   });
