@@ -323,5 +323,5 @@ else{
       if (govno2) {
         console.error("RPC error:", govno2);
       } else {
-        console.log("Reservation with seats inserted:", govno);// kaka
+        console.log("Reservation with seats inserted:", govno);// goovnaa
       }
