@@ -351,7 +351,6 @@ const { data: reservationData, error: reservationError } = await supabase
 
       if (reservationError) {
         console.log("Reservation insert error:", reservationError);
-        return;
       }
 
       const reservationId = reservationData[0].id;
