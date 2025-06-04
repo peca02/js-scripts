@@ -338,4 +338,35 @@ else{
   let href = new URL("/cinema/sign-up-log-in", baseUrl);   
   reserveButton.href = href.toString();
 }
-  
+
+
+
+
+const { data: reservationData, error: reservationError } = await supabase
+        .from('reservations')
+        .insert([
+          { profile_id: user.id, screening_id: screeningId },
+        ])
+        .select();
+
+      if (reservationError) {
+        console.log("Reservation insert error:", reservationError);
+        return;
+      }
+
+      const reservationId = reservationData[0].id;
+
+
+      // 3. Ubaci sedista
+      const { data: seatsData, error: seatsError } = await supabase
+        .from('reservation_seats')
+        .insert([
+        { reservation_id: reservationId, seat_id: 242, price: 100 },
+          ])
+        .select();
+
+      if (seatsError) {
+        console.log("Seat insert error:", seatsError);
+      } else {
+        console.log("Seats reserved:", seatsData);
+      }
