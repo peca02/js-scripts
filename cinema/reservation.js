@@ -314,14 +314,3 @@ else{
   let href = new URL("/cinema/sign-up-log-in", baseUrl);   
   reserveButton.href = href.toString();
 }
-  
-  const { data:govno, error:govno2 } = await supabase.rpc('insert_reservation_with_seats', {
-        _screening_id: screeningId,
-        _seat_ids: [404, 405]
-      });
-
-      if (govno2) {
-        console.error("RPC error:", govno2);
-      } else {
-        console.log("Reservation with seats inserted:", govno);// goovnaa
-      }
