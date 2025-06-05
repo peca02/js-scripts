@@ -177,8 +177,8 @@ for (let row = 0; row <= maxRow; row++) {
             const totalSelectedCount = selectedSeats.length;
             const thisSeatCount = isLoveSeat ? 2 : 1;
             if (totalSelectedCount + thisSeatCount > maxSelectableSeats) {
-              alert("Ne možete rezervisati više od 10 sedišta.");
-              return;
+              //alert("You cant reserve more then 10 seats per one reservation");
+              //return;
             }
  
             // Dodaj u niz sediste
