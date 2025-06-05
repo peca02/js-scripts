@@ -172,13 +172,12 @@ for (let row = 0; row <= maxRow; row++) {
             console.log(selectedSeats);
             seatDiv.classList.remove('c-selected-seat');
           } else {
-            // Računaj ukupno sedišta (ljubavna se računaju kao 2 po kliku a u nizu se svakako oba dodaju)
-            //const totalSelectedCount = selectedSeats.reduce((acc, s) => acc + 1, 0);
+            //Računaj ukupno sedišta (ljubavna se računaju kao 2 po kliku a u nizu se svakako oba dodaju)
             const totalSelectedCount = selectedSeats.length;
             const thisSeatCount = isLoveSeat ? 2 : 1;
             if (totalSelectedCount + thisSeatCount > maxSelectableSeats) {
-              //alert("You cant reserve more then 10 seats per one reservation");
-              //return;
+              alert("You cant reserve more then 10 seats per one reservation");
+              return;
             }
  
             // Dodaj u niz sediste
