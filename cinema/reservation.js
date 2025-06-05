@@ -299,6 +299,7 @@ if (user) {
 
       if (error) {
         console.error("RPC error:", error);
+        alert("You cant make more then 2 reservations from same account for same screening");
       } else {
         console.log("Reservation with seats inserted:", data);
       }
