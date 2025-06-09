@@ -139,6 +139,7 @@ for (let row = 0; row <= maxRow; row++) {
   // Dodaj 1 prazna mesto
 
   const empty = document.createElement('div');
+  empty.classList.add('c-seat');
   empty.classList.add('c-empty-seat');
   seatMap.appendChild(empty);
 
@@ -240,6 +241,7 @@ for (let row = 0; row <= maxRow; row++) {
       }
     } else {
       const empty = document.createElement('div');
+      empty.classList.add('c-seat');
       empty.classList.add('c-empty-seat');
       seatMap.appendChild(empty);
     }
