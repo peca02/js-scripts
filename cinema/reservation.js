@@ -112,10 +112,11 @@ console.log(user);
 // Renderuj sve redove od 0 do maxRow
 for (let row = 0; row <= maxRow; row++) {
   const seatsInRow = rowsMap[row] || [];
+  let rowLabel;
   if(seatsInRow.length > 0)
-    const rowLabel = seatsInRow[0].visible_row;
+    rowLabel = seatsInRow[0].visible_row;
   else
-    const rowLabel = '';
+    rowLabel = '';
 
   // Dodaj row label
   const labelDiv = document.createElement('div');
