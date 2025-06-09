@@ -81,7 +81,10 @@ for (const seat of seats) {
 
 console.log(rowsMap);
 
-/*
+const seatMap = document.querySelector('.c-seat-map');
+seatMap.style.gridTemplateColumns = `repeat(${maxCol + 2}, 1fr)`; //+2 zbog label i 1 prazna
+
+/* OVO OVDE NIJE NEOPHODNO JER MI JE GRID U CELIJI GRIDA GDE JE KONTENT U CELIJI CENTRIRAN I ONDA SE RESI ONAJ GLITCH DA TI GRID RAZVUCE CELIJU I NE BUDE SIROK CONTENT+GAP
 // Renderuj jedno sedište privremeno da dobiješ dimenzije jer ih ne mozes dobiti ako ne postoji nijedno trenutno
 const tempSeat = document.createElement('div');
 tempSeat.classList.add('c-seat');
@@ -100,7 +103,6 @@ requestAnimationFrame(() => {
 });
 */
 
-const seatMap = document.querySelector('.c-seat-map');
 const selectedSeats = [];
 const maxSelectableSeats = 10;
 const reservationSummary = document.getElementById('reservation-summary');
