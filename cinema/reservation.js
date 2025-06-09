@@ -89,7 +89,6 @@ tempSeat.style.position = 'absolute';
 tempSeat.style.visibility = 'hidden';
 document.body.appendChild(tempSeat);
 
-const seatMap = document.querySelector('.c-seat-map');
 
 // Sačekaj da se stavi u DOM
 requestAnimationFrame(() => {
@@ -101,6 +100,7 @@ requestAnimationFrame(() => {
 });
 */
 
+const seatMap = document.querySelector('.c-seat-map');
 const selectedSeats = [];
 const maxSelectableSeats = 10;
 const reservationSummary = document.getElementById('reservation-summary');
