@@ -109,6 +109,13 @@ const reserveButton = document.getElementById('reserve-button');
 const { data: { user } } = await supabase.auth.getUser();
 console.log(user);
 
+// Izračunaj razliku u milisekundama
+const diffInMs = new Date(data.start_time) - new Date();
+// Pretvori u minute
+const diffInMinutes = diffInMs / 1000 / 60;
+
+console.log(diffInMinutes);
+
 // Renderuj sve redove od 0 do maxRow
 for (let row = 0; row <= maxRow; row++) {
   const seatsInRow = rowsMap[row] || [];
@@ -162,57 +169,62 @@ for (let row = 0; row <= maxRow; row++) {
       if (reservedSeatIds.includes(seat.id)) {
         seatDiv.classList.add('c-reserved-seat');
       } else {
-        // Listener za klik samo ako nije rezervisano
-        seatDiv.addEventListener('click', () => {
-          const alreadySelected = selectedSeats.find(s => s.id === seat.id);
-  
-          // Ako je već selektovan – ukloni ga
-          if (alreadySelected) {
-            selectedSeats.splice(selectedSeats.indexOf(alreadySelected), 1);
-            if(isLovePair){
-              const nextSelected = selectedSeats.find(s => s.id === nextSeat.id);
-              selectedSeats.splice(selectedSeats.indexOf(nextSelected), 1);
-            }
-            console.log(selectedSeats);
-            seatDiv.classList.remove('c-selected-seat');
-          } else {
-            //Računaj ukupno sedišta (ljubavna se računaju kao 2 po kliku a u nizu se svakako oba dodaju)
-            const totalSelectedCount = selectedSeats.length;
-            const thisSeatCount = isLoveSeat ? 2 : 1;
-            if (totalSelectedCount + thisSeatCount > maxSelectableSeats) {
-              alert("You cant reserve more then 10 seats per one reservation");
-              return;
-            }
- 
-            // Dodaj u niz sediste
-            selectedSeats.push({
-              id: seat.id,
-              seat_type: seatType,
-              price: data.base_price + data.halls.base_price + seat.seat_type.price_modifier
-            });
-
-            // Ako je ljubavno dodaj i ovo do njega
-            if (isLovePair) {
-                selectedSeats.push({
-                  id: nextSeat.id,
-                  seat_type: seatType,
-                  price: data.base_price + data.halls.base_price + seat.seat_type.price_modifier
+        if (diffInMinutes <= 60) {
+          seatDiv.classList.add('c-not-clickable');
+        }
+        else{
+          // Listener za klik samo ako nije rezervisano i ostalo je vise od sat vremena do projekcije
+          seatDiv.addEventListener('click', () => {
+            const alreadySelected = selectedSeats.find(s => s.id === seat.id);
+    
+            // Ako je već selektovan – ukloni ga
+            if (alreadySelected) {
+              selectedSeats.splice(selectedSeats.indexOf(alreadySelected), 1);
+              if(isLovePair){
+                const nextSelected = selectedSeats.find(s => s.id === nextSeat.id);
+                selectedSeats.splice(selectedSeats.indexOf(nextSelected), 1);
+              }
+              console.log(selectedSeats);
+              seatDiv.classList.remove('c-selected-seat');
+            } else {
+              //Računaj ukupno sedišta (ljubavna se računaju kao 2 po kliku a u nizu se svakako oba dodaju)
+              const totalSelectedCount = selectedSeats.length;
+              const thisSeatCount = isLoveSeat ? 2 : 1;
+              if (totalSelectedCount + thisSeatCount > maxSelectableSeats) {
+                alert("You cant reserve more then 10 seats per one reservation");
+                return;
+              }
+   
+              // Dodaj u niz sediste
+              selectedSeats.push({
+                id: seat.id,
+                seat_type: seatType,
+                price: data.base_price + data.halls.base_price + seat.seat_type.price_modifier
               });
-            }
-
-            console.log(selectedSeats);
-            
-            seatDiv.classList.add('c-selected-seat');
-          }
   
-          updateReservationSummary();
-          if(user){
-            if(selectedSeats.length > 0)
-              reserveButton.classList.remove('c-not-clickable');
-            else
-              reserveButton.classList.add('c-not-clickable');
-          }
-        });
+              // Ako je ljubavno dodaj i ovo do njega
+              if (isLovePair) {
+                  selectedSeats.push({
+                    id: nextSeat.id,
+                    seat_type: seatType,
+                    price: data.base_price + data.halls.base_price + seat.seat_type.price_modifier
+                });
+              }
+  
+              console.log(selectedSeats);
+              
+              seatDiv.classList.add('c-selected-seat');
+            }
+    
+            updateReservationSummary();
+            if(user){
+              if(selectedSeats.length > 0)
+                reserveButton.classList.remove('c-not-clickable');
+              else
+                reserveButton.classList.add('c-not-clickable');
+            }
+          });
+        }
       }
   
   
@@ -290,16 +302,6 @@ function getLocalTimestamp() {
     String(date.getMinutes()).padStart(2, '0') + ":" +
     String(date.getSeconds()).padStart(2, '0');
 }
-
-
-// Izračunaj razliku u milisekundama
-const diffInMs = new Date(data.start_time) - new Date();
-
-// Pretvori u minute
-const diffInMinutes = diffInMs / 1000 / 60;
-
-console.log(diffInMinutes);
-
 
 if (user) {
   if (diffInMinutes <= 60) {
