@@ -95,7 +95,8 @@ const seatMap = document.querySelector('.c-seat-map');
 requestAnimationFrame(() => {
   const seatWidth = tempSeat.getBoundingClientRect().width;
   // Podesi dimenzije grida
-  seatMap.style.gridTemplateColumns = `repeat(${maxCol + 2}, ${seatWidth}px)`; //+2 zbog label + 1 prazna
+  //seatMap.style.gridTemplateColumns = `repeat(${maxCol + 2}, ${seatWidth}px)`; //+2 zbog label + 1 prazna
+  seatMap.style.gridTemplateColumns = `repeat(${maxCol + 2}, 1fr`; //+2 zbog label + 1 prazna
 
   tempSeat.remove(); // Očisti dummy element
 });
