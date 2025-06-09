@@ -291,8 +291,8 @@ function getLocalTimestamp() {
     String(date.getSeconds()).padStart(2, '0');
 }
 
-console.log(new Date());
-console.log(getLocalTimestamp());
+console.log((new Date(data.start_time) - new Date())/1000/60);
+console.log((new Date(data.start_time) - getLocalTimestamp())/1000/60);
 
 if (user) {
   reserveButton.addEventListener('click', async () => {
