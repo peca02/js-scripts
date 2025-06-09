@@ -291,27 +291,40 @@ function getLocalTimestamp() {
     String(date.getSeconds()).padStart(2, '0');
 }
 
-console.log((new Date(data.start_time) - new Date())/1000/60);
-console.log((new Date(data.start_time) - getLocalTimestamp())/1000/60);
+
+// Izračunaj razliku u milisekundama
+const diffInMs = new Date(data.start_time) - new Date();
+
+// Pretvori u minute
+const diffInMinutes = diffInMs / 1000 / 60;
+
+console.log(diffInMinutes);
+
 
 if (user) {
-  reserveButton.addEventListener('click', async () => {
-    if (selectedSeats.length > 0) {
-      const seatIds = selectedSeats.map(seat => seat.id);
-
-      const { data, error } = await supabase.rpc('insert_reservation_with_seats', {
-        _screening_id: screeningId,
-        _seat_ids: seatIds
-      });
-
-      if (error) {
-        console.error("RPC error:", error);
-        alert("You cant make more then 2 reservations from same account for same screening");
-      } else {
-        console.log("Reservation with seats inserted:", data);
+  if (diffInMinutes <= 60) {
+    seatMap.ClassList.add(.c-not-clickable);
+    message.textContent='You cannot reserve seats for this screening because it starts in less than an hour. The reserved seats you see are before there is less than an hour left until the screening and do not reflect the actual reservations that have been updated in the hour before the screening.';
+  }
+  else{
+      reserveButton.addEventListener('click', async () => {
+      if (selectedSeats.length > 0) {
+        const seatIds = selectedSeats.map(seat => seat.id);
+  
+        const { data, error } = await supabase.rpc('insert_reservation_with_seats', {
+          _screening_id: screeningId,
+          _seat_ids: seatIds
+        });
+  
+        if (error) {
+          console.error("RPC error:", error);
+          alert("You cant make more then 2 reservations from same account for same screening");
+        } else {
+          console.log("Reservation with seats inserted:", data);
+        }
       }
-    }
-  });
+    });
+  }
 }
 else{
   reserveButton.textContent = 'Sign up/Log in';
@@ -321,4 +334,9 @@ else{
   const baseUrl = window.location.origin;
   let href = new URL("/cinema/sign-up-log-in", baseUrl);   
   reserveButton.href = href.toString();
+
+  if (diffInMinutes <= 60) {
+    seatMap.ClassList.add(.c-not-clickable);
+    message.textContent=message.textContent + '<br><br>You cannot reserve seats for this screening because it starts in less than an hour. The reserved seats you see are before there is less than an hour left until the screening and do not reflect the actual reservations that have been updated in the hour before the screening.';
+  }
 }
