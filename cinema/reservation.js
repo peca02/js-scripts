@@ -339,6 +339,7 @@ else{
 
   if (diffInMinutes <= 60) {
     seatMap.classList.add('c-not-clickable');
+    message.style.whiteSpace = 'pre-line';
     message.textContent=message.textContent + '\n\nAlso, you cannot reserve seats for this screening because it starts in less than an hour. The reserved seats you see are before there is less than an hour left until the screening and do not reflect the actual reservations that have been updated in the hour before the screening.';
   }
 }
