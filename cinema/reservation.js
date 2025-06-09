@@ -28,6 +28,7 @@ const { data, error } = await supabase
         id,
         row,
         col,
+        visible_row,
         seat_type(
           name,
           price_modifier
@@ -99,7 +100,6 @@ requestAnimationFrame(() => {
   tempSeat.remove(); // Očisti dummy element
 });
 
-let visibleRowCounter = 1;
 const selectedSeats = [];
 const maxSelectableSeats = 10;
 const reservationSummary = document.getElementById('reservation-summary');
@@ -112,7 +112,10 @@ console.log(user);
 // Renderuj sve redove od 0 do maxRow
 for (let row = 0; row <= maxRow; row++) {
   const seatsInRow = rowsMap[row] || [];
-  const rowLabel = seatsInRow.length > 0 ? visibleRowCounter++ : '';
+  if(seatsInRow.length > 0)
+    const rowLabel = seatsInRow[0].visible_row;
+  else
+    const rowLabel = '';
 
   // Dodaj row label
   const labelDiv = document.createElement('div');
@@ -135,7 +138,7 @@ for (let row = 0; row <= maxRow; row++) {
   seatsInRow.sort((a, b) => a.col - b.col);
 
   
-  let seatIndex = 0; // kao neki visible col counter-1 ali se ne koristi samo za to
+  let seatIndex = 0; // ovo promenljiva je jednaka visible col pod neki fazon, samo valjda odstupa +-1 tako da ako ti treba moras +-1 nzm bese sta, ili je + ili +
 
   // Prodji po kolonama u okviru reda
   for (let col = 0; col < maxCol; col++) {
@@ -183,8 +186,6 @@ for (let row = 0; row <= maxRow; row++) {
             // Dodaj u niz sediste
             selectedSeats.push({
               id: seat.id,
-              visibleRow: seatDiv.getAttribute('data-visible-row'),
-              visibleCol: seatDiv.getAttribute('data-visible-col'),
               seat_type: seatType,
               price: data.base_price + data.halls.base_price + seat.seat_type.price_modifier
             });
@@ -193,8 +194,6 @@ for (let row = 0; row <= maxRow; row++) {
             if (isLovePair) {
                 selectedSeats.push({
                   id: nextSeat.id,
-                  visibleRow: seatDiv.getAttribute('data-visible-row'),
-                  visibleCol: seatDiv.getAttribute('data-visible-col'),
                   seat_type: seatType,
                   price: data.base_price + data.halls.base_price + seat.seat_type.price_modifier
               });
@@ -215,13 +214,9 @@ for (let row = 0; row <= maxRow; row++) {
         });
       }
   
-      seatDiv.setAttribute('data-visible-row', visibleRowCounter - 1);
   
       if (isLovePair) {
         seatDiv.style.gridColumn = 'span 2';
-        seatDiv.setAttribute('data-visible-col', seatIndex / 2 + 1);
-      } else {
-        seatDiv.setAttribute('data-visible-col', seatIndex + 1);
       }
   
       seatMap.appendChild(seatDiv);
