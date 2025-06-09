@@ -303,7 +303,7 @@ console.log(diffInMinutes);
 
 if (user) {
   if (diffInMinutes <= 60) {
-    seatMap.ClassList.add('c-not-clickable');
+    seatMap.classList.add('c-not-clickable');
     message.textContent='You cannot reserve seats for this screening because it starts in less than an hour. The reserved seats you see are before there is less than an hour left until the screening and do not reflect the actual reservations that have been updated in the hour before the screening.';
   }
   else{
@@ -336,7 +336,7 @@ else{
   reserveButton.href = href.toString();
 
   if (diffInMinutes <= 60) {
-    seatMap.ClassList.add('c-not-clickable');
+    seatMap.classList.add('c-not-clickable');
     message.textContent=message.textContent + '<br><br>You cannot reserve seats for this screening because it starts in less than an hour. The reserved seats you see are before there is less than an hour left until the screening and do not reflect the actual reservations that have been updated in the hour before the screening.';
   }
 }
