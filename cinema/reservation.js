@@ -281,6 +281,18 @@ hall.textContent = data.halls.name;
 screeningFormat.textContent = data.format;
 screeningDate.textContent = data.start_time;
 
+function getLocalTimestamp() {
+  const date = new Date();
+  return date.getFullYear() + "-" +
+    String(date.getMonth() + 1).padStart(2, '0') + "-" +
+    String(date.getDate()).padStart(2, '0') + "T" +
+    String(date.getHours()).padStart(2, '0') + ":" +
+    String(date.getMinutes()).padStart(2, '0') + ":" +
+    String(date.getSeconds()).padStart(2, '0');
+}
+
+console.log(new Date());
+console.log(getLocalTimestamp());
 
 if (user) {
   reserveButton.addEventListener('click', async () => {
