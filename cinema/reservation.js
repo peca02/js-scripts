@@ -208,9 +208,9 @@ for (let row = 0; row <= maxRow; row++) {
           updateReservationSummary();
           if(user){
             if(selectedSeats.length > 0)
-              reserveButton.classList.remove('c-button-not-clickable');
+              reserveButton.classList.remove('c-not-clickable');
             else
-              reserveButton.classList.add('c-button-not-clickable');
+              reserveButton.classList.add('c-not-clickable');
           }
         });
       }
@@ -316,7 +316,7 @@ if (user) {
 else{
   reserveButton.textContent = 'Sign up/Log in';
   message.textContent = 'To reserve seats you must be logged in. Click the button above to create an account or log in.';
-  reserveButton.classList.remove('c-button-not-clickable');
+  reserveButton.classList.remove('c-not-clickable');
   
   const baseUrl = window.location.origin;
   let href = new URL("/cinema/sign-up-log-in", baseUrl);   
