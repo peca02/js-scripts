@@ -95,7 +95,7 @@ async function updateMovies(moviesToShow, selectedCinema, selectedDate, callback
     // helper funkcija da ne ponavljamo kod u funkciji
     function renderMovies(moviesToRender){
         // Prikaži filmove
-        moviesContainer.innerHTML = "";
+        //moviesContainer.innerHTML = "";
         moviesToRender.forEach((movie) => {
           const movieLink = document.createElement("a");
           movieLink.classList.add("c-movie-link");
