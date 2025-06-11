@@ -133,13 +133,23 @@ async function updateMovies(moviesToShow, selectedCinema, selectedDate, callback
           image.src = movie.poster_url;
           image.alt = movie.title;
           image.className = "c-movie-listing-image";
-  
+
+          const movieDetails = document.createElement("div");
+          movieDetails.className = "c-movie-cell-details";
+          
           const title = document.createElement("h3");
           title.className = "c-title-for-listed-movies";
           title.textContent = movie.title;
+
+          const genres = document.createElement("div");
+          genres.className = "c-cell-genres";
+          genres.innerText = movie.movie_genres.map(item => item.genres.name).join(', ');
+
+          movieDetails.appendChild(title);
+          movieDetails.appendChild(genres);
   
           movieLink.appendChild(image);
-          movieLink.appendChild(title);
+          movieLink.appendChild(movieDetails);
           moviesContainer.appendChild(movieLink);
       });
     }
