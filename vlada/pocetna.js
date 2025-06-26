@@ -13,3 +13,4 @@ const modelViewer = document.getElementById('heroModel');
     // (Po želji) centriraj kameru posle ulaska
     modelViewer.cameraOrbit = '0deg 75deg 2m';
     modelViewer.jumpCameraToGoal();
+  });
