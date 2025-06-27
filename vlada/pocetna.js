@@ -3,7 +3,7 @@ const viewer = document.getElementById('heroModel');
 viewer.addEventListener('model-visibility', () => {
   const start = 180;
   const end = 30;
-  const duration = 2000; // trajanje u milisekundama
+  const duration = 3000; // trajanje u milisekundama
   const startTime = performance.now();
 
   function animate(now) {
