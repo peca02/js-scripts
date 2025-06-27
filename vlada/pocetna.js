@@ -3,7 +3,7 @@ const viewer = document.getElementById('heroModel');
 viewer.addEventListener('model-visibility', () => {
   let start = 180;
   const end = 30;
-  const duration = 1000; // u ms
+  const duration = 10000; // u ms
   const steps = 60;
   let current = 0;
 
