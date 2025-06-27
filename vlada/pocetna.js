@@ -1,17 +1,10 @@
 const viewer = document.getElementById('heroModel');
 
-let rotation = 0;
-
-function animateRotation() {
-  rotation -= 0.5; // brže ide i ide CCW
-  if (rotation <= -360) rotation = 0;
-
-  viewer.cameraOrbit = `${rotation}deg 75deg 2m`;
-
-  requestAnimationFrame(animateRotation);
-}
-
-// Pokreni kada model postane vidljiv
 viewer.addEventListener('model-visibility', () => {
-  animateRotation();
+  viewer.interpolationDecay = 1000; // trajanje 1s
+
+  viewer.cameraOrbit = '0deg 75deg 2m'; 
+  // kamera ide sa desne (ini. 90deg) na centar (0deg)
+
+  viewer.autoRotate = false;
 });
