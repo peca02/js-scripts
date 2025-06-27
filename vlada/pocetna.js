@@ -1,27 +1,25 @@
 const viewer = document.getElementById('heroModel');
 
 viewer.addEventListener('model-visibility', () => {
-  let start = 180;
+  const start = 180;
   const end = 30;
-  const duration = 1; // u ms
-  const steps = 60;
-  let current = 0;
+  const duration = 1000; // trajanje u milisekundama
+  const startTime = performance.now();
 
-  function animate() {
-    const t = current / steps;
+  function animate(now) {
+    const elapsed = now - startTime;
+    const t = Math.min(elapsed / duration, 1); // normalize 0–1
     const eased = 1 - Math.pow(1 - t, 3); // ease-out
     const angle = start + (end - start) * eased;
 
     viewer.cameraOrbit = `${angle}deg 50deg`;
 
-    current++;
-    if (current <= steps) {
+    if (t < 1) {
       requestAnimationFrame(animate);
     }
   }
 
-  animate();
+  requestAnimationFrame(animate);
 
-  // Isključi auto-rotaciju nakon ulaska
   viewer.autoRotate = false;
 });
