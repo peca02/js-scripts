@@ -15,7 +15,7 @@ viewer.addEventListener('model-visibility', () => {
     viewer.cameraOrbit = `${angle}deg 50deg`;
 
     if (t < 1) {
-      //requestAnimationFrame(animate);
+      requestAnimationFrame(animate);
     }
   }
 
