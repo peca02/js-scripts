@@ -29,3 +29,6 @@ viewer.addEventListener('load', () => {
   requestAnimationFrame(animate);
   viewer.autoRotate = false;
 });
+
+window.scrollBy(0, 1);
+window.scrollBy(0, -1);
