@@ -2,7 +2,6 @@ const viewer = document.getElementById('heroModel');
 const modelWrapper = document.querySelector('.desna-kolona'); // div koji pomeramo
 
 viewer.addEventListener('load', () => {
-  document.getElementById('govno').innerText = 'govno';
   const start = 180;
   const end = 30;
   const duration = 3000;
