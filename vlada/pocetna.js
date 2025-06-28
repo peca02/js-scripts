@@ -1,6 +1,5 @@
 const viewer = document.getElementById('heroModel');
 const modelWrapper = document.querySelector('.desna-kolona'); // div koji pomeramo
-modelWrapper.style.transform = 'translateX(50vw)';
 
 viewer.addEventListener('load', () => {
   const start = 180;
@@ -26,6 +25,6 @@ viewer.addEventListener('load', () => {
     }
   }
 
+  modelWrapper.style.transform = 'translateX(50vw)';
   requestAnimationFrame(animate);
-  viewer.autoRotate = false;
 });
