@@ -1,3 +1,6 @@
+window.scrollBy(0, 1);
+window.scrollBy(0, -1);
+
 const viewer = document.getElementById('heroModel');
 const modelWrapper = document.querySelector('.desna-kolona'); // div koji pomeramo
 
@@ -30,5 +33,4 @@ viewer.addEventListener('load', () => {
   viewer.autoRotate = false;
 });
 
-window.scrollBy(0, 1);
-window.scrollBy(0, -1);
+
