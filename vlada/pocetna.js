@@ -1,7 +1,12 @@
 const viewer = document.getElementById('heroModel');
-viewer.reveal = 'auto'; // može pomoći
 
-viewer.addEventListener('load', () => {
-  console.log('Model je učitan — load event aktiviran');
-  document.getElementById('govno').innerText = 'Učitano!';
-});
+function checkIfLoaded() {
+  if (viewer.loaded) {
+    console.log('Model je učitan (manual check)');
+    document.getElementById('govno').innerText = 'Učitano!';
+  } else {
+    setTimeout(checkIfLoaded, 100);
+  }
+}
+
+checkIfLoaded();
