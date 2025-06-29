@@ -25,6 +25,6 @@ viewer.addEventListener('load', () => {
     }
   }
 
-  //modelWrapper.style.transform = 'translateX(50vw)';
-  //requestAnimationFrame(animate);
+  modelWrapper.style.transform = 'translateX(50vw)';
+  requestAnimationFrame(animate);
 });
