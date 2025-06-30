@@ -89,3 +89,19 @@ closeBtn.addEventListener('click', () => {
     popup.classList.remove('swing-out-top-bck');
   }, 450);
 });
+
+popupWrapper.addEventListener('click', (event) => {
+  if (!popup.contains(event.target)) {
+    // Isti kod kao kad se klikne na iks
+    popupWrapper.style.transition = 'background-color 0.45s cubic-bezier(0.4, 0, 0.2, 1)';
+    popupWrapper.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+
+    popup.classList.remove('swing-in-top-bck');
+    popup.classList.add('swing-out-top-bck');
+
+    setTimeout(() => {
+      popupWrapper.style.display = 'none';
+      popup.classList.remove('swing-out-top-bck');
+    }, 450);
+  }
+});
