@@ -67,11 +67,23 @@ let targetProgress = 0;   // koliki je cilj progres na osnovu skrola
 const popupWrapper = document.querySelector('.pop-up-wrapper');
 
   openBtn.addEventListener('click', () => {
-    popupWrapper.style.display = 'flex';
-    popup.classList.add('swing-in-top-bck');
+  popupWrapper.style.display = 'flex';
+
+  // Timeout da bi se omogućila tranzicija (jer display none → flex ne animira odmah)
+  requestAnimationFrame(() => {
+    popupWrapper.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
   });
 
-  closeBtn.addEventListener('click', () => {
+  popup.classList.add('swing-in-top-bck');
+});
+
+closeBtn.addEventListener('click', () => {
+  // Pokreni animaciju zatamnjenja unazad
+  popupWrapper.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+
+  // Sačekaj da animacija pozadine prođe pa tek onda ukloni
+  setTimeout(() => {
     popupWrapper.style.display = 'none';
     popup.classList.remove('swing-in-top-bck');
-  });
+  }, 600); // Mora da bude isto trajanje kao animacija (0.6s)
+});
