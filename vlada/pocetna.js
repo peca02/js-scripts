@@ -68,22 +68,24 @@ const popupWrapper = document.querySelector('.pop-up-wrapper');
 
   openBtn.addEventListener('click', () => {
   popupWrapper.style.display = 'flex';
+  popupWrapper.style.transition = 'background-color 0.6s cubic-bezier(0.175, 0.885, 0.320, 1.275)';
+  popup.classList.remove('swing-out-top-bck');
+  popup.classList.add('swing-in-top-bck');
 
-  // Timeout da bi se omogućila tranzicija (jer display none → flex ne animira odmah)
   requestAnimationFrame(() => {
     popupWrapper.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
   });
-
-  popup.classList.add('swing-in-top-bck');
 });
 
 closeBtn.addEventListener('click', () => {
-  // Pokreni animaciju zatamnjenja unazad
+  popupWrapper.style.transition = 'background-color 0.45s ease';
   popupWrapper.style.backgroundColor = 'rgba(0, 0, 0, 0)';
 
-  // Sačekaj da animacija pozadine prođe pa tek onda ukloni
+  popup.classList.remove('swing-in-top-bck');
+  popup.classList.add('swing-out-top-bck');
+
   setTimeout(() => {
     popupWrapper.style.display = 'none';
-    popup.classList.remove('swing-in-top-bck');
-  }, 600); // Mora da bude isto trajanje kao animacija (0.6s)
+    popup.classList.remove('swing-out-top-bck');
+  }, 450);
 });
