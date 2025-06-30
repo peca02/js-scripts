@@ -46,7 +46,7 @@ let targetProgress = 0;   // koliki je cilj progres na osnovu skrola
     currentProgress += (targetProgress - currentProgress) * speed;
 
     // Interpolovane vrednosti
-    const opacity = 0 + currentProgress * 0.5;
+    const opacity = 0 + currentProgress * 0.8;
     const blur = 0 + currentProgress * 10;
     const shadowOpacity = 0 + currentProgress * 0.1;
 
