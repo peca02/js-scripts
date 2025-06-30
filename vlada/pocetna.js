@@ -37,10 +37,15 @@ window.addEventListener("scroll", () => {
     const scrollY = window.scrollY;
     const heroHeight = hero.offsetHeight;
 
-    // Ako si skrolovao više od 30% visine hero sekcije
-    if (scrollY > heroHeight * 0.3) {
-      navbar.classList.add("scrolled");
-    } else {
-      navbar.classList.remove("scrolled");
-    }
-});
+    // Skrol progres: 0 (na vrhu) do 1 (kad dođeš do 30% hero sekcije)
+    const progress = Math.min(scrollY / (heroHeight * 0.3), 1);
+
+    // Interpolacija vrednosti
+    const opacity = 0 + progress * 0.5; // od 0 do 0.5
+    const blur = 0 + progress * 10;     // od 0 do 10px
+    const shadowOpacity = 0 + progress * 0.1; // od 0 do 0.1
+
+    navbar.style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
+    navbar.style.backdropFilter = `blur(${blur}px)`;
+    navbar.style.boxShadow = `0 2px 10px rgba(0, 0, 0, ${shadowOpacity})`;
+  });
