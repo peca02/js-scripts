@@ -68,7 +68,7 @@ const popupWrapper = document.querySelector('.pop-up-wrapper');
 
   openBtn.addEventListener('click', () => {
   popupWrapper.style.display = 'flex';
-  popupWrapper.style.transition = 'background-color 0.6s cubic-bezier(0.175, 0.885, 0.320, 1.275)';
+  popupWrapper.style.transition = 'background-color 0.6s ease';
   popup.classList.remove('swing-out-top-bck');
   popup.classList.add('swing-in-top-bck');
 
