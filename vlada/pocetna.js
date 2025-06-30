@@ -35,7 +35,7 @@ const hero = document.querySelector('.hero-section');
 
 let targetProgress = 0;   // koliki je cilj progres na osnovu skrola
   let currentProgress = 0;  // trenutni prikazani progres (kao lag)
-  const speed = 0.05;       // brzina animacije (manje = sporije)
+  const speed = 0.2;       // brzina animacije (manje = sporije)
 
   function animateNavbar() {
     const scrollY = window.scrollY;
