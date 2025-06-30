@@ -33,19 +33,29 @@ viewer.addEventListener('load', () => {
 const navbar = document.querySelector('.navigacija');
 const hero = document.querySelector('.hero-section');
 
-window.addEventListener("scroll", () => {
+let targetProgress = 0;   // koliki je cilj progres na osnovu skrola
+  let currentProgress = 0;  // trenutni prikazani progres (kao lag)
+  const speed = 0.05;       // brzina animacije (manje = sporije)
+
+  function animateNavbar() {
     const scrollY = window.scrollY;
     const heroHeight = hero.offsetHeight;
+    targetProgress = Math.min(scrollY / (heroHeight * 0.3), 1);
 
-    // Skrol progres: 0 (na vrhu) do 1 (kad dođeš do 30% hero sekcije)
-    const progress = Math.min(scrollY / (heroHeight * 0.3), 1);
+    // Postepeno približavanje current ka target
+    currentProgress += (targetProgress - currentProgress) * speed;
 
-    // Interpolacija vrednosti
-    const opacity = 0 + progress * 0.5; // od 0 do 0.5
-    const blur = 0 + progress * 10;     // od 0 do 10px
-    const shadowOpacity = 0 + progress * 0.1; // od 0 do 0.1
+    // Interpolovane vrednosti
+    const opacity = 0 + currentProgress * 0.5;
+    const blur = 0 + currentProgress * 10;
+    const shadowOpacity = 0 + currentProgress * 0.1;
 
+    // Apply stilovi
     navbar.style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
     navbar.style.backdropFilter = `blur(${blur}px)`;
     navbar.style.boxShadow = `0 2px 10px rgba(0, 0, 0, ${shadowOpacity})`;
-  });
+
+    requestAnimationFrame(animateNavbar); // stalna animacija
+  }
+
+  animateNavbar(); // pokreni loop
