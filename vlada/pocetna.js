@@ -68,7 +68,7 @@ const popupWrapper = document.querySelector('.pop-up-wrapper');
 
   openBtn.addEventListener('click', () => {
   popupWrapper.style.display = 'flex';
-  popupWrapper.style.transition = 'background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+  popupWrapper.style.transition = 'background-color 0.6s ease';
   popup.classList.remove('swing-out-top-bck');
   popup.classList.add('swing-in-top-bck');
 
@@ -78,7 +78,7 @@ const popupWrapper = document.querySelector('.pop-up-wrapper');
 });
 
 closeBtn.addEventListener('click', () => {
-  popupWrapper.style.transition = 'background-color 0.45s cubic-bezier(0.4, 0, 0.2, 1)';
+  popupWrapper.style.transition = 'background-color 0.45s ease';
   popupWrapper.style.backgroundColor = 'rgba(0, 0, 0, 0)';
 
   popup.classList.remove('swing-in-top-bck');
