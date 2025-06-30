@@ -28,3 +28,19 @@ viewer.addEventListener('load', () => {
   modelWrapper.style.transform = 'translateX(50vw)';
   requestAnimationFrame(animate);
 });
+
+
+const navbar = document.querySelector('.navigacija');
+const hero = document.querySelector('.hero-section');
+
+window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
+    const heroHeight = hero.offsetHeight;
+
+    // Ako si skrolovao više od 30% visine hero sekcije
+    if (scrollY > heroHeight * 0.3) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
+    }
+});
