@@ -66,7 +66,7 @@ let targetProgress = 0;   // koliki je cilj progres na osnovu skrola
   const popup = document.querySelector('.pop-up');
 
   openBtn.addEventListener('click', () => {
-    popup.style.display = 'block';
+    popup.style.display = 'flex';
     popup.classList.add('swing-in-top-bck');
   });
 
