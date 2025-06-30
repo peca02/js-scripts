@@ -64,13 +64,14 @@ let targetProgress = 0;   // koliki je cilj progres na osnovu skrola
   const openBtn = document.querySelector('.pozovi');
   const closeBtn = document.querySelector('.iksic-pop-up');
   const popup = document.querySelector('.pop-up');
+const popupWrapper = document.querySelector('.pop-up-wrapper');
 
   openBtn.addEventListener('click', () => {
-    popup.style.display = 'flex';
+    popupWrapper.style.display = 'flex';
     popup.classList.add('swing-in-top-bck');
   });
 
   closeBtn.addEventListener('click', () => {
-    popup.style.display = 'none';
+    popupWrapper.style.display = 'none';
     popup.classList.remove('swing-in-top-bck');
   });
