@@ -59,3 +59,18 @@ let targetProgress = 0;   // koliki je cilj progres na osnovu skrola
   }
 
   animateNavbar(); // pokreni loop
+
+
+  const openBtn = document.querySelector('.pozovi');
+  const closeBtn = document.querySelector('.iksic-pop-up');
+  const popup = document.querySelector('.pop-up');
+
+  openBtn.addEventListener('click', () => {
+    popup.style.display = 'block';
+    popup.classList.add('swing-in-top-bck');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    popup.style.display = 'none';
+    popup.classList.remove('swing-in-top-bck');
+  });
