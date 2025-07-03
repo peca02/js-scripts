@@ -107,6 +107,8 @@ popupWrapper.addEventListener('click', (event) => {
 });
 
 
+// pocetna.js
+
 (async () => {
   // Dinamičko učitavanje Google Maps API-ja koristeći novi loader
   (g => {
@@ -130,15 +132,17 @@ popupWrapper.addEventListener('click', (event) => {
     v: "weekly",
   });
 
-let map;
+  // Funkcija koja pravi i prikazuje mapu
+  async function initMap() {
+    const { Map } = await google.maps.importLibrary("maps");
+    const map = new Map(document.getElementById("map"), {
+      center: { lat: 43.3144233, lng: 21.9279542 },
+      zoom: 14,
+      // opcionalno: mapId za stilove
+      // mapId: "YOUR_MAP_ID",
+    });
+  }
 
-async function initMap() {
-  const { Map } = await google.maps.importLibrary("maps");
-
-  map = new Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 8,
-  });
-}
-
-initMap();
+  // Kad se API učita, pozovi initMap
+  google.maps.importLibrary("maps").then(() => initMap());
+})();
