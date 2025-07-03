@@ -142,7 +142,7 @@ popupWrapper.addEventListener('click', (event) => {
   const map = new Map(document.getElementById("map"), {
     center: { lat: 43.3144233, lng: 21.9279542 },
     zoom: 14,
-    mapId: "4cd2a985fdaaa2ec8bd98408",
+    mapId: "lunar-airport-464814-j7",
   });
 
   // Dodaj marker
