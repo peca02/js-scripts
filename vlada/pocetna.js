@@ -107,22 +107,15 @@ popupWrapper.addEventListener('click', (event) => {
 });
 
 
-async function initMap() {
-  const options = {
-    center: { lat: 43.3144233, lng: 21.9279542 },
-    zoom: 14,
-    mapTypeId: 'roadmap'
-  };
-  const map = new google.maps.Map(
-    document.getElementById("mapa"),
-    options
-  );
+let map;
 
-  new google.maps.Marker({
-    position: options.center,
-    map: map,
-    title: "Moja firma",
+async function initMap() {
+  const { Map } = await google.maps.importLibrary("maps");
+
+  map = new Map(document.getElementById("map"), {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 8,
   });
 }
-window.initMap = initMap;
-console.log("Mapa inicijalizovana");
+
+initMap();
