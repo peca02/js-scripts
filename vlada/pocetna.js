@@ -125,4 +125,4 @@ function initMap() {
   });
 }
 window.initMap = initMap; // 📌 obavezno da Google API funkciju nađe
-// govno govno
+//initmap();
