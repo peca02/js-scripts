@@ -114,7 +114,7 @@ function initMap() {
     mapTypeId: 'roadmap'
   };
   const map = new google.maps.Map(
-    document.getElementById("map"),
+    document.getElementById("mapa"),
     options
   );
 
