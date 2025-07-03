@@ -1,5 +1,5 @@
 const viewer = document.getElementById('heroModel');
-const modelWrapper = document.querySelector('.desna-kolona'); // div koji pomeramo
+const modelWrapper = document.querySelector('.desna-kolona-hero'); // div koji pomeramo
 
 viewer.addEventListener('load', () => {
   const start = 180;
