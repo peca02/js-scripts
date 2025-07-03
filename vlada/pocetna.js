@@ -108,24 +108,27 @@ popupWrapper.addEventListener('click', (event) => {
 
 
 function initMap() {
-    const darkStyles = [
-      { elementType: 'geometry', stylers: [{ color: '#212121' }] },
-      { elementType: 'labels.text.stroke', stylers: [{ color: '#212121' }] },
-      { elementType: 'labels.text.fill', stylers: [{ color: '#757575' }] },
-      { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#383838' }] },
-      { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#000000' }] },
-    ];
+  const darkStyles = [
+    { elementType: 'geometry', stylers: [{ color: '#212121' }] },
+    { elementType: 'labels.text.stroke', stylers: [{ color: '#212121' }] },
+    { elementType: 'labels.text.fill', stylers: [{ color: '#757575' }] },
+    { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#383838' }] },
+    { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#000000' }] },
+  ];
 
-    const map = new google.maps.Map(document.getElementById("mapa"), {
-      center: { lat: 43.3144233, lng: 21.9279542 },
-      zoom: 14,
-      styles: darkStyles,
-      scrollwheel: true
-    });
+  const map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 43.3144233, lng: 21.9279542 },
+    zoom: 14,
+    styles: darkStyles,
+    scrollwheel: true,
+  });
 
-    new google.maps.Marker({
-      position: { lat: 43.3144233, lng: 21.9279542 },
-      map: map,
-      title: "Moja firma"
-    });
-  }
+  new google.maps.Marker({
+    position: { lat: 43.3144233, lng: 21.9279542 },
+    map: map,
+    title: "Moja firma",
+  });
+}
+
+// OVO JE KLJUČNO:
+window.initMap = initMap;
