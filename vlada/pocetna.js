@@ -107,7 +107,7 @@ popupWrapper.addEventListener('click', (event) => {
 });
 
 
-function initMap() {
+asyinc function initMap() {
   const options = {
     center: { lat: 43.3144233, lng: 21.9279542 },
     zoom: 14,
