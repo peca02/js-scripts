@@ -142,7 +142,6 @@ popupWrapper.addEventListener('click', (event) => {
   const map = new Map(document.getElementById("map"), {
     center: { lat: 43.3144233, lng: 21.9279542 },
     zoom: 14,
-    mapId: 'dsadsad',
     styles: [
       { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
       { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
