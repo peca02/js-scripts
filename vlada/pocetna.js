@@ -124,4 +124,5 @@ function initMap() {
     title: "Moja firma",
   });
 }
-window.initMap = initMap; // 📌 obavezno da Google API funkciju nađe
+// window.initMap = initMap; // 📌 obavezno da Google API funkciju nađe
+initMap();
