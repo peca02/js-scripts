@@ -108,27 +108,20 @@ popupWrapper.addEventListener('click', (event) => {
 
 
 function initMap() {
-  const darkStyles = [
-    { elementType: 'geometry', stylers: [{ color: '#212121' }] },
-    { elementType: 'labels.text.stroke', stylers: [{ color: '#212121' }] },
-    { elementType: 'labels.text.fill', stylers: [{ color: '#757575' }] },
-    { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#383838' }] },
-    { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#000000' }] },
-  ];
-
-  const map = new google.maps.Map(document.getElementById("map"), {
+  const options = {
     center: { lat: 43.3144233, lng: 21.9279542 },
     zoom: 14,
-    styles: darkStyles,
-    scrollwheel: true,
-  });
+    mapTypeId: 'roadmap'
+  };
+  const map = new google.maps.Map(
+    document.getElementById("map"),
+    options
+  );
 
   new google.maps.Marker({
-    position: { lat: 43.3144233, lng: 21.9279542 },
+    position: options.center,
     map: map,
     title: "Moja firma",
   });
 }
-
-// OVO JE KLJUČNO:
-window.initMap = initMap;
+window.initMap = initMap; // 📌 obavezno da Google API funkciju nađe
