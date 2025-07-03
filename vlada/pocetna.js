@@ -134,14 +134,23 @@ popupWrapper.addEventListener('click', (event) => {
 
   // Funkcija koja pravi i prikazuje mapu
   async function initMap() {
-    const { Map } = await google.maps.importLibrary("maps");
-    const map = new Map(document.getElementById("map"), {
-      center: { lat: 43.3144233, lng: 21.9279542 },
-      zoom: 14,
-      // opcionalno: mapId za stilove
-      // mapId: "YOUR_MAP_ID",
-    });
-  }
+  // Učitaj biblioteke
+  const { Map } = await google.maps.importLibrary("maps");
+  const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+  // Kreiraj mapu
+  const map = new Map(document.getElementById("map"), {
+    center: { lat: 43.3144233, lng: 21.9279542 },
+    zoom: 14,
+    // mapId: "YOUR_MAP_ID",
+  });
+
+  // Dodaj marker
+  const marker = new AdvancedMarkerElement({
+    map: map,
+    position: { lat: 43.3144233, lng: 21.9279542 },
+  });
+}
 
   // Kad se API učita, pozovi initMap
   google.maps.importLibrary("maps").then(() => initMap());
