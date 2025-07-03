@@ -125,4 +125,4 @@ function initMap() {
   });
 }
 window.initMap = initMap; // 📌 obavezno da Google API funkciju nađe
-// OVDE MORA ICI KOMENTAR AKO JE OVO ZADNJA LINIJA U SKRIPTI, IMA NEKI GLITCH DA NECE DA JE PREPOZNA CLLOUDFLARE ILI JAVSCRIPT JER SKRIPTA KOJA TREBA DA POZOVE TU FUNKCIJU JE MODULE TAKO NESTO MI REKO CHATGPT
+console.log("Mapa inicijalizovana");
