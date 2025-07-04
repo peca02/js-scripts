@@ -164,7 +164,7 @@ wrapper.classList.add("lerp-line");
 
 const reci = tekst.split(" ");
 
-let delay = 0.05;
+let delay = 0.4;
 const delayStep = 0.03;
 const speed2 = 6;
 
