@@ -155,3 +155,21 @@ popupWrapper.addEventListener('click', (event) => {
   // Kad se API učita, pozovi initMap
   google.maps.importLibrary("maps").then(() => initMap());
 })();
+
+
+let currentScroll = 0;
+let targetScroll = 0;
+let ease = 0.1;
+
+function smoothScroll() {
+  currentScroll += (targetScroll - currentScroll) * ease;
+  window.scrollTo(0, currentScroll);
+  requestAnimationFrame(smoothScroll);
+}
+
+window.addEventListener('scroll', () => {
+  targetScroll = window.scrollY;
+});
+
+smoothScroll();
+
