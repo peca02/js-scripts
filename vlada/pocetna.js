@@ -162,8 +162,8 @@ let skewSetter = gsap.quickTo("img", "skewY"), // fast
 ScrollSmoother.create({
 	wrapper: "#wrapper",
 	content: "#content",
-	smooth: 1,
-  speed: 1,
+	smooth: 2,
+  speed: 2,
 	effects: true,
 	onUpdate: self => skewSetter(clamp(self.getVelocity() / -50)),
 	onStop: () => skewSetter(0)
