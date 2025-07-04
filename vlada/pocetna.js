@@ -156,7 +156,7 @@ popupWrapper.addEventListener('click', (event) => {
   google.maps.importLibrary("maps").then(() => initMap());
 })();
 
-gsap.registerPlugin(SplitText)
+gsap.registerPlugin(ScrollTrigger, SplitText)
 
 const quotes = document.querySelectorAll(".paragraf-pitanje");
 
