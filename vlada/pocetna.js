@@ -178,7 +178,7 @@ wrapper.innerHTML = reci
 
 
 const Locoscroll = new LocomotiveScroll({
-  el: document.const wrapper = document.getElementById("pitanje-container"),
+  el: document.getElementById("pitanje-container"),
   smooth: true,
   smartphone: {
         smooth: true
