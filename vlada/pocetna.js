@@ -156,6 +156,8 @@ popupWrapper.addEventListener('click', (event) => {
   google.maps.importLibrary("maps").then(() => initMap());
 })();
 
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
 let skewSetter = gsap.quickTo("img", "skewY"), // fast
 	  clamp = gsap.utils.clamp(-20, 20); // don't let the skew go beyond 20 degrees.
 
