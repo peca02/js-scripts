@@ -164,24 +164,23 @@ wrapper.classList.add("lerp-line");
 
 const reci = tekst.split(" ");
 
-let delay = 0.4;
-const delayStep = 0.05;
+let delay = 0.05;
+const delayStep = 0.03;
 const speed2 = 6;
 
 wrapper.innerHTML = reci
-  .map((rec, i) => {
+  .map((rec) => {
     const span = `<span data-scroll data-scroll-delay="${delay.toFixed(2)}" data-scroll-speed="${speed2}">${rec}</span>`;
-    delay -= delayStep;
+    delay += delayStep;
     return span + " ";
   })
   .join("");
 
-
+// Inicijalizuj Locomotive Scroll
 const Locoscroll = new LocomotiveScroll({
   el: document.getElementById("page-wrapper"),
   smooth: true,
   smartphone: {
-        smooth: true
-    }
-  //reloadOnContextChange: true
+    smooth: true
+  }
 });
