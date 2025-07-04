@@ -155,32 +155,3 @@ popupWrapper.addEventListener('click', (event) => {
   // Kad se API učita, pozovi initMap
   google.maps.importLibrary("maps").then(() => initMap());
 })();
-
-
-const tekst = "Ukoliko imate bilo kakva pitanja, nedoumice ili želite dodatne informacije, slobodno ih postavite putem forme ispod. Dobićete odgovor putem e-maila u roku od 48 sati.";
-
-const wrapper = document.getElementById("pitanje-tekst");
-wrapper.classList.add("lerp-line");
-
-const reci = tekst.split(" ");
-
-let delay = 0.3;
-const delayStep = 0.02;
-const speed2 = 4;
-
-wrapper.innerHTML = reci
-  .map((rec) => {
-    const span = `<span data-scroll data-scroll-delay="${delay.toFixed(2)}" data-scroll-speed="${speed2}">${rec}</span>`;
-    delay += delayStep;
-    return span + " ";
-  })
-  .join("");
-
-// Inicijalizuj Locomotive Scroll
-const Locoscroll = new LocomotiveScroll({
-  el: document.getElementById("page-wrapper"),
-  smooth: true,
-  smartphone: {
-    smooth: true
-  }
-});
