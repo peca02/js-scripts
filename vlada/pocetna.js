@@ -155,20 +155,3 @@ popupWrapper.addEventListener('click', (event) => {
   // Kad se API učita, pozovi initMap
   google.maps.importLibrary("maps").then(() => initMap());
 })();
-
-
-let current = 0, target = 0, ease = 0.1;
-const container = document.querySelector('page-wrapper');
-
-function lerpScroll() {
-  current += (target - current) * ease;
-  container.scrollTop = current;
-  requestAnimationFrame(lerpScroll);
-}
-
-container.addEventListener('scroll', () => {
-  target = container.scrollTop;
-});
-
-lerpScroll();
-
