@@ -166,11 +166,11 @@ const reci = tekst.split(" ");
 
 let delay = 0.18;
 const delayStep = 0.02;
-const speed = 4;
+const speed2 = 4;
 
 wrapper.innerHTML = reci
   .map((rec, i) => {
-    const span = `<span data-scroll data-scroll-delay="${delay.toFixed(2)}" data-scroll-speed="${speed}">${rec}</span>`;
+    const span = `<span data-scroll data-scroll-delay="${delay.toFixed(2)}" data-scroll-speed2="${speed2}">${rec}</span>`;
     delay -= delayStep;
     return span + " ";
   })
