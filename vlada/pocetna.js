@@ -155,3 +155,5 @@ popupWrapper.addEventListener('click', (event) => {
   // Kad se API učita, pozovi initMap
   google.maps.importLibrary("maps").then(() => initMap());
 })();
+
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
