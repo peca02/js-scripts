@@ -156,7 +156,9 @@ popupWrapper.addEventListener('click', (event) => {
   google.maps.importLibrary("maps").then(() => initMap());
 })();
 
-let skewSetter = gsap.quickTo(".paragraf-pitanje", "rotateX"), // fast
+gsap.to(".paragraf-pitanje", {
+  clipPath: "path('M0,0 C30,10 70,90 100,100 L100,0 Z')"
+}), // fast
 	  clamp = gsap.utils.clamp(-5, 5); // don't let the skew go beyond 20 degrees.
 
 ScrollSmoother.create({
