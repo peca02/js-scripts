@@ -170,7 +170,7 @@ const speed2 = 4;
 
 wrapper.innerHTML = reci
   .map((rec, i) => {
-    const span = `<span data-scroll data-scroll-delay="${delay.toFixed(2)}" data-scroll-speed2="${speed2}">${rec}</span>`;
+    const span = `<span data-scroll data-scroll-delay="${delay.toFixed(2)}" data-scroll-speed="${speed2}">${rec}</span>`;
     delay -= delayStep;
     return span + " ";
   })
