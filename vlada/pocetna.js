@@ -165,6 +165,6 @@ ScrollSmoother.create({
 	smooth: 2,
   speed: 2,
 	effects: true,
-	onUpdate: self => skewSetter(clamp(self.getVelocity() / -50)),
+	onUpdate: self => skewSetter(clamp(self.getVelocity() / -100)),
 	onStop: () => skewSetter(0)
 });
