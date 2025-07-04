@@ -160,8 +160,8 @@ let skewSetter = gsap.quickTo("img", "skewY"), // fast
 	  clamp = gsap.utils.clamp(-20, 20); // don't let the skew go beyond 20 degrees.
 
 ScrollSmoother.create({
-	wrapper: "#wrapper",
-	content: "#content",
+	wrapper: "#smooth-wrapper",
+	content: "#smooth-content",
 	smooth: 2,
   speed: 2,
 	effects: true,
