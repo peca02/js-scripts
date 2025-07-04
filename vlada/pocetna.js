@@ -162,7 +162,7 @@ let skewSetter = gsap.quickTo(".paragraf-pitanje", "skewY"), // fast
 ScrollSmoother.create({
 	wrapper: "#smooth-wrapper",
 	content: "#smooth-content",
-	smooth: 2,
+	smooth: 1.5,
   speed: 1.5,
 	effects: true,
 	onUpdate: self => skewSetter(clamp(self.getVelocity() / -500)),
