@@ -157,7 +157,7 @@ popupWrapper.addEventListener('click', (event) => {
 })();
 
 let skewSetter = gsap.quickTo(".paragraf-pitanje", "skewY"), // fast
-	  clamp = gsap.utils.clamp(-20, 20); // don't let the skew go beyond 20 degrees.
+	  clamp = gsap.utils.clamp(-5, 5); // don't let the skew go beyond 20 degrees.
 
 ScrollSmoother.create({
 	wrapper: "#smooth-wrapper",
