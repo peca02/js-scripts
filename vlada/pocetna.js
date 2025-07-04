@@ -157,21 +157,18 @@ popupWrapper.addEventListener('click', (event) => {
 })();
 
 
-const scrollContainer = document.querySelector('page-wrapper');
+let current = 0, target = 0, ease = 0.1;
+const container = document.querySelector('page-wrapper');
 
-let currentScroll = 0;
-let targetScroll = 0;
-let ease = 0.1;
-
-function smoothScroll() {
-  currentScroll += (targetScroll - currentScroll) * ease;
-  scrollContainer.scrollTop = currentScroll;
-  requestAnimationFrame(smoothScroll);
+function lerpScroll() {
+  current += (target - current) * ease;
+  container.scrollTop = current;
+  requestAnimationFrame(lerpScroll);
 }
 
-scrollContainer.addEventListener('scroll', () => {
-  targetScroll = scrollContainer.scrollTop;
+container.addEventListener('scroll', () => {
+  target = container.scrollTop;
 });
 
-smoothScroll();
+lerpScroll();
 
