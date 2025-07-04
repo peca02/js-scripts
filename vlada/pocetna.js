@@ -1,6 +1,3 @@
-import { gsap } from "gsap";
-import { SplitText } from "gsap/SplitText";
-
 const viewer = document.getElementById('heroModel');
 const modelWrapper = document.querySelector('.desna-kolona-hero'); // div koji pomeramo
 
@@ -158,6 +155,8 @@ popupWrapper.addEventListener('click', (event) => {
   // Kad se API učita, pozovi initMap
   google.maps.importLibrary("maps").then(() => initMap());
 })();
+
+gsap.registerPlugin(SplitText)
 
 const quotes = document.querySelectorAll(".paragraf-pitanje");
 
