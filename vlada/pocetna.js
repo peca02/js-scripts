@@ -1,3 +1,6 @@
+import { gsap } from "gsap";
+import { SplitText } from "gsap/SplitText";
+
 const viewer = document.getElementById('heroModel');
 const modelWrapper = document.querySelector('.desna-kolona-hero'); // div koji pomeramo
 
