@@ -164,9 +164,9 @@ wrapper.classList.add("lerp-line");
 
 const reci = tekst.split(" ");
 
-let delay = 0.18;
-const delayStep = 0.02;
-const speed2 = 4;
+let delay = 0.4;
+const delayStep = 0.05;
+const speed2 = 6;
 
 wrapper.innerHTML = reci
   .map((rec, i) => {
