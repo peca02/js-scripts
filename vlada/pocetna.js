@@ -157,7 +157,6 @@ popupWrapper.addEventListener('click', (event) => {
 })();
 
 
-// tekst iznad postavi pitanje
 const target = document.querySelector('.js-split-text');
 let triggered = false;
 
@@ -167,19 +166,24 @@ const observer = new IntersectionObserver((entries) => {
       triggered = true;
 
       document.fonts.ready.then(() => {
-        new SplitType(target, { split: 'words, lines' });
+        const split = new SplitType(target, { split: 'words, lines' });
 
-        // Dodaj klasu koja aktivira animaciju
+        const words = document.querySelectorAll('.word');
+        words.forEach((word, i) => {
+          word.style.setProperty('--i', i);
+        });
+
         target.classList.add('animiraj');
       });
 
-      observer.unobserve(target); // opcionalno - ne posmatra dalje
+      observer.unobserve(target); // opciono
     }
   });
 }, {
   root: null,
-  threshold: 0.3 // aktivacija kad je 30% u viewportu
+  threshold: 0.3
 });
 
 observer.observe(target);
+
 
