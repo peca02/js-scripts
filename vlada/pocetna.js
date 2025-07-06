@@ -157,7 +157,9 @@ popupWrapper.addEventListener('click', (event) => {
 })();
 
 
-let split = new SplitType(document.querySelector('.js-split-text'), {
-  split: 'words, lines'
-})
+document.fonts.ready.then(() => {
+  new SplitType('.js-split-text', {
+    split: 'words, lines'
+  });
+});
 
