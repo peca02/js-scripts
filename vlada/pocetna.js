@@ -155,15 +155,3 @@ popupWrapper.addEventListener('click', (event) => {
   // Kad se API učita, pozovi initMap
   google.maps.importLibrary("maps").then(() => initMap());
 })();
-
-const tl = gsap.timeline();
-
-tl.from(".paragraf-pitanje", 1.8, {
-  y: 100,
-  ease: "power4.out",
-  delay: 1,
-  skewY: 7,
-  stagger: {
-    amount: 0.3
-  }
-})
