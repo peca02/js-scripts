@@ -157,9 +157,29 @@ popupWrapper.addEventListener('click', (event) => {
 })();
 
 
-document.fonts.ready.then(() => {
-  new SplitType('.js-split-text', {
-    split: 'words, lines'
+// tekst iznad postavi pitanje
+const target = document.querySelector('.js-split-text');
+let triggered = false;
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !triggered) {
+      triggered = true;
+
+      document.fonts.ready.then(() => {
+        new SplitType(target, { split: 'words, lines' });
+
+        // Dodaj klasu koja aktivira animaciju
+        target.classList.add('animiraj');
+      });
+
+      observer.unobserve(target); // opcionalno - ne posmatra dalje
+    }
   });
+}, {
+  root: null,
+  threshold: 0.3 // aktivacija kad je 30% u viewportu
 });
+
+observer.observe(target);
 
