@@ -178,7 +178,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, {
   root: null,
-  threshold: 0.01 // aktivacija kad je 30% u viewportu
+  threshold: 0.3 // aktivacija kad je 30% u viewportu
 });
 
 observer.observe(target);
