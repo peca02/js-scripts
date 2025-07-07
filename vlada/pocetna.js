@@ -168,21 +168,20 @@ const observer = new IntersectionObserver((entries) => {
       document.fonts.ready.then(() => {
         const split = new SplitType(target, { split: 'words, lines' });
 
-        // Za svaku .line postavi --line-index
-        const lines = target.querySelectorAll('.line');
-        lines.forEach((line, i) => {
-          line.style.setProperty('--line-index', i);
+        const words = document.querySelectorAll('.word');
+        words.forEach((word, i) => {
+          word.style.setProperty('--i', i);
         });
 
         target.classList.add('animiraj');
       });
 
-      observer.unobserve(target);
+      observer.unobserve(target); // opciono
     }
   });
 }, {
   root: null,
-  threshold: 1
+  threshold: 0.1
 });
 
 observer.observe(target);
