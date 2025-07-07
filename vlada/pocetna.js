@@ -181,7 +181,8 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, {
   root: null,
-  threshold: 0.1
+  rootMargin: '0px 0px -30% 0px', // 👈 pravi offset!
+  threshold: 0
 });
 
 observer.observe(target);
