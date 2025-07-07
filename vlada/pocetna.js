@@ -182,7 +182,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, {
   root: null,
-  threshold: 0.3
+  threshold: 0.7
 });
 
 observer.observe(target);
