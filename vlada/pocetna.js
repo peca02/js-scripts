@@ -166,22 +166,18 @@ const observer = new IntersectionObserver((entries) => {
       triggered = true;
 
       document.fonts.ready.then(() => {
-        const split = new SplitType(target, { split: 'lines', types: 'lines, words' });
+        new SplitType(target, { split: 'words, lines' });
 
-        const lines = document.querySelectorAll('.line');
-        lines.forEach((line, i) => {
-          line.style.setProperty('--i', i);
-        });
-
+        // Dodaj klasu koja aktivira animaciju
         target.classList.add('animiraj');
       });
 
-      observer.unobserve(target);
+      observer.unobserve(target); // opcionalno - ne posmatra dalje
     }
   });
 }, {
   root: null,
-  threshold: 0.3
+  threshold: 0.3 // aktivacija kad je 30% u viewportu
 });
 
 observer.observe(target);
