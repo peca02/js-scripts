@@ -166,22 +166,22 @@ const observer = new IntersectionObserver((entries) => {
       triggered = true;
 
       document.fonts.ready.then(() => {
-        const split = new SplitType(target, { split: 'words, lines' });
+        const split = new SplitType(target, { split: 'lines', types: 'lines, words' });
 
-        const words = document.querySelectorAll('.word');
-        words.forEach((word, i) => {
-          word.style.setProperty('--i', i);
+        const lines = document.querySelectorAll('.line');
+        lines.forEach((line, i) => {
+          line.style.setProperty('--i', i);
         });
 
         target.classList.add('animiraj');
       });
 
-      observer.unobserve(target); // opciono
+      observer.unobserve(target);
     }
   });
 }, {
   root: null,
-  threshold: 0.1
+  threshold: 0.3
 });
 
 observer.observe(target);
