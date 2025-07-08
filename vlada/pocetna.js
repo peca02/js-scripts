@@ -278,7 +278,7 @@ function createCustomButton(
 
 createCustomButton(
   "dugme1",
-  "POZOVI",
+  "Vidi kase",
   "0.5em 1em",
   "20px",
   "1rem",
