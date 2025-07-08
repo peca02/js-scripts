@@ -245,7 +245,6 @@ function createCustomButton(
       }
       #${buttonId} .btn-title {
         position: relative;
-        top: -1px;
         display: flex;
         align-items: center;
         justify-content: center;
