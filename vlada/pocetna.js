@@ -282,8 +282,8 @@ createCustomButton(
   "0.5em 1em",
   "20px",
   "1rem",
-  "#ff3366",
-  "#aa0033",
+  "#25a4e9",
+  "#007bff",
   "600",
   "white"
 );
