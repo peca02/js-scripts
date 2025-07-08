@@ -186,3 +186,104 @@ const observer = new IntersectionObserver((entries) => {
 
 observer.observe(target);
 
+
+// Funkcija za kreiranje custom dugmeta
+function createCustomButton(
+  targetId,
+  text,
+  padding,
+  borderRadius,
+  fontSize,
+  backgroundFill,
+  rippleColor,
+  fontWeight,
+  textColor) {
+    const targetElement = document.getElementById(targetId);
+    if (!targetElement) return;
+  
+    const buttonId = `btn-${targetId}`;
+  
+    // 1. Kreiraj HTML strukturu
+    const buttonWrapper = document.createElement("div");
+    buttonWrapper.id = buttonId;
+    buttonWrapper.innerHTML = `
+      <a href="#" class="btn-link">
+        <span class="btn-fill">
+          <span class="btn-ripple v1"></span>
+        </span>
+        <span class="btn-title">
+          <span class="btn-content">${text}</span>
+        </span>
+      </a>
+    `;
+  
+    // 2. Dodaj stilove u <style>
+    const style = document.createElement("style");
+    style.innerHTML = `
+      #${buttonId} .btn-link {
+        padding: ${padding};
+        border-radius: ${borderRadius};
+        font-size: ${fontSize};
+        text-decoration: none;
+        text-transform: uppercase;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #${buttonId} .btn-fill {
+        background: ${backgroundFill};
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        transform: translateZ(0);
+        border-radius: inherit;
+        transition: background 0.3s;
+      }
+      #${buttonId} .btn-title {
+        position: relative;
+        top: -1px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        transform: translateZ(0);
+      }
+      #${buttonId} .btn-content {
+        font-weight: ${fontWeight};
+        color: ${textColor};
+      }
+      #${buttonId} .btn-ripple {
+        display: none;
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        right: -1px;
+        bottom: -1px;
+        border-radius: inherit;
+      }
+      #${buttonId} .btn-ripple.v1 {
+        background: ${rippleColor};
+      }
+    `;
+    document.head.appendChild(style);
+  
+    // 3. Očisti ciljani element i ubaci dugme
+    targetElement.innerHTML = "";
+    targetElement.appendChild(buttonWrapper);
+}
+
+createCustomButton(
+  "dugme1",
+  "POZOVI",
+  "0.5em 1em",
+  "20px",
+  "1rem",
+  "#ff3366",
+  "#aa0033",
+  "600",
+  "white"
+);
