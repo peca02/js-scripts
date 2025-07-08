@@ -353,7 +353,7 @@ createCustomButton(
   "Vidi kase",
   "0.5em 1em",
   "20px",
-  "1rem",
+  "inherit",
   "#25a4e9",
   "#007bff",
   "600",
