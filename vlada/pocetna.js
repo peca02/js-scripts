@@ -276,6 +276,79 @@ function createCustomButton(
     targetElement.appendChild(buttonWrapper);
 }
 
+function addHoverAnimation(id) {
+  const container = document.getElementById(id);
+  if (!container) return;
+
+  const button = container.querySelector(".btn-link");
+  const title = container.querySelector(".btn-title");
+  const ripple = container.querySelector(".btn-ripple.v1");
+
+  if (!button || !title || !ripple) return;
+
+  function hoverAnimation() {
+    const t1 = gsap.timeline();
+    t1.set(ripple, { display: "block" });
+    t1.set(button, {
+      willChange: "transform",
+      scale: 1,
+    });
+    t1.to(button, {
+      scaleX: 1.03,
+      scaleY: 0.98,
+      duration: 1,
+      ease: "elastic.out(1, 0.3)",
+      force3D: true,
+    }, 0);
+    t1.set(button, { willChange: "auto" });
+
+    t1.set(ripple, { willChange: "transform" });
+    t1.fromTo(ripple, {
+      xPercent: -100,
+    }, {
+      xPercent: 0,
+      duration: 1,
+      ease: "expo.out",
+      force3D: true,
+    }, 0);
+    t1.set(ripple, { willChange: "auto" });
+  }
+
+  function hoverAnimationReset() {
+    const t2 = gsap.timeline();
+    t2.set(button, {
+      scaleX: 1.03,
+      scaleY: 0.98,
+      willChange: "transform",
+    }, 0);
+    t2.to(button, {
+      scaleX: 1,
+      scaleY: 1,
+      duration: 1,
+      ease: "elastic.out(1, 0.3)",
+      force3D: true,
+    }, 0);
+    t2.set(button, { willChange: "auto" });
+
+    t2.set(ripple, {
+      willChange: "transform",
+      xPercent: 0,
+    }, 0);
+    t2.to(ripple, {
+      xPercent: 100,
+      duration: 1,
+      ease: "expo.out",
+      immediateRender: false,
+      force3D: true,
+    }, 0);
+    t2.set(ripple, { willChange: "auto" });
+  }
+
+  // Add event listeners
+  button.addEventListener("mouseenter", hoverAnimation);
+  button.addEventListener("mouseleave", hoverAnimationReset);
+}
+
 createCustomButton(
   "dugme1",
   "Vidi kase",
@@ -287,3 +360,5 @@ createCustomButton(
   "600",
   "white"
 );
+
+addHoverAnimation("dugme1");
