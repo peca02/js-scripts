@@ -187,6 +187,7 @@ const observer = new IntersectionObserver((entries) => {
 observer.observe(target);
 
 
+// Funkcija za kreiranje custom dugmeta
 function createCustomButton(
   targetId,
   text,
@@ -196,93 +197,91 @@ function createCustomButton(
   backgroundFill,
   rippleColor,
   fontWeight,
-  textColor
-) {
-  const targetElement = document.getElementById(targetId);
-  if (!targetElement) return;
-
-  // 1. Očisti ciljani element
-  targetElement.innerHTML = "";
-
-  // 2. Kreiraj <a> dugme direktno
-  const button = document.createElement("a");
-  button.className = "btn-link";
-  button.id = `btn-${targetId}`;
-  button.href = "#";
-
-  // 3. Dodaj unutrašnji HTML
-  button.innerHTML = `
-    <span class="btn-fill">
-      <span class="btn-ripple v1"></span>
-    </span>
-    <span class="btn-title">
-      <span class="btn-content">${text}</span>
-    </span>
-  `;
-
-  // 4. Ubaci dugme u ciljani element
-  targetElement.appendChild(button);
-
-  // 5. Dodaj dinamičke stilove
-  const style = document.createElement("style");
-  style.innerHTML = `
-    #btn-${targetId}.btn-link {
-      padding: ${padding};
-      border-radius: ${borderRadius};
-      font-size: ${fontSize};
-      text-decoration: none;
-      text-transform: uppercase;
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-    #btn-${targetId} .btn-fill {
-      background: ${backgroundFill};
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      overflow: hidden;
-      transform: translateZ(0);
-      border-radius: inherit;
-      transition: background 0.3s;
-    }
-    #btn-${targetId} .btn-title {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      transform: translateZ(0);
-    }
-    #btn-${targetId} .btn-content {
-      font-weight: ${fontWeight};
-      color: ${textColor};
-    }
-    #btn-${targetId} .btn-ripple {
-      display: none;
-      position: absolute;
-      top: -1px;
-      left: -1px;
-      right: -1px;
-      bottom: -1px;
-      border-radius: inherit;
-    }
-    #btn-${targetId} .btn-ripple.v1 {
-      background: ${rippleColor};
-    }
-  `;
-  document.head.appendChild(style);
+  textColor) {
+    const targetElement = document.getElementById(targetId);
+    if (!targetElement) return;
+  
+    const buttonId = `btn-${targetId}`;
+  
+    // 1. Kreiraj HTML strukturu
+    const buttonWrapper = document.createElement("div");
+    buttonWrapper.id = buttonId;
+    buttonWrapper.innerHTML = `
+      <a href="#" class="btn-link">
+        <span class="btn-fill">
+          <span class="btn-ripple v1"></span>
+        </span>
+        <span class="btn-title">
+          <span class="btn-content">${text}</span>
+        </span>
+      </a>
+    `;
+  
+    // 2. Dodaj stilove u <style>
+    const style = document.createElement("style");
+    style.innerHTML = `
+      #${buttonId} .btn-link {
+        padding: ${padding};
+        border-radius: ${borderRadius};
+        font-size: ${fontSize};
+        text-decoration: none;
+        text-transform: uppercase;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #${buttonId} .btn-fill {
+        background: ${backgroundFill};
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        transform: translateZ(0);
+        border-radius: inherit;
+        transition: background 0.3s;
+      }
+      #${buttonId} .btn-title {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        transform: translateZ(0);
+      }
+      #${buttonId} .btn-content {
+        font-weight: ${fontWeight};
+        color: ${textColor};
+      }
+      #${buttonId} .btn-ripple {
+        display: none;
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        right: -1px;
+        bottom: -1px;
+        border-radius: inherit;
+      }
+      #${buttonId} .btn-ripple.v1 {
+        background: ${rippleColor};
+      }
+    `;
+    document.head.appendChild(style);
+  
+    // 3. Očisti ciljani element i ubaci dugme
+    targetElement.innerHTML = "";
+    targetElement.appendChild(buttonWrapper);
 }
 
 function addHoverAnimation(id) {
- const button = document.getElementById(id);
-if (!button) return;
+  const container = document.getElementById(id);
+  if (!container) return;
 
-const title = button.querySelector(".btn-title");
-const ripple = button.querySelector(".btn-ripple.v1");
+  const button = container.querySelector(".btn-link");
+  const title = container.querySelector(".btn-title");
+  const ripple = container.querySelector(".btn-ripple.v1");
 
   if (!button || !title || !ripple) return;
 
