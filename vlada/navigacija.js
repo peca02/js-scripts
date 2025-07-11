@@ -1,30 +1,32 @@
 const navbar = document.querySelector('.navigacija');
 
-let targetProgress = 0;
-let currentProgress = 0;
-const speed = 0.1;
+let targetProgress = 0;   // cilj progres na osnovu skrola
+let currentProgress = 0;  // trenutni prikazani progres (lagano ka cilju)
+const speed = 0.1;        // brzina animacije (manje = sporije)
 
 function animateNavbar() {
   const scrollY = window.scrollY;
-  const triggerPoint = window.innerHeight * 0.2; // 20vh
+  const triggerHeight = window.innerHeight * 0.3; // 30% visine viewporta
+  targetProgress = Math.min(scrollY / triggerHeight, 1);
 
-  // Računamo progres: 0 kad je ispod 20vh, 1 kad je mnogo iznad
-  targetProgress = Math.min(Math.max((scrollY - triggerPoint) / 100, 0), 1);
-
+  // Postepeno približavanje current ka target
   currentProgress += (targetProgress - currentProgress) * speed;
 
+  // Interpolovane vrednosti
   const opacity = currentProgress * 0.7;
   const blur = currentProgress * 10;
   const shadowOpacity = currentProgress * 0.1;
 
+  // Primena stilova
   navbar.style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
   navbar.style.backdropFilter = `blur(${blur}px)`;
   navbar.style.boxShadow = `0 2px 10px rgba(0, 0, 0, ${shadowOpacity})`;
 
-  requestAnimationFrame(animateNavbar);
+  requestAnimationFrame(animateNavbar); // stalna animacija
 }
 
-animateNavbar();
+animateNavbar(); // pokreni loop
+
 
 
 
