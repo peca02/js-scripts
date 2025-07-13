@@ -30,7 +30,7 @@ observer.observe(target);
 const target2 = document.getElementById("2");
 let triggered2 = false;
 
-const observer = new IntersectionObserver((entries) => {
+const observer2 = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting && !triggered2) {
       triggered2 = true;
@@ -46,7 +46,7 @@ const observer = new IntersectionObserver((entries) => {
         target2.classList.add('animiraj');
       });
 
-      observer.unobserve(target2); // opciono
+      observer2.unobserve(target2); // opciono
     }
   });
 }, {
@@ -54,5 +54,5 @@ const observer = new IntersectionObserver((entries) => {
   threshold: 1
 });
 
-observer.observe(target2);
+observer2.observe(target2);
 
