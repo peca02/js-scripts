@@ -3,6 +3,8 @@ const supabaseUrl = 'https://ibggdznshxvopllqytwj.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImliZ2dkem5zaHh2b3BsbHF5dHdqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5OTY1MDksImV4cCI6MjA2NzU3MjUwOX0.oAzSxpNFpnUp77xX3VNL1frylZ4Abaog1Ssp7AwVRt8'
 const supabase = createClient(supabaseUrl, supabaseKey)
 
+
+// 3d kasa iplementacija preko modal viewer
 const viewer = document.getElementById('heroModel');
 const modelWrapper = document.querySelector('.desna-kolona-hero'); // div koji pomeramo
 
@@ -35,6 +37,7 @@ viewer.addEventListener('load', () => {
 });
 
 
+// navigacija animacija da se zabluruje i pojavi bleda bela boja i drop shadow
 const navbar = document.querySelector('.navigacija');
 const hero = document.querySelector('.hero-section');
 
@@ -66,6 +69,7 @@ let targetProgress = 0;   // koliki je cilj progres na osnovu skrola
   animateNavbar(); // pokreni loop
 
 
+// pop up
   const openBtn = document.querySelector('.pozovi');
   const closeBtn = document.querySelector('.iksic-pop-up');
   const popup = document.querySelector('.pop-up');
@@ -112,8 +116,7 @@ popupWrapper.addEventListener('click', (event) => {
 });
 
 
-// pocetna.js
-
+// gogle mapa
 (async () => {
   // Dinamičko učitavanje Google Maps API-ja koristeći novi loader
   (g => {
@@ -162,6 +165,7 @@ popupWrapper.addEventListener('click', (event) => {
 })();
 
 
+// text reveal animacija
 const target = document.querySelector('.js-split-text');
 let triggered = false;
 
@@ -190,3 +194,53 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 observer.observe(target);
+
+// slanje pitanja edge funkciji u supabase
+/*
+const pitanjeForma = document.getElementById('pitanje-forma');
+
+pitanjeForma.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  // 🔹 Uzmemo vrednosti iz inputa
+  const nameInput = document.getElementById('ime-i-prezime'); // ime i prezime
+  const emailInput = document.getElementById('email-adresa');
+  const questionInput = document.getElementById('pitanje'); // textarea
+
+  const fullName = nameInput?.value?.trim();
+  const email = emailInput?.value?.trim();
+  const question = questionInput?.value?.trim();
+
+  if (!fullName || !email || !question) {
+    alert('Sva polja su obavezna.');
+    return;
+  }
+
+  try {
+    const response = await fetch('https://<tvoj-projekat>.functions.supabase.co/posalji-pitanje', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        full_name: fullName,
+        email: email,
+        question: question
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      alert(`Greška prilikom slanja: ${errorText}`);
+      return;
+    }
+
+    const result = await response.json();
+    alert(`Uspešno poslato! Poruka: ${result?.message || 'Uspeh.'}`);
+  } catch (err) {
+    console.error('Neuspešno:', err);
+    alert('Došlo je do greške prilikom slanja. Pokušajte ponovo.');
+  }
+});
+*/
