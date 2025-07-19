@@ -1,3 +1,8 @@
+const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm')
+const supabaseUrl = 'https://ibggdznshxvopllqytwj.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImliZ2dkem5zaHh2b3BsbHF5dHdqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5OTY1MDksImV4cCI6MjA2NzU3MjUwOX0.oAzSxpNFpnUp77xX3VNL1frylZ4Abaog1Ssp7AwVRt8'
+const supabase = createClient(supabaseUrl, supabaseKey)
+
 const viewer = document.getElementById('heroModel');
 const modelWrapper = document.querySelector('.desna-kolona-hero'); // div koji pomeramo
 
