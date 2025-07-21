@@ -1,9 +1,3 @@
-const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm')
-const supabaseUrl = 'https://ibggdznshxvopllqytwj.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImliZ2dkem5zaHh2b3BsbHF5dHdqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5OTY1MDksImV4cCI6MjA2NzU3MjUwOX0.oAzSxpNFpnUp77xX3VNL1frylZ4Abaog1Ssp7AwVRt8'
-const supabase = createClient(supabaseUrl, supabaseKey)
-
-
 // 3d kasa iplementacija preko modal viewer
 const viewer = document.getElementById('heroModel');
 const modelWrapper = document.querySelector('.desna-kolona-hero'); // div koji pomeramo
@@ -195,8 +189,8 @@ const observer = new IntersectionObserver((entries) => {
 
 observer.observe(target);
 
-// slanje pitanja edge funkciji u supabase
-/*
+
+// slanje pitanja cloudflaru koji ce pozvati edge funkciju
 const pitanjeForma = document.getElementById('pitanje-forma');
 
 pitanjeForma.addEventListener('submit', async (e) => {
@@ -217,30 +211,5 @@ pitanjeForma.addEventListener('submit', async (e) => {
     return;
   }
 
-  try {
-    const response = await fetch('https://<tvoj-projekat>.functions.supabase.co/posalji-pitanje', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        full_name: fullName,
-        email: email,
-        question: question
-      }),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      alert(`Greška prilikom slanja: ${errorText}`);
-      return;
-    }
-
-    const result = await response.json();
-    alert(`Uspešno poslato! Poruka: ${result?.message || 'Uspeh.'}`);
-  } catch (err) {
-    console.error('Neuspešno:', err);
-    alert('Došlo je do greške prilikom slanja. Pokušajte ponovo.');
-  }
 });
-*/
+
