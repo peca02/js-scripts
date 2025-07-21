@@ -190,7 +190,7 @@ const observer = new IntersectionObserver((entries) => {
 observer.observe(target);
 
 
-// slanje pitanja cloudflaru koji ce pozvati edge funkciju
+// slanje pitanja cloudflaru 
 const pitanjeForma = document.getElementById('pitanje-forma');
 
 pitanjeForma.addEventListener('submit', async (e) => {
@@ -201,6 +201,7 @@ pitanjeForma.addEventListener('submit', async (e) => {
   const nameInput = document.getElementById('ime-i-prezime'); // ime i prezime
   const emailInput = document.getElementById('email-adresa');
   const questionInput = document.getElementById('pitanje'); // textarea
+  const honeypot = document.getElementById('website')?.value?.trim(); // nevidljivo polje koje botovi popune
 
   const fullName = nameInput?.value?.trim();
   const email = emailInput?.value?.trim();
@@ -211,5 +212,32 @@ pitanjeForma.addEventListener('submit', async (e) => {
     return;
   }
 
-});
+  try {
+    const response = await fetch("https://tvoja-ruta-na-cloudflare.workers.dev/api", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        imeIPrezime: fullName,
+        email: email,
+        pitanje: question,
+        honeypot: honeypot
+      })
+    });
 
+    const result = await response.json();
+
+    if (response.ok) {
+      alert(result.message || "Pitanje uspešno poslato.");
+      // možeš po želji i da resetuješ formu
+      pitanjeForma.reset();
+    } else {
+      alert(result.message || "Greška prilikom slanja pitanja.");
+    }
+
+  } catch (err) {
+    console.error("Fetch greška:", err);
+    alert("Došlo je do greške. Pokušajte ponovo kasnije.");
+  }
+});
