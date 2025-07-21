@@ -213,7 +213,7 @@ pitanjeForma.addEventListener('submit', async (e) => {
   }
 
   try {
-    const response = await fetch("https://tvoja-ruta-na-cloudflare.workers.dev/api", {
+    const response = await fetch("https://pos-servis-centar.djordjevicpredrag2002-2d8.workers.dev/api/form-submit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -238,6 +238,6 @@ pitanjeForma.addEventListener('submit', async (e) => {
 
   } catch (err) {
     console.error("Fetch greška:", err);
-    alert("Došlo je do greške. Pokušajte ponovo kasnije.");
+    alert("Došlo je do greške: " + (err.message || String(err)));
   }
 });
