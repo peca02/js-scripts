@@ -236,14 +236,14 @@ pitanjeForma.addEventListener('submit', async (e) => {
 
     const result = await response.json();
 
-    
+    const zabelezenoPitanje = document.querySelector(".zabelezeno-pitanje-tekst")
     
     if (response.ok) {
       pitanjeForma.classList.add("fade-out");
 
     // Posle animacije (kad fade-out završi), skloni iz layouta
       setTimeout(() => {
-        const zabelezenoPitanje = document.querySelector(".zabelezeno-pitanje-tekst")
+
         
         zabelezenoPitanje.classList.remove('invisible');
         zabelezenoPitanje.classList.add('fade-in');
