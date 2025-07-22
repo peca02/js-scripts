@@ -245,12 +245,16 @@ pitanjeForma.addEventListener('submit', async (e) => {
       setTimeout(() => {
 
         
-        zabelezenoPitanje.classList.remove('invisible');
-        zabelezenoPitanje.classList.add('fade-in');
-
-    
-        // Ovde ubaciš reveal teksta ili pozoveš drugu funkciju
-        // npr. document.querySelector(".poruka-hvala").classList.remove("hidden");
+          document.fonts.ready.then(() => {
+            const split = new SplitType(zabelezenoPitanje, { split: 'words, lines' });
+        
+            const lines = zabelezenoPitanje.querySelectorAll('.line');
+            lines.forEach((line, i) => {
+              line.style.setProperty('--line-index', i);
+            });
+        
+            zabelezenoPitanje.classList.add('animiraj');
+          });
       }, 600); // mora da se poklapa s transition vremenom
     } else {
       alert(result.message || "Greška prilikom slanja pitanja.");
