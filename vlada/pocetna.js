@@ -239,7 +239,16 @@ pitanjeForma.addEventListener('submit', async (e) => {
     
     
     if (response.ok) {
-      alert(result.message || "Pitanje uspešno poslato.");
+      const formBlock = document.querySelector(".form-block"); 
+      formBlock.classList.add("fade-out");
+
+    // Posle animacije (kad fade-out završi), skloni iz layouta
+      setTimeout(() => {
+        formBlock.classList.add("hidden");
+    
+        // Ovde ubaciš reveal teksta ili pozoveš drugu funkciju
+        // npr. document.querySelector(".poruka-hvala").classList.remove("hidden");
+      }, 500); // mora da se poklapa s transition vremenom
     } else {
       alert(result.message || "Greška prilikom slanja pitanja.");
       dugme.disabled = false;
