@@ -160,7 +160,7 @@ popupWrapper.addEventListener('click', (event) => {
 
 
 // text reveal animacija
-const target = document.querySelector('.js-split-text');
+const target = document.querySelector('.paragraf-pitanje');
 let triggered = false;
 
 const observer = new IntersectionObserver((entries) => {
