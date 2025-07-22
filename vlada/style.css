@@ -246,3 +246,8 @@ opacity: 0;
   animation-fill-mode: forwards;
   animation-delay: calc(var(--i) * 0.12s); /* 0.3s base + stagger */
 }
+
+.loader-icon {
+  width: 3em;
+  height: 3em;
+}
