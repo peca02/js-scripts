@@ -247,6 +247,10 @@ opacity: 0;
   animation-delay: calc(var(--i) * 0.12s); /* 0.3s base + stagger */
 }
 
-.loader-icon {
-  height: 2em;
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.hidden {
+  display: none;
 }
