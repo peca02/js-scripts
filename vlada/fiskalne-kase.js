@@ -1,5 +1,5 @@
 window.addEventListener("load", () => {
-  const target = document.querySelector('.js-split-text');
+  const target = document.querySelector('.proizvodjaci-kase-tekst');
 
   if (!target) return;
 
