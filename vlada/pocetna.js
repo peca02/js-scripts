@@ -241,9 +241,8 @@ pitanjeForma.addEventListener('submit', async (e) => {
     
     if (response.ok) {
       alert(result.message || "Pitanje uspešno poslato.");
-      možeš po želji i da resetuješ formu
     } else {
-      //alert(result.message || "Greška prilikom slanja pitanja.");
+      alert(result.message || "Greška prilikom slanja pitanja.");
     }
 
   } catch (err) {
