@@ -240,14 +240,14 @@ pitanjeForma.addEventListener('submit', async (e) => {
     dugme.innerHTML = originalText;
     
     if (response.ok) {
-      alert(result.message || "Pitanje uspešno poslato.");
+      //alert(result.message || "Pitanje uspešno poslato.");
       // možeš po želji i da resetuješ formu
     } else {
-      alert(result.message || "Greška prilikom slanja pitanja.");
+      //alert(result.message || "Greška prilikom slanja pitanja.");
     }
 
   } catch (err) {
     console.error("Fetch greška:", err);
-    alert("Došlo je do greške: " + (err.message || String(err)));
+    //alert("Došlo je do greške: " + (err.message || String(err)));
   }
 });
