@@ -251,7 +251,7 @@ pitanjeForma.addEventListener('submit', async (e) => {
     
         // Ovde ubaciš reveal teksta ili pozoveš drugu funkciju
         // npr. document.querySelector(".poruka-hvala").classList.remove("hidden");
-      }, 500); // mora da se poklapa s transition vremenom
+      }, 600); // mora da se poklapa s transition vremenom
     } else {
       alert(result.message || "Greška prilikom slanja pitanja.");
       dugme.disabled = false;
