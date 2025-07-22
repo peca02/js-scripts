@@ -249,9 +249,9 @@ opacity: 0;
 
 .fade-out {
   opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: opacity 0.5s cubic-bezier(0.65, 0, 0.35, 1);
 }
 .fade-in {
   opacity: 1;
-  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: opacity 0.5s cubic-bezier(0.65, 0, 0.35, 1);
 }
