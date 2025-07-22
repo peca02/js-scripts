@@ -219,7 +219,7 @@ pitanjeForma.addEventListener('submit', async (e) => {
     alert('Sva polja su obavezna.');
     return;
   }
-
+/*
   try {
     const response = await fetch("https://pos-servis-centar.djordjevicpredrag2002-2d8.workers.dev/api/form-submit", {
       method: "POST",
@@ -250,4 +250,5 @@ pitanjeForma.addEventListener('submit', async (e) => {
     console.error("Fetch greška:", err);
     //alert("Došlo je do greške: " + (err.message || String(err)));
   }
+  */
 });
