@@ -236,13 +236,14 @@ pitanjeForma.addEventListener('submit', async (e) => {
 
     const result = await response.json();
 
-    dugme.disabled = false;
-    dugme.innerHTML = originalText;
+    
     
     if (response.ok) {
       alert(result.message || "Pitanje uspešno poslato.");
     } else {
       alert(result.message || "Greška prilikom slanja pitanja.");
+      dugme.disabled = false;
+      dugme.innerHTML = originalText;
     }
 
   } catch (err) {
