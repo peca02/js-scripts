@@ -246,9 +246,8 @@ pitanjeForma.addEventListener('submit', async (e) => {
         const zabelezenoPitanje = document.querySelector(".zabelezeno-pitanje-tekst")
         
         zabelezenoPitanje.classList.remove('invisible');
-        requestAnimationFrame(() => {
-          zabelezenoPitanje.classList.add('fade-in');
-        });
+        zabelezenoPitanje.classList.add('fade-in');
+
     
         // Ovde ubaciš reveal teksta ili pozoveš drugu funkciju
         // npr. document.querySelector(".poruka-hvala").classList.remove("hidden");
