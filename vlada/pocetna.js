@@ -243,7 +243,10 @@ pitanjeForma.addEventListener('submit', async (e) => {
 
     // Posle animacije (kad fade-out završi), skloni iz layouta
       setTimeout(() => {
-        pitanjeForma.classList.add("hidden");
+        const zabelezenoPitanje = document.querySelector(".zabelezeno-pitanje-tekst")
+        
+        zabelezenoPitanje.classList.remove('invisible');
+        zabelezenoPitanje.classList.add('fade-in');
     
         // Ovde ubaciš reveal teksta ili pozoveš drugu funkciju
         // npr. document.querySelector(".poruka-hvala").classList.remove("hidden");
