@@ -57,12 +57,38 @@ let targetProgress = 0;   // koliki je cilj progres na osnovu skrola
     navbar.style.backdropFilter = `blur(${blur}px)`;
     navbar.style.boxShadow = `0 2px 10px rgba(0, 0, 0, ${shadowOpacity})`;
 
-    requestAnimationFrame(animateNavbar); // stalna animacija
+    animationFrameId = requestAnimationFrame(animateNavbar);
   }
 
-if (window.matchMedia('(min-width: 480px)').matches) {
-  animateNavbar(); // pozivaš funkciju ovde
+function startAnimation() {
+  if (!animationFrameId) {
+    animateNavbar();
+  }
 }
+
+function stopAnimation() {
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+  }
+}
+
+const mediaQuery = window.matchMedia('(min-width: 480px)');
+
+// Pokreni ili zaustavi u zavisnosti od trenutnog stanja
+function handleScreenChange(e) {
+  if (e.matches) {
+    startAnimation();
+  } else {
+    stopAnimation();
+  }
+}
+
+// Prva provera odmah
+handleScreenChange(mediaQuery);
+
+// Slušaj promene (npr. rotacija telefona)
+mediaQuery.addEventListener('change', handleScreenChange);
 
 
 // pop up
