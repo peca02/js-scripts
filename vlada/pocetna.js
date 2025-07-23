@@ -60,7 +60,9 @@ let targetProgress = 0;   // koliki je cilj progres na osnovu skrola
     requestAnimationFrame(animateNavbar); // stalna animacija
   }
 
-  animateNavbar(); // pokreni loop
+if (window.matchMedia('(min-width: 480px)').matches) {
+  animateNavbar(); // pozivaš funkciju ovde
+}
 
 
 // pop up
