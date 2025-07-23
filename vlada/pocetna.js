@@ -240,8 +240,10 @@ pitanjeForma.addEventListener('submit', async (e) => {
     
     if (response.ok) {
       pitanjeForma.classList.add("fade-out");
+      pitanjeForma.style.pointerEvents = "none";
+      pitanjeForma.style.userSelect = "none";
+      // mora ove 2 linije nakon fade out, da onemogucis da moze da se kopira tekst sa forme ili da se nesto kuca u textbox, kopira iz njega itd
 
-    // Posle animacije (kad fade-out završi), skloni iz layouta
       setTimeout(() => {
 
         
