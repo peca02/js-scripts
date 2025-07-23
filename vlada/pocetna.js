@@ -39,6 +39,8 @@ let targetProgress = 0;   // koliki je cilj progres na osnovu skrola
   let currentProgress = 0;  // trenutni prikazani progres (kao lag)
   const speed = 0.1;       // brzina animacije (manje = sporije)
 
+let animationFrameId = null;
+
   function animateNavbar() {
     const scrollY = window.scrollY;
     const heroHeight = hero.offsetHeight;
