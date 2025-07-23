@@ -6,29 +6,24 @@ const speed = 0.1;        // brzina animacije (manje = sporije)
 
 function animateNavbar() {
   const scrollY = window.scrollY;
-  const triggerHeight = window.innerHeight * 0.3;
+  const triggerHeight = window.innerHeight * 0.3; // 30% visine viewporta
   targetProgress = Math.min(scrollY / triggerHeight, 1);
+
+  // Postepeno približavanje current ka target
   currentProgress += (targetProgress - currentProgress) * speed;
 
+  // Interpolovane vrednosti
   const opacity = currentProgress * 0.7;
   const blur = currentProgress * 10;
   const shadowOpacity = currentProgress * 0.1;
 
-  // Navigacija (desktop)
+  // Primena stilova
   navbar.style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
   navbar.style.backdropFilter = `blur(${blur}px)`;
   navbar.style.boxShadow = `0 2px 10px rgba(0, 0, 0, ${shadowOpacity})`;
 
-  const links = document.querySelectorAll('.w-nav-link.w--nav-link-open');
-  links.forEach(link => {
-    link.style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
-    link.style.backdropFilter = `blur(${blur}px)`;
-    link.style.boxShadow = `0 2px 10px rgba(0, 0, 0, ${shadowOpacity})`;
-  });
-
-  requestAnimationFrame(animateNavbar);
+  requestAnimationFrame(animateNavbar); // stalna animacija
 }
-
 
 animateNavbar(); // pokreni loop
 
