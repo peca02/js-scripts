@@ -25,8 +25,10 @@ function animateNavbar() {
   requestAnimationFrame(animateNavbar); // stalna animacija
 }
 
-animateNavbar(); // pokreni loop
 
+if (window.matchMedia('(min-width: 480px)').matches) {
+  animateNavbar(); // pozivaš funkciju ovde
+}
 
 
 
