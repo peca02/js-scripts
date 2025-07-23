@@ -255,7 +255,7 @@ pitanjeForma.addEventListener('submit', async (e) => {
         
             zabelezenoPitanje.classList.add('animiraj');
           });
-      }, 500); // mora da se poklapa s transition vremenom
+      }, 600); // mora da se poklapa s transition vremenom
     } else {
       alert(result.message || "Greška prilikom slanja pitanja.");
       dugme.disabled = false;
