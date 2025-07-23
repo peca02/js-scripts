@@ -19,13 +19,12 @@ function animateNavbar() {
   navbar.style.backdropFilter = `blur(${blur}px)`;
   navbar.style.boxShadow = `0 2px 10px rgba(0, 0, 0, ${shadowOpacity})`;
 
-  // Overlay (mobilni meni)
-  const overlay = document.querySelector('.w-nav-overlay');
-  if (overlay) {
-    overlay.style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
-    overlay.style.backdropFilter = `blur(${blur}px)`;
-    overlay.style.boxShadow = `0 2px 10px rgba(0, 0, 0, ${shadowOpacity})`;
-  }
+  const links = document.querySelectorAll('.w-nav-link.w--nav-link-open');
+  links.forEach(link => {
+    link.style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
+    link.style.backdropFilter = `blur(${blur}px)`;
+    link.style.boxShadow = `0 2px 10px rgba(0, 0, 0, ${shadowOpacity})`;
+  });
 
   requestAnimationFrame(animateNavbar);
 }
