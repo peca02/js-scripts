@@ -75,6 +75,7 @@ function stopAnimation() {
     navbar.style.backgroundColor = "";
     navbar.style.backdropFilter = "";
     navbar.style.boxShadow = "";
+    // nakon sto prekinemo animaciju, moramo izbrisati inline style kako bi se vrednosti vratile na one pocetne koje dolaze iz klase
   }
 }
 
@@ -94,7 +95,7 @@ handleScreenChange(mediaQuery);
 
 // Slušaj promene (npr. rotacija telefona)
 mediaQuery.addEventListener('change', handleScreenChange);
-
+// sve iznad mora biti tacno tako, da bi napravili da se animacija ne desava na telefonu kada onako neko menja polozaj telefona landscape/obicno, jer animacija treba da radi na landscape al ne na obican fon
 
 // pop up
   const openBtn = document.querySelector('.pozovi');
