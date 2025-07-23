@@ -176,7 +176,7 @@ popupWrapper.addEventListener('click', (event) => {
 
   // Kreiraj mapu
   const map = new Map(document.getElementById("map"), {
-    center: { lat: 43.3144233, lng: 21.9279542 },,
+    center: { lat: 43.3144233, lng: 21.9279542 },
     zoom: 15,
     mapId: "96866e4109c0b686b91865c7",
   });
