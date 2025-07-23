@@ -72,6 +72,9 @@ function stopAnimation() {
   if (animationFrameId) {
     cancelAnimationFrame(animationFrameId);
     animationFrameId = null;
+    navbar.style.backgroundColor = "";
+    navbar.style.backdropFilter = "";
+    navbar.style.boxShadow = "";
   }
 }
 
