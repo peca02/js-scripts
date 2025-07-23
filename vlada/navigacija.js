@@ -4,6 +4,8 @@ let targetProgress = 0;   // cilj progres na osnovu skrola
 let currentProgress = 0;  // trenutni prikazani progres (lagano ka cilju)
 const speed = 0.1;        // brzina animacije (manje = sporije)
 
+let animationFrameId = null;
+
 function animateNavbar() {
   const scrollY = window.scrollY;
   const triggerHeight = window.innerHeight * 0.3; // 30% visine viewporta
@@ -22,13 +24,44 @@ function animateNavbar() {
   navbar.style.backdropFilter = `blur(${blur}px)`;
   navbar.style.boxShadow = `0 2px 10px rgba(0, 0, 0, ${shadowOpacity})`;
 
-  requestAnimationFrame(animateNavbar); // stalna animacija
+  animationFrameId = requestAnimationFrame(animateNavbar);
 }
 
 
-if (window.matchMedia('(min-width: 480px)').matches) {
-  animateNavbar(); // pozivaš funkciju ovde
+function startAnimation() {
+  if (!animationFrameId) {
+    animateNavbar();
+  }
 }
+
+function stopAnimation() {
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+    navbar.style.backgroundColor = "";
+    navbar.style.backdropFilter = "";
+    navbar.style.boxShadow = "";
+    // nakon sto prekinemo animaciju, moramo izbrisati inline style kako bi se vrednosti vratile na one pocetne koje dolaze iz klase
+  }
+}
+
+const mediaQuery = window.matchMedia('(min-width: 480px)');
+
+// Pokreni ili zaustavi u zavisnosti od trenutnog stanja
+function handleScreenChange(e) {
+  if (e.matches) {
+    startAnimation();
+  } else {
+    stopAnimation();
+  }
+}
+
+// Prva provera odmah
+handleScreenChange(mediaQuery);
+
+// Slušaj promene (npr. rotacija telefona)
+mediaQuery.addEventListener('change', handleScreenChange);
+// sve iznad mora biti tacno tako, da bi napravili da se animacija ne desava na telefonu kada onako neko menja polozaj telefona landscape/obicno, jer animacija treba da radi na landscape al ne na obican fon
 
 
 
