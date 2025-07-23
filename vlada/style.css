@@ -227,12 +227,12 @@ background-repeat:
 @keyframes slide-in2 {
   from {
     transform: translateY(1.25em);
-  opacity: 0;
+      opacity: 0;
   }
 
   to {
     transform: translateY(0);
-  opacity: 1;
+      opacity: 1;
   }
 }
 
