@@ -30,7 +30,7 @@
 
   // Kreiraj mapu
   const map = new Map(document.getElementById("map"), {
-    center: { lat: 43.3144233, lng: 21.9279542 },
+    center: { lat: 43.3146733, lng: 21.9277042 },
     zoom: 15,
     mapId: "96866e4109c0b686b91865c7",
   });
@@ -38,7 +38,7 @@
   // Dodaj marker
   const marker = new AdvancedMarkerElement({
     map: map,
-    position: { lat: 43.3144233, lng: 21.9279542 },
+    position: { lat: 43.3146733, lng: 21.9277042 },
   });
 }
 
