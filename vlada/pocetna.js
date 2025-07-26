@@ -1,11 +1,3 @@
-const interval = setInterval(() => {
-  const badge = document.querySelector(".w-webflow-badge");
-  if (badge) {
-    badge.remove();
-    clearInterval(interval);
-  }
-}, 100);
-
 // 3d kasa iplementacija preko modal viewer
 const viewer = document.getElementById('heroModel');
 const modelWrapper = document.querySelector('.desna-kolona-hero'); // div koji pomeramo
