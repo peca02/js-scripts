@@ -227,7 +227,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, {
   rootMargin: '0px 0px -20% 0px',
-  threshold: 1
+  threshold: 0
 });
 
 observer.observe(target);
