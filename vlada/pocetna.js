@@ -205,10 +205,19 @@ const observer = new IntersectionObserver((entries) => {
       document.fonts.ready.then(() => {
         const split = new SplitType(target, { split: 'words, lines' });
 
-        const words = document.querySelectorAll('.word');
-        words.forEach((word, i) => {
-          word.style.setProperty('--i', i);
-        });
+        if (window.matchMedia('(max-width: 991px)').matches) {
+          const lines = target.querySelectorAll('.line');
+          lines.forEach((line, i) => {
+            line.style.setProperty('--line-index', i);
+          });
+        }
+        else{
+          const words = document.querySelectorAll('.word');
+          words.forEach((word, i) => {
+            word.style.setProperty('--i', i);
+          });
+        }
+        
 
         target.classList.add('animiraj');
       });
