@@ -223,6 +223,14 @@ background-repeat:
     }
 }
 
+@media (max-width: 479px) {
+    .paragraf-pitanje.animiraj .line .word {
+      animation: slide-in 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      animation-fill-mode: forwards;
+      animation-delay: calc(0.01s + var(--line-index) * 0.15s);
+    }
+}
+
 .znak-pitanja {
   transform-box: fill-box;
   transform-origin: center;
