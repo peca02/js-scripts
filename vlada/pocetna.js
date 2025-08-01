@@ -104,6 +104,7 @@ mediaQuery.addEventListener('change', handleScreenChange);
 const popupWrapper = document.querySelector('.pop-up-wrapper');
 
   openBtn.addEventListener('click', () => {
+     popup.removeAttribute('aria-hidden');
   popupWrapper.style.display = 'flex';
   popupWrapper.style.transition = 'background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
   popup.classList.remove('swing-out-top-bck');
@@ -124,6 +125,7 @@ closeBtn.addEventListener('click', () => {
   setTimeout(() => {
     popupWrapper.style.display = 'none';
     popup.classList.remove('swing-out-top-bck');
+    popup.setAttribute('aria-hidden', 'true');
   }, 450);
 });
 
@@ -139,6 +141,7 @@ popupWrapper.addEventListener('click', (event) => {
     setTimeout(() => {
       popupWrapper.style.display = 'none';
       popup.classList.remove('swing-out-top-bck');
+      popup.setAttribute('aria-hidden', 'true');
     }, 450);
   }
 });
