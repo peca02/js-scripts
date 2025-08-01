@@ -304,6 +304,8 @@ pitanjeForma.addEventListener('submit', async (e) => {
             });
         
             zabelezenoPitanje.classList.add('animiraj');
+            zabelezenoPitanje.removeAttribute('aria-hidden');
+            zabelezenoPitanje.focus();
           });
       }, 500); // mora da se poklapa s transition vremenom fade out u css
     } else {
