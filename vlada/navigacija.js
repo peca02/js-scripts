@@ -71,7 +71,7 @@ const openBtn = document.querySelector('.pozovi');
 const popupWrapper = document.querySelector('.pop-up-wrapper');
 
   openBtn.addEventListener('click', () => {
-    popup.removeAttribute('aria-hidden');
+
   popupWrapper.style.display = 'flex';
   popupWrapper.style.transition = 'background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
   popup.classList.remove('swing-out-top-bck');
@@ -79,6 +79,8 @@ const popupWrapper = document.querySelector('.pop-up-wrapper');
 
   requestAnimationFrame(() => {
     popupWrapper.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    popup.removeAttribute('aria-hidden');
+    popup.focus();
   });
 });
 
