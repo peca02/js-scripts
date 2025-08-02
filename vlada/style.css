@@ -336,3 +336,9 @@ opacity: 0;
 .pop-up:focus-visible {
   outline: auto; /* ili nešto prilagođeno */
 }
+
+@media (hover: none) and (pointer: coarse) {
+  .pop-up:focus {
+    outline: none;
+  }
+}
