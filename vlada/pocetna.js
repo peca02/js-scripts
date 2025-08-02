@@ -112,8 +112,8 @@ const popupWrapper = document.querySelector('.pop-up-wrapper');
 
   requestAnimationFrame(() => {
     popupWrapper.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-    //popup.removeAttribute('aria-hidden');
-    //popup.focus();
+    popup.removeAttribute('aria-hidden');
+    popup.focus();
   });
 });
 
@@ -127,7 +127,7 @@ closeBtn.addEventListener('click', () => {
   setTimeout(() => {
     popupWrapper.style.display = 'none';
     popup.classList.remove('swing-out-top-bck');
-    //popup.setAttribute('aria-hidden', 'true');
+    popup.setAttribute('aria-hidden', 'true');
   }, 450);
 });
 
@@ -143,7 +143,7 @@ popupWrapper.addEventListener('click', (event) => {
     setTimeout(() => {
       popupWrapper.style.display = 'none';
       popup.classList.remove('swing-out-top-bck');
-      //popup.setAttribute('aria-hidden', 'true');
+      popup.setAttribute('aria-hidden', 'true');
     }, 450);
   }
 });
