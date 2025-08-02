@@ -328,3 +328,11 @@ opacity: 0;
   animation-delay: calc(0.01s + var(--line-index) * 0.3s);
 /* moras dodati 0.01s delay, zato sto na mobilni prvi red se uopste ne animira, samo se stvori */
 }
+
+.pop-up:focus {
+  outline: none;
+}
+
+.pop-up:focus-visible {
+  outline: auto; /* ili nešto prilagođeno */
+}
