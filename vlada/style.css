@@ -329,12 +329,9 @@ opacity: 0;
 /* moras dodati 0.01s delay, zato sto na mobilni prvi red se uopste ne animira, samo se stvori */
 }
 
-.pop-up:focus {
-  outline: none;
+
+@media (hover: none) and (pointer: coarse) {
+  .pop-up:focus {
+    outline: none;
+  }
 }
-
-.pop-up:focus-visible {
-  outline: auto; /* ili nešto prilagođeno */
-}
-
-
