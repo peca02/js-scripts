@@ -114,3 +114,39 @@ popupWrapper.addEventListener('click', (event) => {
     }, 450);
   }
 });
+
+
+const navPhoneLink1 = document.getElementById('nav-phone-link1');
+const navPhoneLink2 = document.getElementById('nav-phone-link2');
+
+  function isMobile() {
+    return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+  }
+
+  if (!isMobile()) {
+    
+      navPhoneLink1.addEventListener('click', e => {
+      e.preventDefault(); // blokira otvaranje VoIP app
+
+      const phoneNumber = navPhoneLink1.getAttribute('href').replace('tel:', '');
+
+      navigator.clipboard.writeText(phoneNumber).then(() => {
+        alert('Broj je kopiran u clipboard: ' + phoneNumber);
+      }).catch(() => {
+        alert('Greška prilikom kopiranja broja.');
+      });
+    });
+
+      navPhoneLink2.addEventListener('click', e => {
+      e.preventDefault(); // blokira otvaranje VoIP app
+
+      const phoneNumber = navPhoneLink2.getAttribute('href').replace('tel:', '');
+
+      navigator.clipboard.writeText(phoneNumber).then(() => {
+        alert('Broj je kopiran u clipboard: ' + phoneNumber);
+      }).catch(() => {
+        alert('Greška prilikom kopiranja broja.');
+      });
+    });
+    
+  }
