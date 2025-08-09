@@ -45,3 +45,39 @@
   // Kad se API učita, pozovi initMap
   google.maps.importLibrary("maps").then(() => initMap());
 })();
+
+
+const phoneLink1 = document.getElementById('phone-link1');
+const phoneLink2 = document.getElementById('phone-link2');
+
+  function isMobile() {
+    return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+  }
+
+  if (!isMobile()) {
+    
+    phoneLink1.addEventListener('click', e => {
+      e.preventDefault(); // blokira otvaranje VoIP app
+
+      const phoneNumber = phoneLink1.getAttribute('href').replace('tel:', '');
+
+      navigator.clipboard.writeText(phoneNumber).then(() => {
+        alert('Broj je kopiran u clipboard: ' + phoneNumber);
+      }).catch(() => {
+        alert('Greška prilikom kopiranja broja.');
+      });
+    });
+
+      phoneLink2.addEventListener('click', e => {
+      e.preventDefault(); // blokira otvaranje VoIP app
+
+      const phoneNumber = phoneLink2.getAttribute('href').replace('tel:', '');
+
+      navigator.clipboard.writeText(phoneNumber).then(() => {
+        alert('Broj je kopiran u clipboard: ' + phoneNumber);
+      }).catch(() => {
+        alert('Greška prilikom kopiranja broja.');
+      });
+    });
+
+  }
