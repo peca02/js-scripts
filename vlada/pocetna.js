@@ -321,14 +321,16 @@ pitanjeForma.addEventListener('submit', async (e) => {
 });
 
 
-const phoneLink = document.getElementById('phone-link');
+const phoneLink1 = document.getElementById('phone-link1');
+const phoneLink2 = document.getElementById('phone-link2');
 
   function isMobile() {
     return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
   }
 
   if (!isMobile()) {
-    phoneLink.addEventListener('click', e => {
+    
+    phoneLink1.addEventListener('click', e => {
       e.preventDefault(); // blokira otvaranje VoIP app
 
       const phoneNumber = phoneLink.getAttribute('href').replace('tel:', '');
@@ -339,4 +341,17 @@ const phoneLink = document.getElementById('phone-link');
         alert('Greška prilikom kopiranja broja.');
       });
     });
+
+      phoneLink2.addEventListener('click', e => {
+      e.preventDefault(); // blokira otvaranje VoIP app
+
+      const phoneNumber = phoneLink.getAttribute('href').replace('tel:', '');
+
+      navigator.clipboard.writeText(phoneNumber).then(() => {
+        alert('Broj je kopiran u clipboard: ' + phoneNumber);
+      }).catch(() => {
+        alert('Greška prilikom kopiranja broja.');
+      });
+    });
+    
   }
