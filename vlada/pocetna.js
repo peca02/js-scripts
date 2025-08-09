@@ -333,7 +333,7 @@ const phoneLink2 = document.getElementById('phone-link2');
     phoneLink1.addEventListener('click', e => {
       e.preventDefault(); // blokira otvaranje VoIP app
 
-      const phoneNumber = phoneLink.getAttribute('href').replace('tel:', '');
+      const phoneNumber = phoneLink1.getAttribute('href').replace('tel:', '');
 
       navigator.clipboard.writeText(phoneNumber).then(() => {
         alert('Broj je kopiran u clipboard: ' + phoneNumber);
@@ -345,7 +345,7 @@ const phoneLink2 = document.getElementById('phone-link2');
       phoneLink2.addEventListener('click', e => {
       e.preventDefault(); // blokira otvaranje VoIP app
 
-      const phoneNumber = phoneLink.getAttribute('href').replace('tel:', '');
+      const phoneNumber = phoneLink2.getAttribute('href').replace('tel:', '');
 
       navigator.clipboard.writeText(phoneNumber).then(() => {
         alert('Broj je kopiran u clipboard: ' + phoneNumber);
